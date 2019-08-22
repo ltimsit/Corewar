@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:37:22 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/21 17:50:59 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/22 17:04:20 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int		init_data(t_data *data)
 	data->curr_line = -1;
 	data->gc = NULL;
 	data->err = 0;
+	data->name_set = false;
+	data->comment_set = false;
 	fill_op_and_err_tab();
 	return (1);
 }

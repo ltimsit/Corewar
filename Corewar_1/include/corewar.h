@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/21 17:49:14 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/22 17:54:23 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ enum			e_op
 
 enum			e_cmd
 {
-	name_line,
+	name_line = 1,
 	comment_line,
 	label_line,
 	command_line

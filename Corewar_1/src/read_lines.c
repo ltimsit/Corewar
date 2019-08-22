@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:43:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/22 14:29:25 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/22 17:54:15 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ char	*get_line(t_data *data)
 	char	*line;
 
 	ret = ft_get_next_line(data->fd, &line, 0);
-	if (ret != -1 && !ft_add_to_gc(line, &(data->gc), &(data->head_gc)))
-		return (0);
+	if (ret != -1 || !ft_add_to_gc(line, &(data->gc), &(data->head_gc)))
+		return (NULL);
 	data->curr_line++;
 	return (line);
 }
@@ -93,10 +93,8 @@ int		define_cmd_type(t_data *data, char *line, int *end_index)
 	line[*end_index] = '\0';
 	cpt = -1;
 	while (++cpt < NB_COMMAND)
-	{
 		if (!ft_strcmp(line, op_tab[cpt].name))
 			return (command_line + cpt);
-	}
 	cpt = -1;
 	while (check_in_label_char(line[++cpt]))
 		if (line[cpt] == LABEL_CHAR)
@@ -116,7 +114,6 @@ int		manage_lines(t_data *data)
 		i = skip_sp(line, 0);
 		if (!line[i])
 			continue ;
-//		data->line = line + i;
 		data->curr_index = i;
 		if ((!data->name_set || !data->comment_set)
 				&& !(type = name_or_comment(data, line + i, &j)))
