@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:43:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/23 13:09:42 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/24 13:26:32 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ char	*get_line(t_data *data)
 	int		ret;
 	char	*line;
 
-	ret = ft_get_next_line(data->fd, &line, 0);
-	if (ret != -1 || !ft_add_to_gc(line, &(data->gc), &(data->head_gc)))
+	line = NULL;
+	ft_printf("get_line bonjour \n");
+	ret = ft_get_next_line(D->fd, &line, 0);
+	if (ret == -1 /*|| !ft_add_to_gc(line, &(D->gc), &(D->head_gc))*/)
 		return (NULL);
-	data->curr_line++;
+	D->curr_line++;
 	return (line);
 }
 
@@ -65,28 +67,35 @@ int		check_in_label_char(char letter)
 	return (0);
 }
 
-/*
-int		get_name_and_comment(t_data *data, char *line, char option)
-{
-	
-}
-*/
-
 int		name_or_comment(t_data *data, char *line, int *end_index)
 {
+	char	tmp;
+
 	*end_index = skip_nosp(line, 0);
+	tmp = line[*end_index];
 	line[*end_index] = '\0';
-	if (!ft_strcmp(line, NAME_CMD_STRING) && !data->name_set)
+	if (!ft_strcmp(line, NAME_CMD_STRING) && !D->name_set)
+	{
+		line[*end_index] = tmp;
+		D->chmp_name = stock_namecom(line + *end_index);//a proteger
+		D->name_set = true;
+		ft_printf("name =%s\n", D->chmp_name);
 		return (name_line);
-	if (!ft_strcmp(line, COMMENT_CMD_STRING) && !data->comment_set)
+	}
+	else if (!ft_strcmp(line, COMMENT_CMD_STRING) && !D->comment_set)
+	{
+		line[*end_index] = tmp;
+		D->chmp_com = stock_namecom(line + *end_index);//a proteger
+		D->comment_set = true;
+		ft_printf("comment =%s\n", D->chmp_com);
 		return (comment_line);
-	return (get_error(data, line, syntax));
+	}
+	return (get_error(D, syntax));
 }
 
 int		define_cmd_type(t_data *data, char *line, int *end_index)
 {
 //	char	buf[64];
-//	char	*big_buf;
 	int		cpt;
 
 	*end_index = skip_nosp(line, 0);
@@ -99,26 +108,23 @@ int		define_cmd_type(t_data *data, char *line, int *end_index)
 	while (check_in_label_char(line[++cpt]))
 		if (line[cpt] == LABEL_CHAR)
 			return (label_line);
-	return (get_error(data, line, lexical));
+	return (get_error(D, lexical));
 }
 
 int		manage_lines(t_data *data)
 {
-	char	*line;
-	int		i;
 	int		j;
 	int		type;
 
-	while ((line = get_line(data)))
+	while ((D->line = get_line(D)))
 	{
-		i = skip_sp(line, 0);
-		if (!line[i])
+		D->curr_index = skip_sp(D->line, 0);
+		if (!D->line[D->curr_index])
 			continue ;
-		data->curr_index = i;
-		if ((!data->name_set || !data->comment_set)
-				&& !(type = name_or_comment(data, line + i, &j)))
+		if ((!D->name_set || !D->comment_set)
+				&& !(type = name_or_comment(D, D->line + D->curr_index, &j)))
 			return (0);
-		else if (!(type = define_cmd_type(data, line + i, &j)))
+		else if (!(type = define_cmd_type(D, D->line + D->curr_index, &j)))
 			return (0);
 	}
 	return (0);

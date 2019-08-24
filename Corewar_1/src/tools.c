@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 14:16:38 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/23 13:09:43 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/24 13:26:35 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,14 @@ int		skip_sp(char *line, int i)
 int		skip_nosp(char *line, int i)
 {
 	while (line[i] && line[i] != ' ' && line[i] != '\t')
-	{
 		i++;
-	}
 	return (i);
 }
 
-int		get_error(t_data *data, char *line, int err_type)
+int		get_error(t_data *data, int err_type)
 {
-	data->line = line;
-	data->err = err_type;
+	ft_printf("enter get_error\n");
+	D->err = err_type;
 	return (0);
 }
 

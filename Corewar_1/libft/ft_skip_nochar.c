@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_skip_nochar.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/04 17:39:52 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/24 13:29:09 by abinois          ###   ########.fr       */
+/*   Created: 2019/08/24 12:43:12 by abinois           #+#    #+#             */
+/*   Updated: 2019/08/24 12:49:16 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-
-char	*ft_strchr(const char *s, int c)
+int		ft_skip_nochar(char *line, char c, int i)
 {
-	int		i;
-
-	i = -1;
-	if (c < 0)
-		return (NULL);
-	while (s[++i])
-		if (s[i] == (char)c)
-			return ((char*)s + i);
-	if (s[i] == (char)c)
-		return ((char*)s + i);
-	return (NULL);
+	if (c <= 0)
+		return (i);
+	while (line[i] && line[i] != c)
+		i++;
+	return (i);
 }
