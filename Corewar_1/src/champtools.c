@@ -6,12 +6,99 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 10:55:17 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/24 13:26:51 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/24 18:21:29 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
+
+int			mem_stock(t_data *data, char *content, int content_size)
+{
+	int i;
+	char *tmp;
+
+	i = -1;
+	if (!data->mem_stock)
+	{
+		if (!(data->mem_stock = ft_alloc_gc(data->mem_size, sizeof(char), data->gc)))
+			return (0);
+		data->mem_stock_index = 0;
+	}
+	if (!data->mem_stock_index + content_size >= data->mem_size)
+	{
+		data->mem_size += MEMSIZE;
+		tmp = data->mem_stock;
+		if (!(data->mem_stock = ft_alloc_gc(data->mem_size, sizeof(char), data->gc)))
+			return (0);
+		ft_memcpy(data->mem_stock, tmp, data->mem_size - MEMSIZE);
+	}
+	while (++i < content_size)
+		data->mem_stock[data->mem_stock_index++] = content[i];
+	return (1);
+}
+
+int			put_header(t_data *data, unsigned int h)
+{
+	char	endian[sizeof(h)];
+	int		i;
+
+	i = -1;
+	while (++i < (int)sizeof(h))
+		endian[i] = ((char *)(&h))[sizeof(h) - 1 - i];
+	if (!(mem_stock(D, endian, sizeof(h))))
+		return (0);
+	return (1);
+}
+
+int			fc_name(t_data *data, int type, int j)
+{
+	int		i;
+	char	name[PROG_NAME_LENGTH];
+
+	(void)type;
+	j = skip_sp(D->line, j + 1);
+	D->curr_index = j;
+	i = 0;
+	if (D->line[j] != '"')
+		return (get_error(D, syntax));
+	while (D->line[++j] != '"')
+		if (!D->line[j] || i == PROG_NAME_LENGTH)
+			return (get_error(D, syntax));
+		else
+			name[i++] = D->line[j];
+	while (i < PROG_NAME_LENGTH)
+		name[i++] = '\0';
+	if (!(put_header(D, COREWAR_EXEC_MAGIC))
+		|| !(mem_stock(D, name, PROG_NAME_LENGTH)))
+		return (0);
+	D->name_set = true;
+	return (1);
+}
+
+int			fc_comment(t_data *data, int type, int j)
+{
+	int		i;
+	char	comment[COMMENT_LENGTH];
+
+	(void)type;
+	j = skip_sp(D->line, j + 1);
+	D->curr_index = j;
+	i = 0;
+	if (D->line[j] != '"')
+		return (get_error(D, syntax));
+	while (D->line[++j] != '"')
+		if (!D->line[j] || i == COMMENT_LENGTH)
+			return (get_error(D, syntax));
+		else
+			comment[i++] = D->line[j];
+	while (i < COMMENT_LENGTH)
+		comment[i++] = '\0';
+	if (!(put_header(D, 23)) || !(mem_stock(D, comment, COMMENT_LENGTH)))
+		return (0);
+	D->comment_set = true;
+	return (1);
+}
 
 char		*stock_namecom(char *line)
 {

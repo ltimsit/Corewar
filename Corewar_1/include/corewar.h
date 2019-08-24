@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/24 13:26:47 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/24 18:21:27 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "ft_printf.h"
 
 # define D data
+# define MEMSIZE 2048
 
 typedef struct	s_op
 {
@@ -35,7 +36,6 @@ typedef struct	s_op
 typedef struct	s_data
 {
 	t_gc		*gc;
-	t_gc		*head_gc;
 	int			fd;
 	int			err;
 	char		*line;
@@ -45,6 +45,9 @@ typedef struct	s_data
 	char		*chmp_com;
 	bool		name_set;
 	bool		comment_set;
+	char		*mem_stock;
+	int			mem_stock_index;
+	int			mem_size;
 }				t_data;
 
 enum			e_op
@@ -60,7 +63,7 @@ enum			e_op
 	zjmp,
 	ldi,
 	sti,
-	fork,
+	cfork,
 	lld,
 	lldi,
 	lfork,
@@ -83,6 +86,7 @@ enum			e_error
 };
 
 char			*err_tab[2];
+int				(*g_fct_tab[21])(t_data *, int, int);
 
 /*
 ** corewar.c    ----------------------------------------------------------------
@@ -116,4 +120,7 @@ void			fill_op_and_err_tab();
 */
 
 char			*stock_namecom(char *line);
+int				fc_comment(t_data *data, int type, int j);
+int				fc_name(t_data *data, int type, int j);
+int				mem_stock(t_data *data, char *content, int content_size);
 #endif

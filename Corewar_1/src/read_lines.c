@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:43:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/24 13:26:32 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/24 18:21:26 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,8 @@ char	*get_line(t_data *data)
 	char	*line;
 
 	line = NULL;
-	ft_printf("get_line bonjour \n");
 	ret = ft_get_next_line(D->fd, &line, 0);
-	if (ret == -1 /*|| !ft_add_to_gc(line, &(D->gc), &(D->head_gc))*/)
+	if (ret == -1 || !ft_add_to_gc(line, D->gc))
 		return (NULL);
 	D->curr_line++;
 	return (line);
@@ -69,25 +68,27 @@ int		check_in_label_char(char letter)
 
 int		name_or_comment(t_data *data, char *line, int *end_index)
 {
-	char	tmp;
+//	char	tmp;
 
 	*end_index = skip_nosp(line, 0);
-	tmp = line[*end_index];
+//	tmp = line[*end_index];
 	line[*end_index] = '\0';
 	if (!ft_strcmp(line, NAME_CMD_STRING) && !D->name_set)
 	{
+/*
 		line[*end_index] = tmp;
 		D->chmp_name = stock_namecom(line + *end_index);//a proteger
-		D->name_set = true;
 		ft_printf("name =%s\n", D->chmp_name);
+		*/
 		return (name_line);
 	}
 	else if (!ft_strcmp(line, COMMENT_CMD_STRING) && !D->comment_set)
 	{
+/*
 		line[*end_index] = tmp;
 		D->chmp_com = stock_namecom(line + *end_index);//a proteger
-		D->comment_set = true;
 		ft_printf("comment =%s\n", D->chmp_com);
+		*/
 		return (comment_line);
 	}
 	return (get_error(D, syntax));
@@ -98,16 +99,19 @@ int		define_cmd_type(t_data *data, char *line, int *end_index)
 //	char	buf[64];
 	int		cpt;
 
+	ft_printf("bonjour");
 	*end_index = skip_nosp(line, 0);
 	line[*end_index] = '\0';
 	cpt = -1;
 	while (++cpt < NB_COMMAND)
 		if (!ft_strcmp(line, op_tab[cpt].name))
 			return (command_line + cpt);
+	ft_printf("bonjour");
 	cpt = -1;
 	while (check_in_label_char(line[++cpt]))
 		if (line[cpt] == LABEL_CHAR)
 			return (label_line);
+	ft_printf("bonjour");
 	return (get_error(D, lexical));
 }
 
@@ -119,13 +123,19 @@ int		manage_lines(t_data *data)
 	while ((D->line = get_line(D)))
 	{
 		D->curr_index = skip_sp(D->line, 0);
+		ft_printf("line = %s\n", D->line);
+		ft_printf("%d %d i = %d\n", D->name_set, D->comment_set, D->curr_index);
 		if (!D->line[D->curr_index])
 			continue ;
 		if ((!D->name_set || !D->comment_set)
 				&& !(type = name_or_comment(D, D->line + D->curr_index, &j)))
 			return (0);
-		else if (!(type = define_cmd_type(D, D->line + D->curr_index, &j)))
+		else if ((D->name_set && D->comment_set)
+				&& !(type = define_cmd_type(D, D->line + D->curr_index, &j)))
+			return (0);
+		D->curr_index = j;
+		if (!(g_fct_tab[type](D, type, j)))
 			return (0);
 	}
-	return (0);
+	return (1);
 }

@@ -6,17 +6,22 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:37:22 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/24 13:26:29 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/24 18:21:29 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 int		init_data(t_data *data)
 {
-	D->gc = NULL;
-	D->head_gc = NULL;
+	if (!(D->gc = (t_gc *)malloc(sizeof(t_gc))))
+		return (0);
+	D->gc->list = NULL;
+	D->gc->head = NULL;
+	D->gc->size = 0;
 	D->err = 0;
 	D->line = NULL;
 	D->curr_line = -1;
@@ -24,6 +29,8 @@ int		init_data(t_data *data)
 	D->chmp_com = NULL;
 	D->name_set = false;
 	D->comment_set = false;
+	D->mem_stock = NULL;
+	D->mem_size = MEMSIZE;
 	fill_op_and_err_tab();
 	return (1);
 }
@@ -37,7 +44,19 @@ void	print_error(t_data *data)
 
 int		get_fd_file(char *filename)
 {
-	return (open(filename, O_RDONLY));
+//	(void)filename;
+	int fd;
+
+	fd = open(filename, O_RDONLY);
+	return (fd);
+}
+
+void	write_in_file(t_data *data, char *output)
+{
+	int	fd;
+
+	fd = open("test.cor", O_CREAT | O_RDWR, 0666);
+	write(fd, output, D->mem_stock_index);
 }
 
 int		main(int ac, char **av)
@@ -48,7 +67,16 @@ int		main(int ac, char **av)
 		return (0);
 	if ((D.fd = get_fd_file(av[1])) == -1)
 		return (0);
-	init_data(&D);
+	if (!(init_data(&D)))
+		return (0);
 	if (!manage_lines(&D))
 		print_error(&D);
+	else
+	{
+		ft_printf("{under}{cyan}Writing output file{reset}\n");
+		write_in_file(&D, D.mem_stock);
+	}
+	ft_free_gc(D.gc);
+	free(D.gc);
+	return (0);
 }

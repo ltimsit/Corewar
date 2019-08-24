@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 14:16:38 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/24 13:26:35 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/24 15:46:45 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ void	fill_op_and_err_tab()
 {
 	err_tab[0] = "lexical error : ";
 	err_tab[1] = "syntax error : ";
+	g_fct_tab[0] = NULL;
+	g_fct_tab[1] = fc_name;
+	g_fct_tab[2] = fc_comment;
+
 //	op_tab[0] = {"live", 1, {T_DIR}, 1, 10, "alive", 0, 0};
 /*
 	op_tab[1] = {"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0};

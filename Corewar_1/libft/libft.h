@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:24:14 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/24 12:55:50 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/24 15:22:06 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,18 @@
 # define BUFF_SIZE_GNL 1024
 # define ULL	unsigned long long
 
-typedef struct	s_gc
+typedef struct		s_gcl
 {
-	void		*ptr;
-	struct s_gc	*next;
-}				t_gc;
+	void			*ptr;
+	struct s_gcl	*next;
+}					t_gcl;
+
+typedef struct		s_gc
+{
+	t_gcl			*list;
+	t_gcl			*head;
+	int				size;
+}					t_gc;
 
 typedef struct	s_list
 {
@@ -110,10 +117,9 @@ char			*ft_str_add(char **s1, char **s2, char option);
 void			*ft_free_stropt(char **s1, char **s2, char option);
 char			*ft_bitoa(void *input, size_t size);
 int				ft_abs(int n);
-void			*ft_alloc_gc(int size, int size_type, t_gc **curr_gc,
-					t_gc **head_gc);
-int				ft_free_gc(t_gc *head_gc);
-int				ft_add_to_gc(void *ptr, t_gc **curr_gc, t_gc **head_gc);
+void			*ft_alloc_gc(int size, int size_type, t_gc *gc);
+int				ft_free_gc(t_gc *gc);
+int				ft_add_to_gc(void *ptr, t_gc *gc);
 int				ft_skip_char(char *line, char c, int i);
 int				ft_skip_nochar(char *line, char c, int i);
 
