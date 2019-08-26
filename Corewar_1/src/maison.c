@@ -1,40 +1,41 @@
-int get_header(t_data *data)
+int		get_header(t_data *data)
 {
   int		j;
   int		type;
 
   while (get_to_next_elem(data) && !(D->name_set && D->comment_set))
   {
-			if (!(type = name_or_comment(D, D->line + D->curr_index, &j)))
-			     return (0);
+	  if (!(type = name_or_comment(D, D->line + D->curr_index, &j)))
+		  return (0);
       D->curr_index = j;
-   		if (!(g_fct_tab[type](D, type, j)))
-     			return (0);
+	  if (!(g_fct_tab[type](D, type, j)))
+		  return (0);
   }
   return (1);
 }
 
-int get_to_next_elem(t_data *data)
+int		get_to_next_elem(t_data *data)
 {
-  while ((!D->line || !D->line[D->curr_index]) || (!D->curr_index = skip_sp(D->line, 0)))
-  {
-      if (!(D->line = get_line(D)))
-          return (0);
-      D->curr_line++;
-  }
-  return (1);
+	while ((!D->line || !D->line[D->curr_index])
+		|| (!D->curr_index = skip_sp(D->line, 0)))
+  	{
+		if (!(D->line = get_line(D)))
+			return (0);
+		D->curr_line++;
+  	}
+  	return (1);
 }
 
 int		skip_nosp(char *line, int i)
 {
 	while (line[i] && line[i] != ' ' && line[i] != '\t')
 		i++;
-  if (!line[i])
+	if (!line[i])
     return (-1);
 	return (i);
 }
 
-int get_to_end_elem(t_data *data)
+int		get_to_end_elem(t_data *data)
 {
   int i;
   char *elem;

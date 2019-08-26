@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/24 18:21:27 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/26 17:36:26 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 # define D data
 # define MEMSIZE 2048
+# define READSIZE 2048
 
 typedef struct	s_op
 {
@@ -35,6 +36,7 @@ typedef struct	s_op
 
 typedef struct	s_data
 {
+	t_header	header;
 	t_gc		*gc;
 	int			fd;
 	int			err;
@@ -82,10 +84,11 @@ enum			e_cmd
 enum			e_error
 {
 	lexical,
-	syntax
+	syntax,
+	read_error
 };
 
-char			*err_tab[2];
+char			*err_tab[3];
 int				(*g_fct_tab[21])(t_data *, int, int);
 
 /*
@@ -100,11 +103,11 @@ int				get_fd_file(char *filename);
 ** read_lines.c ----------------------------------------------------------------
 */
 
-char			*get_line(t_data *data);
+//char			*get_line(t_data *data);
 int				check_in_label_char(char letter);
-int				name_or_comment(t_data *data, char *line, int *end_index);
-int				define_cmd_type(t_data *data, char *line, int *end_index);
-int				manage_lines(t_data *data);
+int				get_type(t_data *data, char *line, int *end_index);
+//int				define_cmd_type(t_data *data, char *line, int *end_index);
+//int				manage_lines(t_data *data);
 
 /*
 ** tools.c      ----------------------------------------------------------------
@@ -114,13 +117,27 @@ int				skip_sp(char *line, int i);
 int				skip_nosp(char *line, int i);
 int				get_error(t_data *data, int err_type);
 void			fill_op_and_err_tab();
+//int				fc_name(t_data data*, int type, int j);
+//int				fc_comment(t_data data*, int type, int j);
 
 /*
 ** champtools.c ----------------------------------------------------------------
 */
 
-char			*stock_namecom(char *line);
-int				fc_comment(t_data *data, int type, int j);
-int				fc_name(t_data *data, int type, int j);
+//char			*stock_namecom(char *line);
+//int				fc_comment(t_data *data, int type, int j);
+int				fc_namecom(t_data *data, char *namecom, int size);
 int				mem_stock(t_data *data, char *content, int content_size);
+int				put_header(t_data *data, unsigned int h);
+
+/*
+** header.c     ----------------------------------------------------------------
+*/
+
+int				set_header(t_data *data);
+int				get_new_read(t_data *data);
+int				get_elem(t_data *data, char *tab, int tab_size);
+int				get_to_next_elem(t_data *data, int *line_id, int *col_id);
+int				read_and_dispatch(t_data *data);
+
 #endif

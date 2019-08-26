@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:37:22 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/24 18:21:29 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/26 18:13:51 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int		init_data(t_data *data)
 	D->gc->size = 0;
 	D->err = 0;
 	D->line = NULL;
-	D->curr_line = -1;
+	D->curr_line = 0;
+	D->curr_index = 0;
 	D->chmp_name = NULL;
 	D->chmp_com = NULL;
 	D->name_set = false;
@@ -61,7 +62,7 @@ void	write_in_file(t_data *data, char *output)
 
 int		main(int ac, char **av)
 {
-	t_data	data;
+	t_data		data;
 
 	if (ac != 2)
 		return (0);
@@ -69,8 +70,8 @@ int		main(int ac, char **av)
 		return (0);
 	if (!(init_data(&D)))
 		return (0);
-	if (!manage_lines(&D))
-		print_error(&D);
+	if (!(read_and_dispatch(&D)))
+		return (0);
 	else
 	{
 		ft_printf("{under}{cyan}Writing output file{reset}\n");

@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 10:55:17 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/24 18:21:29 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/26 18:13:30 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,26 @@
 
 int			mem_stock(t_data *data, char *content, int content_size)
 {
-	int i;
-	char *tmp;
+	int		i;
+	char	*tmp;
 
 	i = -1;
-	if (!data->mem_stock)
+	if (!D->mem_stock)
 	{
-		if (!(data->mem_stock = ft_alloc_gc(data->mem_size, sizeof(char), data->gc)))
+		if (!(D->mem_stock = ft_alloc_gc(D->mem_size, sizeof(char), D->gc)))
 			return (0);
-		data->mem_stock_index = 0;
+		D->mem_stock_index = 0;
 	}
-	if (!data->mem_stock_index + content_size >= data->mem_size)
+	if (!D->mem_stock_index + content_size >= D->mem_size)
 	{
-		data->mem_size += MEMSIZE;
-		tmp = data->mem_stock;
-		if (!(data->mem_stock = ft_alloc_gc(data->mem_size, sizeof(char), data->gc)))
+		D->mem_size += MEMSIZE;
+		tmp = D->mem_stock;
+		if (!(D->mem_stock = ft_alloc_gc(D->mem_size, sizeof(char), D->gc)))
 			return (0);
-		ft_memcpy(data->mem_stock, tmp, data->mem_size - MEMSIZE);
+		ft_memcpy(D->mem_stock, tmp, D->mem_size - MEMSIZE);
 	}
 	while (++i < content_size)
-		data->mem_stock[data->mem_stock_index++] = content[i];
+		D->mem_stock[D->mem_stock_index++] = content[i];
 	return (1);
 }
 
@@ -51,64 +51,32 @@ int			put_header(t_data *data, unsigned int h)
 	return (1);
 }
 
-int			fc_name(t_data *data, int type, int j)
+int			fc_namecom(t_data *data, char *namecom, int size)
 {
 	int		i;
-	char	name[PROG_NAME_LENGTH];
 
-	(void)type;
-	j = skip_sp(D->line, j + 1);
-	D->curr_index = j;
 	i = 0;
-	if (D->line[j] != '"')
+	get_to_next_elem(D, &D->curr_line, &D->curr_index);
+	if (*(D->line) != '"')
 		return (get_error(D, syntax));
-	while (D->line[++j] != '"')
-		if (!D->line[j] || i == PROG_NAME_LENGTH)
-			return (get_error(D, syntax));
+	D->line++;
+	while (i < size)
+	{
+		if (!(*D->line))
+			if (!(get_new_read(D)))
+				return (0);
+		if (*D->line != '"')
+		{
+			if (*(D->line) == '\n')
+			{
+				D->curr_line++;
+				D->curr_index = 0;
+			}
+			namecom[i++] = *(D->line)++;
+			D->curr_index++;
+		}
 		else
-			name[i++] = D->line[j];
-	while (i < PROG_NAME_LENGTH)
-		name[i++] = '\0';
-	if (!(put_header(D, COREWAR_EXEC_MAGIC))
-		|| !(mem_stock(D, name, PROG_NAME_LENGTH)))
-		return (0);
-	D->name_set = true;
-	return (1);
-}
-
-int			fc_comment(t_data *data, int type, int j)
-{
-	int		i;
-	char	comment[COMMENT_LENGTH];
-
-	(void)type;
-	j = skip_sp(D->line, j + 1);
-	D->curr_index = j;
-	i = 0;
-	if (D->line[j] != '"')
-		return (get_error(D, syntax));
-	while (D->line[++j] != '"')
-		if (!D->line[j] || i == COMMENT_LENGTH)
-			return (get_error(D, syntax));
-		else
-			comment[i++] = D->line[j];
-	while (i < COMMENT_LENGTH)
-		comment[i++] = '\0';
-	if (!(put_header(D, 23)) || !(mem_stock(D, comment, COMMENT_LENGTH)))
-		return (0);
-	D->comment_set = true;
-	return (1);
-}
-
-char		*stock_namecom(char *line)
-{
-	int		start;
-	int		end;
-	char	*namecom;
-	
-	ft_printf("line=%s\n", line);
-	start = ft_skip_nochar(line, '"', 0);
-	end = ft_skip_nochar(line + start + 1, '"', 0);
-	namecom = ft_strsub((const char **)&line, start + 1, end, 0);
-	return (namecom);
+			namecom[i++] = 0;
+	}
+	return (0);
 }

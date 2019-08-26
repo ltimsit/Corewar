@@ -1,7 +1,7 @@
 NAME = coretest
 
 SRCS = $(addprefix $(SRCDIR)/, $(addsuffix .c, \
-	   corewar read_lines tools champtools))
+	   corewar read_lines tools champtools header))
 
 OBJ = $(SRCS:.c=.o)
 DEP = $(SRCS:.c=.d)
