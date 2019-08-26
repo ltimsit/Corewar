@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 14:16:38 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/26 19:04:50 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/26 18:16:09 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int		skip_nosp(char *line, int i)
 	return (i);
 }
 
-int		get_error(t_data *data, int err_type, char *elem)
+int		get_error(t_data *data, int err_type)
 {
+	ft_printf("enter get_error\n");
 	D->err = err_type;
-	print_error(data, elem);
 	return (0);
 }
 
@@ -37,8 +37,9 @@ void	fill_op_and_err_tab()
 {
 	err_tab[0] = "lexical error : ";
 	err_tab[1] = "syntax error : ";
-	err_tab[2] = "read error !";
 	g_fct_tab[0] = NULL;
+	g_fct_tab[1] = fc_name;
+	g_fct_tab[2] = fc_comment;
 
 //	op_tab[0] = {"live", 1, {T_DIR}, 1, 10, "alive", 0, 0};
 /*

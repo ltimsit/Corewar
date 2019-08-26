@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:37:59 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/24 15:18:35 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/26 19:32:23 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ int	ft_free_gc(t_gc *gc)
 		free(tmp);
 		tmp = gc->head;
 	}
+	gc->head = NULL;
+	gc->list = NULL;
 	return (0);
 }

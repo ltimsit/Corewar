@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/26 18:13:37 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/26 19:41:19 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,13 @@ int		get_new_read(t_data *data)
 	int		ret;
 
 	ret = 0;
-	if (!D->line
-			&& !(D->line = ft_alloc_gc(READSIZE + 1, sizeof(char), D->gc)))
+	if (!D->start
+			&& !(D->start = ft_alloc_gc(READSIZE + 1, sizeof(char), D->gc)))
 		return (0);
-	if ((ret = read(D->fd, D->line, READSIZE)) == -1)
-		return (get_error(D, read_error));
-	D->line[ret] = '\0';
+	if ((ret = read(D->fd, D->start, READSIZE)) == -1)
+		return (get_error(D, read_error, NULL));
+	D->start[ret] = '\0';
+	D->line = D->start;
 	return (1);
 }
 
@@ -63,7 +64,7 @@ int		get_to_next_elem(t_data *data, int *line_id, int *col_id)
 	int		i;
 
 	if (!D->line && !get_new_read(D))
-		return (get_error(D, read_error));
+		return (get_error(D, read_error, NULL));
 	while ((i = skip_sp(D->line, 0)) != -1)
 	{
 		D->line += i;
@@ -92,23 +93,35 @@ int		read_and_dispatch(t_data *data)
 {
 //	int		type;
 	char	cmd[14];
+	int		i;
 
 	while (!D->name_set || !D->comment_set)
 	{
 		get_to_next_elem(D, &D->curr_line, &D->curr_index);
-		get_elem(D, cmd, 14);
+		i = get_elem(D, cmd, 14);
 		if (!ft_strcmp(cmd, NAME_CMD_STRING) && (D->name_set = true))
+		{
+			D->curr_index += i;
 			fc_namecom(D, D->header.prog_name, PROG_NAME_LENGTH);
+		}
 		else if (!ft_strcmp(cmd, COMMENT_CMD_STRING) && (D->comment_set = true))
+		{
+			D->curr_index += i;
 			fc_namecom(D, D->header.comment, COMMENT_LENGTH);
+		}
+		else
+			return (get_error(D, syntax, cmd));
 	}
-	ft_printf("%s\n\n%s", D->header.prog_name, D->header.comment);
+//	ft_printf("%s\n\n%s", D->header.prog_name, D->header.comment);
+	set_header(data);
+/*
 	while (get_to_next_elem(D, &D->curr_line, &D->curr_index))
 	{
-//		get_elem(D, cmd, 14);
-//		type = get_type(D);
-//		if (!(g_fct_tab[type](D, type, D->curr_index)))
-//		return (0);
+		get_elem(D, cmd, 14);
+		type = get_type(D);
+		if (!(g_fct_tab[type](D, type, D->curr_index)))
+		return (0);
 	}
+	*/
 	return (1);
 }

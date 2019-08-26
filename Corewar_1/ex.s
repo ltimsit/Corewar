@@ -1,4 +1,5 @@
-.name       "banan"e
+.name       "banan               
+e   "
  
 .comment "just a basic living prog"
 		

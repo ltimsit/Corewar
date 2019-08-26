@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:43:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/26 19:41:20 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/22 19:00:44 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,18 @@ static t_op	op_tab[17] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
+char	*get_line(t_data *data)
+{
+	int		ret;
+	char	*line;
+
+	ret = ft_get_next_line(data->fd, &line, 0);
+	if (ret != -1 || !ft_add_to_gc(line, &(data->gc), &(data->head_gc)))
+		return (NULL);
+	data->curr_line++;
+	return (line);
+}
+
 int		check_in_label_char(char letter)
 {
 	int		i;
@@ -53,8 +65,28 @@ int		check_in_label_char(char letter)
 	return (0);
 }
 
-int		get_type(t_data *data, char *line, int *end_index)
+/*
+int		get_name_and_comment(t_data *data, char *line, char option)
 {
+	
+}
+*/
+
+int		name_or_comment(t_data *data, char *line, int *end_index)
+{
+	*end_index = skip_nosp(line, 0);
+	line[*end_index] = '\0';
+	if (!ft_strcmp(line, NAME_CMD_STRING) && !data->name_set)
+		return (name_line);
+	if (!ft_strcmp(line, COMMENT_CMD_STRING) && !data->comment_set)
+		return (comment_line);
+	return (get_error(data, line, syntax));
+}
+
+int		define_cmd_type(t_data *data, char *line, int *end_index)
+{
+//	char	buf[64];
+//	char	*big_buf;
 	int		cpt;
 
 	*end_index = skip_nosp(line, 0);
@@ -67,5 +99,27 @@ int		get_type(t_data *data, char *line, int *end_index)
 	while (check_in_label_char(line[++cpt]))
 		if (line[cpt] == LABEL_CHAR)
 			return (label_line);
-	return (get_error(D, syntax, NULL));
+	return (get_error(data, line, lexical));
+}
+
+int		manage_lines(t_data *data)
+{
+	char	*line;
+	int		i;
+	int		j;
+	int		type;
+
+	while ((line = get_line(data)))
+	{
+		i = skip_sp(line, 0);
+		if (!line[i])
+			continue ;
+		data->curr_index = i;
+		if ((!data->name_set || !data->comment_set)
+				&& !(type = name_or_comment(data, line + i, &j)))
+			return (0);
+		else if (!(type = define_cmd_type(data, line + i, &j)))
+			return (0);
+	}
+	return (0);
 }
