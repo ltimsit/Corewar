@@ -26,23 +26,23 @@ typedef struct	s_label_add
 {
 	char				*name;
 	int					pc;
-	struct s_label	*next;
-}								t_label_add;
+	struct s_label_add	*next;
+}				t_label_add;
 
 typedef struct	s_label_instr
 {
-	char				*name;
-	int					mem_index;
-	struct s_label	*next;
-}								t_label_instr;
+	char					*name;
+	int						mem_index;
+	struct s_label_instr	*next;
+}				t_label_instr;
 
-typedef struct		s_label
+typedef struct	s_label
 {
 	t_label_add			*lst_add;
 	t_label_add			*head_add;
-	t_label_instr		*list_instr;
+	t_label_instr		*lst_instr;
 	t_label_instr		*head_instr;
-}									t_label;
+}				t_label;
 
 typedef struct	s_op
 {
@@ -60,7 +60,7 @@ typedef struct	s_data
 {
 	t_header	header;
 	t_gc		*gc;
-	t_label *label;
+	t_label		*label;
 	int			fd;
 	int			err;
 	char		*line;

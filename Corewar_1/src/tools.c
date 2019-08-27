@@ -77,7 +77,7 @@ int		add_to_label_instr(t_data *D, char *elem, int mem_index)
 
 	 if (!(label_new = ft_alloc_gc(1, sizeof(t_label_instr), D->gc)))
 	  	return (0);
-	if (!(label_new->name = ft_add_to_gc(ft_strdup(elem), D->gc)))
+	if (!(ft_add_to_gc((label_new->name = ft_strdup(elem)), D->gc)))
 		 	return (0);
 	label_new->next = NULL;
 	label_new->mem_index = mem_index;
@@ -89,7 +89,7 @@ int		add_to_label_instr(t_data *D, char *elem, int mem_index)
 	 else
 	 {
 		 D->label->lst_instr->next = label_new;
-		 D->label->list_instr = label_new;
+		 D->label->lst_instr = label_new;
 	 }
 		return (1);
 }
@@ -100,7 +100,7 @@ int		add_to_label_list(t_data *D, char *elem, int pc)
 
 	 if (!(label_new = ft_alloc_gc(1, sizeof(t_label_add), D->gc)))
 	  	return (0);
-	if (!(label_new->name = ft_add_to_gc(ft_strdup(elem), D->gc)))
+	if (!(ft_add_to_gc((label_new->name = ft_strdup(elem)), D->gc)))
 		 	return (0);
 	label_new->next = NULL;
 	label_new->pc = pc;
@@ -112,7 +112,7 @@ int		add_to_label_list(t_data *D, char *elem, int pc)
 	 else
 	 {
 		 D->label->lst_add->next = label_new;
-		 D->label->list_add = label_new;
+		 D->label->lst_add = label_new;
 	 }
 		return (1);
 }
