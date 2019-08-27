@@ -46,7 +46,7 @@ int			mem_stock(t_data *data, char *content, int content_size)
 	return (1);
 }
 
-int			put_header(t_data *data, unsigned int h)
+int			change_endian(t_data *data, unsigned int h)
 {
 	char	endian[sizeof(h)];
 	int		i;
@@ -64,7 +64,7 @@ int			fc_namecom(t_data *data, char *namecom, int size)
 	int		i;
 
 	i = 0;
-	get_to_next_elem(D, &D->curr_line, &D->curr_index);
+	go_to_next_elem(D, &D->curr_line, &D->curr_index);
 	if (*(D->line) != '"')
 		return (get_error(D, syntax, NULL));
 	D->line++;

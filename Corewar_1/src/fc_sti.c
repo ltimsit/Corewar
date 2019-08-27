@@ -42,7 +42,7 @@ static t_op	op_tab[17] =
 int		fc_sti(t_data *data, int type, int index)
 {
 	(void)index;
-	if(!put_header(D, op_tab[type - command_line].opcode))
+	if(!change_endian(D, op_tab[type - command_line].opcode))
 		return (0);
 	return (1);
 }
@@ -50,7 +50,7 @@ int		fc_sti(t_data *data, int type, int index)
 int		fc_and(t_data *data, int type, int index)
 {
 	(void)index;
-	if(!put_header(D, op_tab[type - command_line].opcode))
+	if(!change_endian(D, op_tab[type - command_line].opcode))
 		return (0);
 	return (1);
 }
@@ -58,7 +58,7 @@ int		fc_and(t_data *data, int type, int index)
 int		fc_live(t_data *data, int type, int index)
 {
 	(void)index;
-	if(!put_header(D, op_tab[type - command_line].opcode))
+	if(!change_endian(D, op_tab[type - command_line].opcode))
 		return (0);
 	return (1);
 }
@@ -66,7 +66,7 @@ int		fc_live(t_data *data, int type, int index)
 int		fc_zjmp(t_data *data, int type, int index)
 {
 	(void)index;
-	if(!put_header(D, op_tab[type - command_line].opcode))
+	if(!change_endian(D, op_tab[type - command_line].opcode))
 		return (0);
 	return (1);
 }

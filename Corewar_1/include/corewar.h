@@ -123,7 +123,7 @@ void			fill_op_and_err_tab();
 
 int				fc_namecom(t_data *data, char *namecom, int size);
 int				mem_stock(t_data *data, char *content, int content_size);
-int				put_header(t_data *data, unsigned int h);
+int				change_endian(t_data *data, unsigned int h);
 
 /*
 ** header.c     ----------------------------------------------------------------
@@ -132,7 +132,7 @@ int				put_header(t_data *data, unsigned int h);
 int				set_header(t_data *data);
 int				get_new_read(t_data *data);
 int				get_elem(t_data *data, char *tab, int tab_size);
-int				get_to_next_elem(t_data *data, int *line_id, int *col_id);
+int				go_to_next_elem(t_data *data, int *line_id, int *col_id);
 int				read_and_dispatch(t_data *data);
 
 int				btohex(unsigned char byte);

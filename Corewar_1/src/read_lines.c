@@ -59,11 +59,8 @@ int		get_type(t_data *data, char *elem)
 
 	cpt = -1;
 	while (++cpt < NB_COMMAND - 1) //pour esquiver le zero pour l'instant
-	{
-		ft_printf("%s  //  ", op_tab[cpt].name);
 		if (!ft_strcmp(elem, op_tab[cpt].name))
 			return (command_line + cpt);
-	}
 	cpt = -1;
 	while (check_in_label_char(elem[++cpt]))
 		if (elem[cpt] == LABEL_CHAR)

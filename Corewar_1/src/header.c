@@ -16,9 +16,9 @@
 
 int		set_header(t_data *data)
 {
-	if (!(put_header(D, D->header.magic))
+	if (!(change_endian(D, D->header.magic))
 			|| !(mem_stock(D, D->header.prog_name, PROG_NAME_LENGTH))
-			|| !(put_header(D, D->header.prog_size))
+			|| !(change_endian(D, D->header.prog_size))
 			|| !(mem_stock(D, D->header.comment, COMMENT_LENGTH)))
 		return (0);
 	return (1);
@@ -59,7 +59,7 @@ int		get_elem(t_data *data, char *tab, int tab_size)
 	return (i);
 }
 
-int		get_to_next_elem(t_data *data, int *line_id, int *col_id)
+int		go_to_next_elem(t_data *data, int *line_id, int *col_id)
 {
 	int		i;
 
@@ -97,7 +97,7 @@ int		read_and_dispatch(t_data *data)
 
 	while (!D->name_set || !D->comment_set)
 	{
-		get_to_next_elem(D, &D->curr_line, &D->curr_index);
+		go_to_next_elem(D, &D->curr_line, &D->curr_index);
 		i = get_elem(D, cmd, 14);
 		if (!ft_strcmp(cmd, NAME_CMD_STRING) && (D->name_set = true))
 		{
@@ -114,7 +114,7 @@ int		read_and_dispatch(t_data *data)
 	}
 //	ft_printf("%s\n\n%s", D->header.prog_name, D->header.comment);
 	set_header(data);
-	while (get_to_next_elem(D, &D->curr_line, &D->curr_index))
+	while (go_to_next_elem(D, &D->curr_line, &D->curr_index))
 	{
 		get_elem(D, cmd, 14);
 		ft_printf("elem=%s\n", cmd);
