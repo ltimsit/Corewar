@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/26 19:38:33 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/27 19:52:53 by ltimsit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ int				change_endian(t_data *data, unsigned int h);
 
 int				set_header(t_data *data);
 int				get_new_read(t_data *data);
-int				get_elem(t_data *data, char *tab, int tab_size);
+int				get_elem(t_data *data, char *tab, int tab_size, char sep_char);
 int				go_to_next_elem(t_data *data, int *line_id, int *col_id);
 int				read_and_dispatch(t_data *data);
 

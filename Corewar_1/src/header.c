@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/26 19:41:19 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/27 19:55:15 by ltimsit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		get_new_read(t_data *data)
 	return (ret ? 1 : 0);
 }
 
-int		get_elem(t_data *data, char *tab, int tab_size)
+int		get_elem(t_data *data, char *tab, int tab_size, char sep_char)
 {
 	int i;
 
@@ -52,6 +52,11 @@ int		get_elem(t_data *data, char *tab, int tab_size)
 			if (!(get_new_read(data)))
 				return (0);
 			continue ;
+		}
+		if (sep_char && *D->line == sep_char)
+		{
+			D->line++;
+			break;
 		}
 		tab[i++] = *(D->line)++;
 	}
@@ -98,7 +103,7 @@ int		read_and_dispatch(t_data *data)
 	while (!D->name_set || !D->comment_set)
 	{
 		go_to_next_elem(D, &D->curr_line, &D->curr_index);
-		i = get_elem(D, cmd, 14);
+		i = get_elem(D, cmd, 14, 0);
 		if (!ft_strcmp(cmd, NAME_CMD_STRING) && (D->name_set = true))
 		{
 			D->curr_index += i;
@@ -116,9 +121,10 @@ int		read_and_dispatch(t_data *data)
 	set_header(data);
 	while (go_to_next_elem(D, &D->curr_line, &D->curr_index))
 	{
-		get_elem(D, cmd, 14);
+		i = get_elem(D, cmd, 14, 0);
 		ft_printf("elem=%s\n", cmd);
 		type = get_type(D, cmd);
+		D->curr_index += i;
 		ft_printf("type=%d\n", type);
 		if (type > 3)
 			if (!(g_fct_tab[type](D, type, D->curr_index)))

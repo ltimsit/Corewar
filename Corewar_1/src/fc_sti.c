@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/26 19:41:19 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/27 20:56:26 by ltimsit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,62 @@ static t_op	op_tab[17] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
+char		get_param_code(t_data *data, int p1, int p2, int p3)
+{
+	char code;
+	int i;
+	int tmp;
+
+	tmp = 0;
+	tmp << 2 &= p1;
+	tmp << 4 &= p2;
+	tmp << 6 &= p3;
+	code = (char)tmp;
+	return (code);
+}
+
+int		get_registre(t_data *data, char *cmd)
+{
+	char reg;
+	int i;
+
+	i = 0
+	if (cmd[0] != 'r')
+		return (get_error(D, syntax, cmd));
+	while (cmd[++i])
+		{
+			if (!ft_isdigit(cmd[i]))
+				return (get_error(D, syntax, cmd));
+		}
+	if ((reg = ft_atoi(cmd + 1)) < 0
+				|| reg > 16)
+		return (get_error(D, syntax, cmd));
+	mem_stock(D, (&)reg, 1);
+
+}
+
+int		get_direct4(t_data *data, char *cmd)
+{
+	int i;
+	int direct;
+
+	i = 0;
+	if (cmd[0] != DIRECT_CHAR)
+		return (get_error(D, syntax, cmd));
+	while (cmd[++i])
+	{
+		if (!ft_isdigit(cmd[i]))
+			return (get_error(D, syntax, cmd));
+	}
+	direct = ft_atoi(cmd + 1);
+	if (!change_endian(D, direct))
+		return (0);
+}
+
 int		fc_sti(t_data *data, int type, int index)
 {
 	(void)index;
+
 	if(!mem_stock(D, (char*)&(op_tab[type - command_line].opcode), 1))
 		return (0);
 	return (1);
@@ -49,8 +102,13 @@ int		fc_sti(t_data *data, int type, int index)
 
 int		fc_and(t_data *data, int type, int index)
 {
+	int i;
+
 	(void)index;
 	if(!mem_stock(D, (char*)&(op_tab[type - command_line].opcode), 1))
+		return (0);
+	i = get_elem(D, cmd, 128, SEPARATOR_CHAR);
+	if (!(get_registre(D, cmd)))
 		return (0);
 	return (1);
 }
@@ -58,8 +116,19 @@ int		fc_and(t_data *data, int type, int index)
 int		fc_live(t_data *data, int type, int index)
 {
 	(void)index;
+	char	cmd[128];
+	unsigned int direct;
+	int		i;
+
+	direct = 0;
 	if(!mem_stock(D, (char*)&(op_tab[type - command_line].opcode), 1))
 		return (0);
+	if(!mem_stock(D, &(get_param_code(D, direct4, 0, 0)), 1))
+			return (0);
+	i = get_elem(D, cmd, 128, 0);
+	if (!(get_direct4(D, cmd)))
+		return (0);
+	D->curr_index += i;
 	return (1);
 }
 
