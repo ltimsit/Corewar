@@ -19,6 +19,8 @@ int		init_data(t_data *data)
 {
 	if (!(D->gc = (t_gc *)malloc(sizeof(t_gc))))
 		return (0);
+	D->label->lst_add = NULL;
+	D->Label->lst_instr = NULL;
 	D->gc->list = NULL;
 	D->gc->head = NULL;
 	D->gc->size = 0;
@@ -71,7 +73,9 @@ void	write_in_file(t_data *data, char *output)
 int		main(int ac, char **av)
 {
 	t_data		data;
+	t_label		label;
 
+	data.label = &label;
 	if (ac != 2)
 		return (0);
 	if ((D.fd = get_fd_file(av[1])) == -1)
