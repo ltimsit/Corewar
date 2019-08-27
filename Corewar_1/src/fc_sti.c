@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_lines.c                                       :+:      :+:    :+:   */
+/*   fc_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/21 13:43:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/26 19:41:20 by ltimsit-         ###   ########.fr       */
+/*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
+/*   Updated: 2019/08/26 19:41:19 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "libft.h"
 
 static t_op	op_tab[17] =
 {
@@ -40,33 +39,34 @@ static t_op	op_tab[17] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
-int		check_in_label_char(char letter)
+int		fc_sti(t_data *data, int type, int index)
 {
-	int		i;
-	char	*label_chars;
-
-	label_chars = LABEL_CHARS;
-	i = -1;
-	while (label_chars[++i])
-		if (letter == label_chars[i] || letter == LABEL_CHAR)
-			return (1);
-	return (0);
+	(void)index;
+	if(!put_header(D, op_tab[type - command_line].opcode))
+		return (0);
+	return (1);
 }
 
-int		get_type(t_data *data, char *elem)
+int		fc_and(t_data *data, int type, int index)
 {
-	int		cpt;
+	(void)index;
+	if(!put_header(D, op_tab[type - command_line].opcode))
+		return (0);
+	return (1);
+}
 
-	cpt = -1;
-	while (++cpt < NB_COMMAND - 1) //pour esquiver le zero pour l'instant
-	{
-		ft_printf("%s  //  ", op_tab[cpt].name);
-		if (!ft_strcmp(elem, op_tab[cpt].name))
-			return (command_line + cpt);
-	}
-	cpt = -1;
-	while (check_in_label_char(elem[++cpt]))
-		if (elem[cpt] == LABEL_CHAR)
-			return (label_line);
-	return (get_error(D, syntax, NULL));
+int		fc_live(t_data *data, int type, int index)
+{
+	(void)index;
+	if(!put_header(D, op_tab[type - command_line].opcode))
+		return (0);
+	return (1);
+}
+
+int		fc_zjmp(t_data *data, int type, int index)
+{
+	(void)index;
+	if(!put_header(D, op_tab[type - command_line].opcode))
+		return (0);
+	return (1);
 }

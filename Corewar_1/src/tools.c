@@ -39,6 +39,10 @@ void	fill_op_and_err_tab()
 	err_tab[1] = "syntax error : ";
 	err_tab[2] = "read error !";
 	g_fct_tab[0] = NULL;
+	g_fct_tab[4] = fc_live;
+	g_fct_tab[9] = fc_and;
+	g_fct_tab[12] = fc_zjmp;
+	g_fct_tab[14] = fc_sti;
 
 //	op_tab[0] = {"live", 1, {T_DIR}, 1, 10, "alive", 0, 0};
 /*

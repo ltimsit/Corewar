@@ -19,13 +19,14 @@ int			mem_stock(t_data *data, char *content, int content_size)
 	char	*tmp;
 
 	i = -1;
+	ft_printf("content_size = %d\n", content_size);
 	if (!D->mem_stock)
 	{
 		if (!(D->mem_stock = ft_alloc_gc(D->mem_size, sizeof(char), D->gc)))
 			return (0);
 		D->mem_stock_index = 0;
 	}
-	if (!D->mem_stock_index + content_size >= D->mem_size)
+	if (D->mem_stock_index + content_size >= D->mem_size)
 	{
 		D->mem_size += MEMSIZE;
 		tmp = D->mem_stock;
@@ -34,7 +35,14 @@ int			mem_stock(t_data *data, char *content, int content_size)
 		ft_memcpy(D->mem_stock, tmp, D->mem_size - MEMSIZE);
 	}
 	while (++i < content_size)
+	{
 		D->mem_stock[D->mem_stock_index++] = content[i];
+//		ft_printf("i={cyan}%d{reset} octet hexa={red}%x{reset} | ", i, content[i]);
+	}
+	/*
+	if (content_size != 4)
+		D->mem_stock[D->mem_stock_index++] = '\0';
+		*/
 	return (1);
 }
 
@@ -76,8 +84,9 @@ int			fc_namecom(t_data *data, char *namecom, int size)
 			D->curr_index++;
 		}
 		else
-			namecom[i++] = 0;
+			namecom[i++] = '\0';
 	}
+	namecom[i] = '\0';
 	D->line++;
 	return (0);
 }

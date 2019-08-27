@@ -1,0 +1,109 @@
+champtools.c:	if (!D->mem_stock)
+champtools.c:		if (!(D->mem_stock = ft_alloc_gc(D->mem_size, sizeof(char), D->gc)))
+champtools.c:		D->mem_stock_index = 0;
+champtools.c:	if (D->mem_stock_index + content_size >= D->mem_size)
+champtools.c:		D->mem_size += MEMSIZE;
+champtools.c:		tmp = D->mem_stock;
+champtools.c:		if (!(D->mem_stock = ft_alloc_gc(D->mem_size, sizeof(char), D->gc)))
+champtools.c:		ft_memcpy(D->mem_stock, tmp, D->mem_size - MEMSIZE);
+champtools.c:		D->mem_stock[D->mem_stock_index++] = content[i];
+champtools.c:	get_to_next_elem(D, &D->curr_line, &D->curr_index);
+champtools.c:	if (*(D->line) != '"')
+champtools.c:	D->line++;
+champtools.c:		if (!(*D->line))
+champtools.c:		if (*D->line != '"')
+champtools.c:			if (*(D->line) == '\n')
+champtools.c:				D->curr_line++;
+champtools.c:				D->curr_index = 0;
+champtools.c:			namecom[i++] = *(D->line)++;
+champtools.c:			D->curr_index++;
+champtools.c:	D->line++;
+corewar.c:	if (!(D->gc = (t_gc *)malloc(sizeof(t_gc))))
+corewar.c:	D->gc->list = NULL;
+corewar.c:	D->gc->head = NULL;
+corewar.c:	D->gc->size = 0;
+corewar.c:	D->err = 0;
+corewar.c:	D->line = NULL;
+corewar.c:	D->start = NULL;
+corewar.c:	D->curr_line = 0;
+corewar.c:	D->curr_index = 0;
+corewar.c:	D->chmp_name = NULL;
+corewar.c:	D->chmp_com = NULL;
+corewar.c:	D->name_set = false;
+corewar.c:	D->comment_set = false;
+corewar.c:	D->mem_stock = NULL;
+corewar.c:	D->mem_size = MEMSIZE;
+corewar.c:	D->header.magic = COREWAR_EXEC_MAGIC;
+corewar.c:	D->header.prog_size = 23;
+corewar.c:	if (D->err)
+corewar.c:			ft_printf("%s\n", err_tab[D->err]);
+corewar.c:			ft_printf("%s[%d, %d] %s\n", err_tab[D->err], D->curr_line,
+corewar.c:					D->curr_index, elem);
+corewar.c:	write(fd, output, D->mem_stock_index);
+header.c:	if (!(put_header(data, D->header.magic))
+header.c:			|| !(mem_stock(D, D->header.prog_name, PROG_NAME_LENGTH))
+header.c:			|| !(put_header(data, D->header.prog_size))
+header.c:			|| !(mem_stock(D, D->header.comment, COMMENT_LENGTH)))
+header.c:	if (!D->start
+header.c:			&& !(D->start = ft_alloc_gc(READSIZE + 1, sizeof(char), D->gc)))
+header.c:	if ((ret = read(D->fd, D->start, READSIZE)) == -1)
+header.c:	D->start[ret] = '\0';
+header.c:	D->line = D->start;
+header.c:	while (i < tab_size && *D->line != ' ' && *D->line != '\t'
+header.c:			&& *D->line != '\n')
+header.c:		if (!*D->line)
+header.c:		tab[i++] = *(D->line)++;
+header.c:	if (!D->line && !get_new_read(D))
+header.c:	while ((i = skip_sp(D->line, 0)) != -1)
+header.c:		D->line += i;
+header.c:		if (*(D->line) == '\n')
+header.c:			D->line++;
+header.c:		else if (!*(D->line))
+header.c:	while (!D->name_set || !D->comment_set)
+header.c:		get_to_next_elem(D, &D->curr_line, &D->curr_index);
+header.c:		if (!ft_strcmp(cmd, NAME_CMD_STRING) && (D->name_set = true))
+header.c:			D->curr_index += i;
+header.c:			fc_namecom(D, D->header.prog_name, PROG_NAME_LENGTH);
+header.c:		else if (!ft_strcmp(cmd, COMMENT_CMD_STRING) && (D->comment_set = true))
+header.c:			D->curr_index += i;
+header.c:			fc_namecom(D, D->header.comment, COMMENT_LENGTH);
+header.c://	ft_printf("%s\n\n%s", D->header.prog_name, D->header.comment);
+header.c:	while (get_to_next_elem(D, &D->curr_line, &D->curr_index))
+header.c:		if (!(g_fct_tab[type](D, type, D->curr_index)))
+maison.c:  while (get_to_next_elem(data) && !(D->name_set && D->comment_set))
+maison.c:	  if (!(type = name_or_comment(D, D->line + D->curr_index, &j)))
+maison.c:      D->curr_index = j;
+maison.c:	while ((!D->line || !D->line[D->curr_index])
+maison.c:		|| (!D->curr_index = skip_sp(D->line, 0)))
+maison.c:		if (!(D->line = get_line(D)))
+maison.c:		D->curr_line++;
+maison.c:  while ((i = skip_nosp(D->line, D->curr_index)) == -1)
+maison.c:    if (!(elem = ft_add_to_gc(ft_strcpy(D->line + D->curr_index), D->gc)))
+maison.c:    ft_add_to_gc(ft_strsub(&(D->line + D->curr_index)), D->gc);
+maison.c:    ft_add_to_gc(ft_strsub(&(D->line + D->curr_index)), D->gc); 
+maison.c:		if (!(type = define_cmd_type(D, D->line + D->curr_index, &j)))
+maison.c:		D->curr_index = j;
+test.c:	if (!(put_header(data, D->header.magic))
+test.c:			|| !(mem_stock(D, D->header.prog_name, PROG_NAME_LENGTH))
+test.c:			|| !(put_header(data, D->header.prog_size))
+test.c:			|| !(mem_stock(D, D->header.comment, COMMENT_LENGTH)))
+test.c:	if (!(D->line = ft_alloc_gc(SIZE_READ + 1, sizeof(char), D->gc)))
+test.c:	if (!(read(D->fd, D->live, SIZE_READ)))
+test.c:	D->line[SIZE_READ] = '\0';
+test.c:	get_to_next_elem(data, D->curr_line, D->curr_index);
+test.c:	while (!(D->name_set && D->comment_set))
+test.c:		get_to_next_elem(data, &(D->curr_line), &(D->curr_index));
+test.c:		if (!ft_strcmp(cmd, NAME_CMD_STRNG) && !D->name_set)
+test.c:			D->line += i;
+test.c:			D->curr_index += i;
+test.c:		if (!ft_strcmp(cmd, COMMENT_CMD_STRING) && !D->comment_set)
+test.c:			D->line += i;
+test.c:			D->curr_index += i;
+test.c:	while (i < tab_size && *D->line != ' ' && *D->line != '\t'
+test.c:			&& *D->line != '\n')
+test.c:		if (!*D->line)
+test.c:		tab[i++] = *(D->line)++;
+test.c:	while ((i = skip_space(D->line, 0)))
+test.c:		if (*D->line == '\n')
+test.c:		else if (!*D->line)
+tools.c:	D->err = err_type;

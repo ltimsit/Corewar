@@ -105,7 +105,7 @@ int				get_fd_file(char *filename);
 */
 
 int				check_in_label_char(char letter);
-int				get_type(t_data *data, char *line, int *end_index);
+int				get_type(t_data *data, char *line);
 
 /*
 ** tools.c      ----------------------------------------------------------------
@@ -135,4 +135,10 @@ int				get_elem(t_data *data, char *tab, int tab_size);
 int				get_to_next_elem(t_data *data, int *line_id, int *col_id);
 int				read_and_dispatch(t_data *data);
 
+int				btohex(unsigned char byte);
+
+int				fc_sti(t_data *data, int type, int index);
+int				fc_and(t_data *data, int type, int index);
+int				fc_live(t_data *data, int type, int index);
+int				fc_zjmp(t_data *data, int type, int index);
 #endif

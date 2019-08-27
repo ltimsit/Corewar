@@ -16,9 +16,9 @@
 
 int		set_header(t_data *data)
 {
-	if (!(put_header(data, D->header.magic))
+	if (!(put_header(D, D->header.magic))
 			|| !(mem_stock(D, D->header.prog_name, PROG_NAME_LENGTH))
-			|| !(put_header(data, D->header.prog_size))
+			|| !(put_header(D, D->header.prog_size))
 			|| !(mem_stock(D, D->header.comment, COMMENT_LENGTH)))
 		return (0);
 	return (1);
@@ -36,7 +36,7 @@ int		get_new_read(t_data *data)
 		return (get_error(D, read_error, NULL));
 	D->start[ret] = '\0';
 	D->line = D->start;
-	return (1);
+	return (ret ? 1 : 0);
 }
 
 int		get_elem(t_data *data, char *tab, int tab_size)
@@ -91,7 +91,7 @@ int		get_to_next_elem(t_data *data, int *line_id, int *col_id)
 
 int		read_and_dispatch(t_data *data)
 {
-//	int		type;
+	int		type;
 	char	cmd[14];
 	int		i;
 
@@ -114,14 +114,16 @@ int		read_and_dispatch(t_data *data)
 	}
 //	ft_printf("%s\n\n%s", D->header.prog_name, D->header.comment);
 	set_header(data);
-/*
 	while (get_to_next_elem(D, &D->curr_line, &D->curr_index))
 	{
 		get_elem(D, cmd, 14);
-		type = get_type(D);
-		if (!(g_fct_tab[type](D, type, D->curr_index)))
-		return (0);
+		ft_printf("elem=%s\n", cmd);
+		type = get_type(D, cmd);
+		ft_printf("type=%d\n", type);
+		if (type > 3)
+			if (!(g_fct_tab[type](D, type, D->curr_index)))
+				return (0);
+		ft_printf("--- c y c l e ---\n");
 	}
-	*/
 	return (1);
 }
