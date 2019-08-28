@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 10:55:17 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/28 11:42:09 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/28 17:03:16 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,7 @@ int			mem_stock(t_data *data, char *content, int content_size)
 		ft_memcpy(D->mem_stock, tmp, D->mem_size - MEMSIZE);
 	}
 	while (++i < content_size)
-	{
 		D->mem_stock[D->mem_stock_index++] = content[i];
-//		ft_printf("i={cyan}%d{reset} octet hexa={red}%x{reset} | ", i, content[i]);
-	}
-	/*
-	if (content_size != 4)
-		D->mem_stock[D->mem_stock_index++] = '\0';
-		*/
 	return (1);
 }
 

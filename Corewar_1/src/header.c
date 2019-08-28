@@ -6,13 +6,12 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/28 16:05:39 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/28 17:44:52 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
-#include "unistd.h"
 
 static t_op	op_tab[17] =
 {
@@ -49,21 +48,6 @@ int		set_header(t_data *data)
 			|| !(mem_stock(D, D->header.comment, COMMENT_LENGTH)))
 		return (0);
 	return (1);
-}
-
-int		get_new_read(t_data *data)
-{
-	int		ret;
-
-	ret = 0;
-	if (!D->start
-			&& !(D->start = ft_alloc_gc(READSIZE + 1, sizeof(char), D->gc)))
-		return (0);
-	if ((ret = read(D->fd, D->start, READSIZE)) == -1)
-		return (get_error(D, read_error, NULL));
-	D->start[ret] = '\0';
-	D->line = D->start;
-	return (ret ? 1 : 0);
 }
 
 int		get_elem(t_data *data, char *tab, int tab_size, char sep_char)
@@ -118,6 +102,24 @@ int		go_to_next_elem(t_data *data, int *line_id, int *col_id)
 	return (42);
 }
 
+int		get_type(t_data *data, char *elem)
+{
+	int		cpt;
+
+	cpt = -1;
+	while (++cpt < NB_COMMAND - 1)
+		if (!ft_strcmp(elem, op_tab[cpt].name))
+			return (command_line + cpt);
+	cpt = -1;
+	while (check_in_label_char(elem[++cpt]))
+		if (elem[cpt] == LABEL_CHAR)
+		{
+			elem[cpt] = '\0';
+			return (label_line);
+		}
+	return (get_error(D, syntax, NULL));
+}
+
 int		read_and_dispatch(t_data *data)
 {
 	int		type;
@@ -147,11 +149,12 @@ int		read_and_dispatch(t_data *data)
 		i = get_elem(D, cmd, 14, 0);
 		type = get_type(D, cmd);
 		D->curr_index += i;
-		ft_printf("elem = \"%s\"   | {yellow}type = %d\n{reset}", cmd, type);
+		ft_printf("{red}elem = \"%s\"{reset} | {yellow}type = %d\n{reset}", cmd, type);
+		if (type == 3)
+			add_to_label_list(D, cmd, D->pc);
 		if (type > 3)
 			if (!(fc_cmd(D, type, op_tab[type - command_line])))
 				return (0);
-		ft_printf("{green}--- c y c l e ---\n{reset}");
 	}
 	return (1);
 }

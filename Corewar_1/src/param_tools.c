@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stiplus.c                                          :+:      :+:    :+:   */
+/*   param_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 13:30:25 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/28 16:02:39 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/28 17:05:50 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		check_separator_char(t_data *data)
 {
 	go_to_next_elem(D, &D->curr_line, &D->curr_index);
 	if (*D->line != SEPARATOR_CHAR)
-		return (get_error(D, virgule, NULL));
+		return (get_error(D, coma, NULL));
 	else
 	{
 		D->line++;

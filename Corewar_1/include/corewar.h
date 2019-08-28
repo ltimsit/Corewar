@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/28 15:59:36 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/28 17:28:23 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct	s_data
 	t_gc		*gc;
 	t_label		*label;
 	int			fd;
+	int			pc;
 	int			err;
 	char		*line;
 	char		*start;
@@ -120,7 +121,7 @@ enum			e_error
 	syntax,
 	read_error,
 	param,
-	virgule
+	coma
 };
 
 char			*err_tab[5];
@@ -137,8 +138,6 @@ int				get_fd_file(char *filename);
 ** read_lines.c ----------------------------------------------------------------
 */
 
-int				check_in_label_char(char letter);
-int				get_type(t_data *data, char *line);
 
 /*
 ** tools.c      ----------------------------------------------------------------
@@ -148,6 +147,7 @@ int				skip_sp(char *line, int i);
 int				skip_nosp(char *line, int i);
 int				get_error(t_data *data, int err_type, char *elem);
 void			fill_op_and_err_tab();
+int				get_new_read(t_data *data);
 
 
 /*
@@ -163,27 +163,28 @@ int				change_endian(t_data *data, unsigned int h);
 */
 
 int				set_header(t_data *data);
-int				get_new_read(t_data *data);
 int				get_elem(t_data *data, char *tab, int tab_size, char sep_char);
 int				go_to_next_elem(t_data *data, int *line_id, int *col_id);
+int				get_type(t_data *data, char *line);
 int				read_and_dispatch(t_data *data);
+
+/*
+** byte_to_hexa.c---------------------------------------------------------------
+*/
 
 int				btohex(unsigned char byte);
 
 /*
-** fc_sti.c     ----------------------------------------------------------------
+** param.c      ----------------------------------------------------------------
 */
 
 char			get_param_code(t_data *data, int p1, int p2, int p3);
 int				get_registre(t_data *data, char *cmd);
 int				get_direct4(t_data *data, char *cmd);
 int				fc_cmd(t_data *data, int type, t_op op);
-int				fc_and(t_data *data, int type, int index);
-int				fc_live(t_data *data, int type, int index);
-int				fc_zjmp(t_data *data, int type, int index);
 
 /*
-** stiplus.c    ----------------------------------------------------------------
+** param_rools.c----------------------------------------------------------------
 */
 
 int				check_separator_char(t_data *data);
@@ -196,7 +197,10 @@ int				get_param_type(t_data *data, char *cmd, int *val);
 ** label.c      ----------------------------------------------------------------
 */
 
+int				check_in_label_char(char letter);
 int				add_to_label_instr(t_data *data, char *elem, int mem_index);
 int				add_to_label_list(t_data *data, char *elem, int pc);
+int				calc_val_from_pc(int curr_pc, int label_pc);
 int				check_label(t_data *data, char *elem);
+
 #endif

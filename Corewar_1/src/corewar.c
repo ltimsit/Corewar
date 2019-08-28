@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:37:22 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/26 19:41:21 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/28 16:50:55 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		init_data(t_data *data)
 	D->gc->list = NULL;
 	D->gc->head = NULL;
 	D->gc->size = 0;
+	D->pc = 0;
 	D->err = 0;
 	D->line = NULL;
 	D->start = NULL;
