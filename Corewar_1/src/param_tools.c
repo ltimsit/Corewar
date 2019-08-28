@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 13:30:25 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/28 17:05:50 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/28 18:19:35 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		param_type_tool(t_data *data, char *cmd, int *val)
 	return (1);
 }
 
-int		get_param_type(t_data *data, char *cmd, int *val)
+int		get_param_type(t_data *data, char *cmd, int *val, int pc_cpt)
 {
 	int		i;
 	int 	ret;
@@ -68,7 +68,7 @@ int		get_param_type(t_data *data, char *cmd, int *val)
 	if (cmd[0] == DIRECT_CHAR && cmd[1] == LABEL_CHAR)
 	{
 		if ((*val = check_label(D, cmd + 2)) == -1)
-			add_to_label_instr(D, cmd + 2, D->mem_stock_index);
+			add_to_label_instr(D, cmd + 2, D->mem_stock_index + pc_cpt);
 		return (DIR_CODE);
 	}
 	if ((cmd[0] == 'r' && (ret = REG_CODE))

@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/28 18:37:11 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/28 18:05:37 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		fc_cmd(t_data *data, int type, t_op op)
 		return (0);
 	cpt = -1;
 	init_param_tab(p.para);
-	pc_cpt = op.ocp ? 2 : 1;
+	pc_cpt = op.opc ? 2 : 1;
 	while (++cpt < op.nb_param)
 	{
 		ft_printf("{red}-- start param --\n{reset}");
@@ -55,7 +55,7 @@ int		fc_cmd(t_data *data, int type, t_op op)
 		ft_printf("{red}-- end param --\n{reset}");
 		D->curr_index += i;
 		i = p.para[cpt] == REG_CODE ? 1 : 2;
-		i = !op.dir_size && p.para[cpt] == DIR_CODE ? 4 : i;
+		i = !op.dir_size && p.para[cpt] == DIR_CODE ? 4 : 2;
 		pc_cpt += i;
 	}
 	if (op.ocp && (p.ocp = get_param_code(D, p.para[0], p.para[1], p.para[2])))
@@ -66,7 +66,7 @@ int		fc_cmd(t_data *data, int type, t_op op)
 	while (++cpt < op.nb_param)
 	{
 		i = p.para[cpt] == REG_CODE ? 1 : 2;
-		i = !op.dir_size && p.para[cpt] == DIR_CODE ? 4 : i;
+		i = !op.dir_size && p.para[cpt] == DIR_CODE ? 4 : 2;
 		D->pc += i;
 		if (!(mem_stock(D, (char*)&p.val[cpt], i)))
 			return (0);

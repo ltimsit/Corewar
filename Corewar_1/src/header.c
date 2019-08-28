@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/28 17:44:52 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/28 18:33:23 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,12 +149,13 @@ int		read_and_dispatch(t_data *data)
 		i = get_elem(D, cmd, 14, 0);
 		type = get_type(D, cmd);
 		D->curr_index += i;
-		ft_printf("{red}elem = \"%s\"{reset} | {yellow}type = %d\n{reset}", cmd, type);
+		ft_printf("{red}pc = %d elem = \"%s\"{reset} | {yellow}type = %d\n{reset}", D->pc, cmd, type);
 		if (type == 3)
 			add_to_label_list(D, cmd, D->pc);
 		if (type > 3)
 			if (!(fc_cmd(D, type, op_tab[type - command_line])))
 				return (0);
 	}
+	fill_missing_label(D);
 	return (1);
 }

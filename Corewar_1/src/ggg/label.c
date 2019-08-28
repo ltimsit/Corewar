@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:16:33 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/28 18:31:37 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/28 18:03:08 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,9 @@ int		calc_val_from_pc(int curr_pc, int label_pc)
 	short val;
 
 	if (label_pc >= curr_pc)
-	{
-		val = 0x0000 + ((short)label_pc - (short)curr_pc);
-		ft_printf("{green} lab = %d, curr = %d val = %d\n{reset}", label_pc, curr_pc, val);
-	}
+		val = (short)label_pc - (short)curr_pc;
 	else
-	{
 		val = 0xFFFF + (label_pc - curr_pc + 1);
-		ft_printf("{green}val = %d\n{reset}", val);
-	}
 	return ((int)val);
 }
 
@@ -106,15 +100,15 @@ int		check_label(t_data *data, char *elem)
 
 int		put_add_in_mem_stock(t_data *data, int mem_index, int add)
 {
-	D->mem_stock[mem_index] = ((char *)&add)[1];
-	D->mem_stock[mem_index + 1] = ((char *)&add)[0];
+	mem_stock[mem_index] = ((char *)&add[1]);
+	mem_stock[mem_index + 1] = ((char *)&add[0]);
 	return (1);
 }
 
 int		fill_missing_label(t_data *data)
 {
-	t_label_instr *tmp;
-	t_label_add *tmp2;
+	t_label_add *tmp;
+	t_label_instr *tmp2;
 
 	tmp = D->label->head_instr;
 	while (tmp)
@@ -124,7 +118,7 @@ int		fill_missing_label(t_data *data)
 		{
 			if (!ft_strcmp(tmp->name, tmp2->name))
 				return (put_add_in_mem_stock(D, tmp->mem_index, calc_val_from_pc(tmp->pc, tmp2->pc)));
-			tmp2 = tmp2->next;
+			tmp2 = tmp2->next
 		}
 		tmp = tmp->next;
 	}
