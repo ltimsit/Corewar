@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:37:22 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/28 16:50:55 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/28 19:57:08 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	write_in_file(t_data *data, char *output)
 {
 	int	fd;
 
-	fd = open("test.cor", O_CREAT | O_RDWR, 0666);
+	fd = open("test.cor", O_CREAT | O_RDWR | O_TRUNC, 0666);
 	write(fd, output, D->mem_stock_index);
 }
 

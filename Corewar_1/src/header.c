@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/28 18:33:23 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/28 20:13:54 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static t_op	op_tab[17] =
 
 int		set_header(t_data *data)
 {
-	if (!(change_endian(D, D->header.magic))
+	if (!(change_endian(D, (char *)&(D->header.magic), 4))
 			|| !(mem_stock(D, D->header.prog_name, PROG_NAME_LENGTH))
-			|| !(change_endian(D, D->header.prog_size))
+			|| !(change_endian(D, (char *)&(D->header.prog_size), 4))
 			|| !(mem_stock(D, D->header.comment, COMMENT_LENGTH)))
 		return (0);
 	return (1);
@@ -149,12 +149,13 @@ int		read_and_dispatch(t_data *data)
 		i = get_elem(D, cmd, 14, 0);
 		type = get_type(D, cmd);
 		D->curr_index += i;
-		ft_printf("{red}pc = %d elem = \"%s\"{reset} | {yellow}type = %d\n{reset}", D->pc, cmd, type);
+		ft_printf("{blue}pc = %d elem = \"%s\"{reset} | {yellow}type = %d\n{reset}", D->pc, cmd, type);
 		if (type == 3)
 			add_to_label_list(D, cmd, D->pc);
 		if (type > 3)
 			if (!(fc_cmd(D, type, op_tab[type - command_line])))
 				return (0);
+		ft_printf("{cyan}-- boucle --{reset}\n");
 	}
 	fill_missing_label(D);
 	return (1);

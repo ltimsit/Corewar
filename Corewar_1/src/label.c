@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:16:33 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/28 18:31:37 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/28 20:13:56 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,17 +115,21 @@ int		fill_missing_label(t_data *data)
 {
 	t_label_instr *tmp;
 	t_label_add *tmp2;
+	int i;
 
 	tmp = D->label->head_instr;
 	while (tmp)
 	{
+		i = 0;
 		tmp2 = D->label->head_add;
 		while (tmp2)
 		{
 			if (!ft_strcmp(tmp->name, tmp2->name))
-				return (put_add_in_mem_stock(D, tmp->mem_index, calc_val_from_pc(tmp->pc, tmp2->pc)));
+				i = put_add_in_mem_stock(D, tmp->mem_index, calc_val_from_pc(tmp->pc, tmp2->pc));
 			tmp2 = tmp2->next;
 		}
+		if (!i)
+			return (get_error(D, syntax, tmp->name));
 		tmp = tmp->next;
 	}
 	return (0);

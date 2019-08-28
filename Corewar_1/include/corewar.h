@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/28 18:08:03 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/28 19:50:47 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct	s_param
 {
 	int		para[3];
 	int		val[3];
+	int		size_para[3];
 	char	ocp;
 	char	cmd[PARAM_SIZE];
 }				t_param;
@@ -157,7 +158,7 @@ int				get_new_read(t_data *data);
 
 int				fc_namecom(t_data *data, char *namecom, int size);
 int				mem_stock(t_data *data, char *content, int content_size);
-int				change_endian(t_data *data, unsigned int h);
+int				change_endian(t_data *data, char *h, int size);
 
 /*
 ** header.c     ----------------------------------------------------------------

@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 10:55:17 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/28 17:03:16 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/28 19:01:36 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,19 @@ int			mem_stock(t_data *data, char *content, int content_size)
 	return (1);
 }
 
+int			change_endian(t_data *data, char *h, int size)
+{
+	char	endian[size];
+	int		i;
+
+	i = -1;
+	while (++i < size)
+		endian[i] = h[size - 1 - i];
+	if (!(mem_stock(D, endian, size)))
+		return (0);
+	return (1);
+}
+/*
 int			change_endian(t_data *data, unsigned int h)
 {
 	char	endian[sizeof(h)];
@@ -50,6 +63,7 @@ int			change_endian(t_data *data, unsigned int h)
 		return (0);
 	return (1);
 }
+*/
 
 int			fc_namecom(t_data *data, char *namecom, int size)
 {

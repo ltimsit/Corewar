@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 13:30:25 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/28 18:19:35 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/28 20:13:53 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		param_type_tool(t_data *data, char *cmd, int *val)
 	i = -1;
 	while (cmd[++i])
 	{
-		if (!ft_isdigit(cmd[i]))
+		if (!ft_isdigit(cmd[i]) && !(i == 0 && cmd[i] == '-'))
 			return (get_error(D, syntax, cmd));
 	}
 	value = ft_atoi(cmd);
