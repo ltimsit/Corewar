@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/28 11:41:09 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/28 15:59:36 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@
 # define D data
 # define MEMSIZE 2048
 # define READSIZE 20
+# define PARAM_SIZE 128
+
+typedef struct	s_param
+{
+	int		para[3];
+	int		val[3];
+	char	ocp;
+	char	cmd[PARAM_SIZE];
+}				t_param;
 
 typedef struct	s_label_add
 {
@@ -52,8 +61,8 @@ typedef struct	s_op
 	uint8_t		opcode;
 	int			time;
 	char		*description;
-	int			jesaispas;
-	int			jesaispas2;
+	int			ocp;
+	int			dir_size;
 }				t_op;
 
 typedef struct	s_data
@@ -109,11 +118,12 @@ enum			e_error
 {
 	lexical,
 	syntax,
-	read_error
+	read_error,
+	param,
+	virgule
 };
 
-char			*err_tab[3];
-int				(*g_fct_tab[21])(t_data *, int, int);
+char			*err_tab[5];
 
 /*
 ** corewar.c    ----------------------------------------------------------------
@@ -167,8 +177,26 @@ int				btohex(unsigned char byte);
 char			get_param_code(t_data *data, int p1, int p2, int p3);
 int				get_registre(t_data *data, char *cmd);
 int				get_direct4(t_data *data, char *cmd);
-int				fc_sti(t_data *data, int type, int index);
+int				fc_cmd(t_data *data, int type, t_op op);
 int				fc_and(t_data *data, int type, int index);
 int				fc_live(t_data *data, int type, int index);
 int				fc_zjmp(t_data *data, int type, int index);
+
+/*
+** stiplus.c    ----------------------------------------------------------------
+*/
+
+int				check_separator_char(t_data *data);
+void			init_param_tab(int *params);
+int				check_param(t_data *data, int type, int cmd_param, char *cmd);
+int				param_type_tool(t_data *data, char *cmd, int *val);
+int				get_param_type(t_data *data, char *cmd, int *val);
+
+/*
+** label.c      ----------------------------------------------------------------
+*/
+
+int				add_to_label_instr(t_data *data, char *elem, int mem_index);
+int				add_to_label_list(t_data *data, char *elem, int pc);
+int				check_label(t_data *data, char *elem);
 #endif

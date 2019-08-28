@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 14:16:38 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/26 19:04:50 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/28 16:01:22 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,8 @@ void	fill_op_and_err_tab()
 	err_tab[0] = "lexical error : ";
 	err_tab[1] = "syntax error : ";
 	err_tab[2] = "read error !";
-	g_fct_tab[0] = NULL;
-	g_fct_tab[4] = fc_live;
-	g_fct_tab[9] = fc_and;
-	g_fct_tab[12] = fc_zjmp;
-	g_fct_tab[14] = fc_sti;
+	err_tab[3] = "param error : ";
+	err_tab[4] = "missing coma !";
 
 //	op_tab[0] = {"live", 1, {T_DIR}, 1, 10, "alive", 0, 0};
 /*
@@ -71,6 +68,7 @@ void	fill_op_and_err_tab()
 	*/
 }
 
+/*
 int		add_to_label_instr(t_data *D, char *elem, int mem_index)
 {
 	 t_label_instr *label_new;
@@ -93,6 +91,8 @@ int		add_to_label_instr(t_data *D, char *elem, int mem_index)
 	 }
 		return (1);
 }
+*/
+/*
 
 int		add_to_label_list(t_data *D, char *elem, int pc)
 {
@@ -116,3 +116,4 @@ int		add_to_label_list(t_data *D, char *elem, int pc)
 	 }
 		return (1);
 }
+*/

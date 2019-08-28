@@ -6,14 +6,14 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:16:33 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/28 14:17:31 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/28 14:56:35 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include <stdlib.h>
 
-int		add_to_label_instr(t_data *D, char *elem, int mem_index)
+int		add_to_label_instr(t_data *data, char *elem, int mem_index)
 {
 	 t_label_instr *label_new;
 
@@ -36,7 +36,7 @@ int		add_to_label_instr(t_data *D, char *elem, int mem_index)
 		return (1);
 }
 
-int		add_to_label_list(t_data *D, char *elem, int pc)
+int		add_to_label_list(t_data *data, char *elem, int pc)
 {
 	 t_label_add *label_new;
 
