@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:16:33 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/28 14:56:35 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/28 17:08:46 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,17 @@ int		add_to_label_list(t_data *data, char *elem, int pc)
 		return (1);
 }
 
+int		calc_val_from_pc(t_data *data, int curr_pc, label_pc)
+{
+	short val;
+
+	if (label_pc > curr_pc)
+		val = (short)label_pc - (short)curr_pc;
+	else
+		val = 0xFFFF + (label_pc - curr_pc + 1);
+	return ((int)val)
+}
+
 int		check_label(t_data *data, char *elem)
 {
 	t_label_add *tmp;
@@ -67,7 +78,7 @@ int		check_label(t_data *data, char *elem)
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->name, elem))
-			return (tmp->pc);
+			return (calc_val_from_pc(D, D->pc, tmp->pc);
 		tmp = tmp->next;
 	}
 	return (-1);
