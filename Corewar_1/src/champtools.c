@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 10:55:17 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/26 19:41:18 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/28 11:42:09 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int			mem_stock(t_data *data, char *content, int content_size)
 	char	*tmp;
 
 	i = -1;
-	ft_printf("content_size = %d\n", content_size);
 	if (!D->mem_stock)
 	{
 		if (!(D->mem_stock = ft_alloc_gc(D->mem_size, sizeof(char), D->gc)))

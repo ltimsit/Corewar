@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/27 19:52:53 by ltimsit          ###   ########.fr       */
+/*   Updated: 2019/08/28 11:41:09 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,13 @@ int				read_and_dispatch(t_data *data);
 
 int				btohex(unsigned char byte);
 
+/*
+** fc_sti.c     ----------------------------------------------------------------
+*/
+
+char			get_param_code(t_data *data, int p1, int p2, int p3);
+int				get_registre(t_data *data, char *cmd);
+int				get_direct4(t_data *data, char *cmd);
 int				fc_sti(t_data *data, int type, int index);
 int				fc_and(t_data *data, int type, int index);
 int				fc_live(t_data *data, int type, int index);

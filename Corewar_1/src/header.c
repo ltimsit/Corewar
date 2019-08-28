@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/27 19:55:15 by ltimsit          ###   ########.fr       */
+/*   Updated: 2019/08/28 12:28:46 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,19 +117,17 @@ int		read_and_dispatch(t_data *data)
 		else
 			return (get_error(D, syntax, cmd));
 	}
-//	ft_printf("%s\n\n%s", D->header.prog_name, D->header.comment);
 	set_header(data);
 	while (go_to_next_elem(D, &D->curr_line, &D->curr_index))
 	{
 		i = get_elem(D, cmd, 14, 0);
-		ft_printf("elem=%s\n", cmd);
 		type = get_type(D, cmd);
 		D->curr_index += i;
-		ft_printf("type=%d\n", type);
+		ft_printf("elem = \"%s\"   | {yellow}type = %d\n{reset}", cmd, type);
 		if (type > 3)
 			if (!(g_fct_tab[type](D, type, D->curr_index)))
 				return (0);
-		ft_printf("--- c y c l e ---\n");
+		ft_printf("{green}--- c y c l e ---\n{reset}");
 	}
 	return (1);
 }

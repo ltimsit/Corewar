@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/27 20:56:26 by ltimsit          ###   ########.fr       */
+/*   Updated: 2019/08/28 13:03:28 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,20 @@ static t_op	op_tab[17] =
 
 char		get_param_code(t_data *data, int p1, int p2, int p3)
 {
-	char code;
-	int i;
-	int tmp;
+	char	code;
+	int		tmp;
 
+	(void)data;
 	tmp = 0;
-	tmp << 2 &= p1;
-	tmp << 4 &= p2;
-	tmp << 6 &= p3;
-	code = (char)tmp;
+	tmp |= (p3 << 2);
+	tmp |= (p2 << 4);
+	tmp |= (p1 << 6);
+	ft_printf("tmp = %bd\n", tmp);
+	ft_printf("p1 << 2 = %bd\n", p1 << 2);
+	ft_printf("p2 << 4 = %bd\n", p2 << 4);
+	ft_printf("p3 << 6 = %bd\n", p3 << 6);
+	code = *((char*)(&tmp));
+	ft_printf("code %hhu\n", code);
 	return (code);
 }
 
@@ -58,7 +63,7 @@ int		get_registre(t_data *data, char *cmd)
 	char reg;
 	int i;
 
-	i = 0
+	i = 0;
 	if (cmd[0] != 'r')
 		return (get_error(D, syntax, cmd));
 	while (cmd[++i])
@@ -69,8 +74,8 @@ int		get_registre(t_data *data, char *cmd)
 	if ((reg = ft_atoi(cmd + 1)) < 0
 				|| reg > 16)
 		return (get_error(D, syntax, cmd));
-	mem_stock(D, (&)reg, 1);
-
+	mem_stock(D, &reg, 1);
+	return (1);
 }
 
 int		get_direct4(t_data *data, char *cmd)
@@ -89,51 +94,60 @@ int		get_direct4(t_data *data, char *cmd)
 	direct = ft_atoi(cmd + 1);
 	if (!change_endian(D, direct))
 		return (0);
+	return (1);
 }
 
 int		fc_sti(t_data *data, int type, int index)
 {
 	(void)index;
+	char	param;
 
 	if(!mem_stock(D, (char*)&(op_tab[type - command_line].opcode), 1))
 		return (0);
+	param = get_param_code(D, 1, 2, 2);
+	if(!mem_stock(D, &param, 1))
+			return (0);
 	return (1);
 }
 
 int		fc_and(t_data *data, int type, int index)
 {
-	int i;
+//	int 	i;
+//	char	cmd[25];
+	char	param;
 
 	(void)index;
 	if(!mem_stock(D, (char*)&(op_tab[type - command_line].opcode), 1))
 		return (0);
-	i = get_elem(D, cmd, 128, SEPARATOR_CHAR);
-	if (!(get_registre(D, cmd)))
-		return (0);
+	param = get_param_code(D, 1, 2, 1);
+	if(!mem_stock(D, &param, 1))
+			return (0);
+//	i = get_elem(D, cmd, 25, SEPARATOR_CHAR);
+//	if (!(get_registre(D, cmd)))
+//		return (0);
 	return (1);
 }
 
 int		fc_live(t_data *data, int type, int index)
 {
 	(void)index;
-	char	cmd[128];
-	unsigned int direct;
-	int		i;
+//	char			cmd[128];
+//	unsigned int	direct;
+//	int				i;
 
-	direct = 0;
+//	direct = 0;
 	if(!mem_stock(D, (char*)&(op_tab[type - command_line].opcode), 1))
 		return (0);
-	if(!mem_stock(D, &(get_param_code(D, direct4, 0, 0)), 1))
-			return (0);
-	i = get_elem(D, cmd, 128, 0);
-	if (!(get_direct4(D, cmd)))
-		return (0);
-	D->curr_index += i;
+//	i = get_elem(D, cmd, 128, 0);
+//	if (!(get_direct4(D, cmd)))
+//		return (0);
+//	D->curr_index += i;
 	return (1);
 }
 
 int		fc_zjmp(t_data *data, int type, int index)
 {
+
 	(void)index;
 	if(!mem_stock(D, (char*)&(op_tab[type - command_line].opcode), 1))
 		return (0);
