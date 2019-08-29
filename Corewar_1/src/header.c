@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/29 12:54:34 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/29 13:20:42 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ int		go_to_next_elem(t_data *data, int *line_id, int *col_id)
 	{
 		D->line += i;
 		if (*(D->line) == '#')
-			skip_comment_block(D);
+			if (!(skip_comment_block(D)))
+				return (0);
 		if (*(D->line) == '\n')
 		{
 			(*line_id)++;
@@ -90,8 +91,11 @@ int		go_to_next_elem(t_data *data, int *line_id, int *col_id)
 			D->line++;
 			continue ;
 		}
-		else if (!(*D->line) && !(get_new_read(D)))
-			return (0);
+		else if (!(*D->line))
+		{
+			if (!(get_new_read(D)))
+				return (0);
+		}
 		else
 		{
 			(*col_id) = (*col_id) + i;
@@ -129,23 +133,18 @@ int		read_and_dispatch(t_data *data)
 	{
 		go_to_next_elem(D, &D->curr_line, &D->curr_index);
 		i = get_elem(D, cmd, 14, 0);
-		if (!ft_strcmp(cmd, NAME_CMD_STRING) && D->name_set)
+		if (!ft_strcmp(cmd, NAME_CMD_STRING) && (D->name_set = true))
 		{
-			D->name_set = true;
 			D->curr_index += i;
 			fc_namecom(D, D->header.prog_name, PROG_NAME_LENGTH);
 		}
-		else if (!ft_strcmp(cmd, COMMENT_CMD_STRING) && !D->comment_set)
+		else if (!ft_strcmp(cmd, COMMENT_CMD_STRING) && (D->comment_set = true))
 		{
-			D->comment_set = true;
 			D->curr_index += i;
 			fc_namecom(D, D->header.comment, COMMENT_LENGTH);
 		}
 		else
-		{
-			ft_printf("yolo\n");
 			return (get_error(D, syntax, cmd));
-		}
 	}
 	set_header(data);
 	while (go_to_next_elem(D, &D->curr_line, &D->curr_index))
