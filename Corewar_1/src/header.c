@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/29 13:20:42 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/29 16:28:50 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,10 @@ static t_op	op_tab[17] =
 
 int		set_header(t_data *data)
 {
-	if (!(change_endian(D, (char *)&(D->header.magic), 4))
-			|| !(mem_stock(D, D->header.prog_name, PROG_NAME_LENGTH))
-			|| !(change_endian(D, (char *)&(D->header.prog_size), 4))
-			|| !(mem_stock(D, D->header.comment, COMMENT_LENGTH)))
-		return (0);
+	change_endian(D, (char *)&(D->header.magic), 4);
+	mem_stock(D, D->header.prog_name, PROG_NAME_LENGTH);
+	change_endian(D, (char *)&(D->header.prog_size), 4);
+	mem_stock(D, D->header.comment, COMMENT_LENGTH);
 	return (1);
 }
 
@@ -60,12 +59,11 @@ int		get_elem(t_data *data, char *tab, int tab_size, char sep_char)
 	{
 		if (!*D->line)
 		{
-			if (!(get_new_read(data)))
-				return (0);
+			get_new_read(data);
 			continue ;
 		}
 		if (sep_char && *D->line == sep_char)
-			break;
+			break ;
 		tab[i++] = *(D->line)++;
 	}
 	tab[i] = '\0';
@@ -77,7 +75,7 @@ int		go_to_next_elem(t_data *data, int *line_id, int *col_id)
 	int		i;
 
 	if (!D->line && !get_new_read(D))
-		return (get_error(D, read_error, NULL));
+		get_error(D, read_error, NULL);
 	while ((i = skip_sp(D->line, 0)) != -1)
 	{
 		D->line += i;
@@ -113,22 +111,16 @@ int		get_type(t_data *data, char *elem)
 	while (++cpt < NB_COMMAND - 1)
 		if (!ft_strcmp(elem, op_tab[cpt].name))
 			return (command_line + cpt);
-	cpt = -1;
-	while (check_in_label_char(elem[++cpt]))
-		if (elem[cpt] == LABEL_CHAR)
-		{
-			elem[cpt] = '\0';
-			return (label_line);
-		}
-	return (get_error(D, syntax, NULL));
+	check_in_label_char(D, elem);
+	return (label_line);
 }
 
-int		read_and_dispatch(t_data *data)
+int		get_header(t_data *data)
 {
-	int		type;
 	char	cmd[14];
 	int		i;
 
+	ft_printf("bonjour\n");
 	while (!D->name_set || !D->comment_set)
 	{
 		go_to_next_elem(D, &D->curr_line, &D->curr_index);
@@ -144,20 +136,28 @@ int		read_and_dispatch(t_data *data)
 			fc_namecom(D, D->header.comment, COMMENT_LENGTH);
 		}
 		else
-			return (get_error(D, syntax, cmd));
+			get_error(D, syntax, cmd);
 	}
 	set_header(data);
+	read_and_dispatch(D);
+	return (1);
+}
+int		read_and_dispatch(t_data *data)
+{
+	int		type;
+	char	cmd[PARAM_SIZE];
+	int		i;
+
 	while (go_to_next_elem(D, &D->curr_line, &D->curr_index))
 	{
-		i = get_elem(D, cmd, 14, 0);
+		i = get_elem(D, cmd, PARAM_SIZE, 0);
 		type = get_type(D, cmd);
 		D->curr_index += i;
 		ft_printf("{blue}pc = %d elem = \"%s\"{reset} | {yellow}type = %d\n{reset}", D->pc, cmd, type);
 		if (type == 3)
 			add_to_label_list(D, cmd, D->pc);
 		if (type > 3)
-			if (!(fc_cmd(D, type, op_tab[type - command_line])))
-				return (0);
+			fc_cmd(D, type, op_tab[type - command_line]);
 		ft_printf("{cyan}-- boucle --{reset}\n");
 	}
 	fill_missing_label(D);

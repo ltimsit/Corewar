@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/28 20:13:55 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/29 15:18:09 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,15 @@ int		fc_cmd(t_data *data, int type, t_op op)
 	int		pc_cpt;
 
 	(void)type;
-	if (!mem_stock(D, (char*)&(op.opcode), 1))
-		return (0);
+	mem_stock(D, (char*)&(op.opcode), 1);
 	cpt = -1;
 	init_param_tab(p.para);
 	pc_cpt = op.ocp ? 1 : 0;
 	while (++cpt < op.nb_param)
 	{
 		ft_printf("{red}-- start param --\n{reset}");
-		if (cpt && !check_separator_char(D))
-			return (0);
+		if (cpt)
+			check_separator_char(D, p.cmd);
 		go_to_next_elem(D, &D->curr_line, &D->curr_index);
 		i = get_elem(D, p.cmd, PARAM_SIZE, SEPARATOR_CHAR);
 		p.para[cpt] = get_param_type(D, p.cmd, &p.val[cpt], pc_cpt);
@@ -59,15 +58,14 @@ int		fc_cmd(t_data *data, int type, t_op op)
 		pc_cpt += p.size_para[cpt];
 	}
 	if (op.ocp && (p.ocp = get_param_code(D, p.para[0], p.para[1], p.para[2])))
-		if (!mem_stock(D, &p.ocp, 1))
-			return (0);
-	D->pc += op.ocp ? 2 : 1;
+		mem_stock(D, &p.ocp, 1);
+//	D->pc += op.ocp ? 2 : 1;
 	cpt = -1;
+	D->pc += pc_cpt + 1;
 	while (++cpt < op.nb_param)
 	{
-		D->pc += p.size_para[cpt];
-		if (!(change_endian(D, (char *)&(p.val[cpt]), p.size_para[cpt])))
-			return (0);
+//		D->pc += p.size_para[cpt];
+		change_endian(D, (char *)&(p.val[cpt]), p.size_para[cpt]);
 	}
 	return (1);
 }

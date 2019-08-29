@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/29 12:39:43 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/29 16:46:05 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,12 @@ enum			e_error
 	syntax,
 	read_error,
 	param,
-	coma
+	coma,
+	malloc_err,
+	file_err
 };
 
-char			*err_tab[5];
+char			*err_tab[7];
 
 /*
 ** corewar.c    ----------------------------------------------------------------
@@ -170,6 +172,7 @@ int				get_elem(t_data *data, char *tab, int tab_size, char sep_char);
 int				go_to_next_elem(t_data *data, int *line_id, int *col_id);
 int				get_type(t_data *data, char *line);
 int				read_and_dispatch(t_data *data);
+int				get_header(t_data *data);
 
 /*
 ** byte_to_hexa.c---------------------------------------------------------------
@@ -190,17 +193,17 @@ int				fc_cmd(t_data *data, int type, t_op op);
 ** param_tools.c----------------------------------------------------------------
 */
 
-int				check_separator_char(t_data *data);
+int				check_separator_char(t_data *data, char *cmd);
 void			init_param_tab(int *params);
 int				check_param(t_data *data, int type, int cmd_param, char *cmd);
-int				param_type_tool(t_data *data, char *cmd, int *val);
+int				param_type_tool(char *cmd, int *val);
 int				get_param_type(t_data *data, char *cmd, int *val, int pc_cpt);
 
 /*
 ** label.c      ----------------------------------------------------------------
 */
 
-int				check_in_label_char(char letter);
+int				check_in_label_char(t_data *data, char *elem);
 int				add_to_label_instr(t_data *data, char *elem, int mem_index);
 int				add_to_label_list(t_data *data, char *elem, int pc);
 int				calc_val_from_pc(int curr_pc, int label_pc);

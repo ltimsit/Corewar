@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:37:22 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/28 19:57:08 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/29 16:55:08 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@
 int		init_data(t_data *data)
 {
 	if (!(D->gc = (t_gc *)malloc(sizeof(t_gc))))
-		return (0);
-	if (!(D->label = (t_label*)malloc(sizeof(t_label))))
-		return (0);
-	D->label->lst_add = NULL;
-	D->label->lst_instr = NULL;
+		get_error(D, malloc_err, NULL);
 	D->gc->list = NULL;
 	D->gc->head = NULL;
 	D->gc->size = 0;
+	if (!(D->label = (t_label *)ft_alloc_gc(1, sizeof(t_label), D->gc)))
+		get_error(D, malloc_err, NULL);
+	D->label->lst_add = NULL;
+	D->label->lst_instr = NULL;
+	D->label->head_add = NULL;
+	D->label->head_instr = NULL;
 	D->pc = 0;
 	D->err = 0;
 	D->line = NULL;
@@ -65,11 +67,22 @@ int		get_fd_file(char *filename)
 	return (fd);
 }
 
-void	write_in_file(t_data *data, char *output)
+void	write_in_file(t_data *data, char *output, char *filename)
 {
 	int	fd;
+	char file[128];
+	char *ext;
+	int i;
 
-	fd = open("test.cor", O_CREAT | O_RDWR | O_TRUNC, 0666);
+	ext = ".cora";
+	i = -1;
+	while (i < 128 - 4 && filename[++i] && filename[i] != '.')
+		file[i] = filename[i];
+	file[i] = '\0';
+	if (i == 128 - 4 || !filename[i])
+		get_error(D, file_err, NULL);
+	ft_strcat(file, ext);
+	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0666);
 	write(fd, output, D->mem_stock_index);
 }
 
@@ -81,14 +94,16 @@ int		main(int ac, char **av)
 		return (0);
 	if ((D.fd = get_fd_file(av[1])) == -1)
 		return (0);
+	ft_printf("fdhfdjfd\n");
 	if (!(init_data(&D)))
 		return (0);
-	if (!(read_and_dispatch(&D)))
+	ft_printf("fdhfdjfd\n");
+	if (!(get_header(&D)))
 		return (0);
 	else
 	{
 		ft_printf("{under}{cyan}Writing output file{reset}\n");
-		write_in_file(&D, D.mem_stock);
+		write_in_file(&D, D.mem_stock, av[1]);
 	}
 	ft_free_gc(D.gc);
 	free(D.gc);

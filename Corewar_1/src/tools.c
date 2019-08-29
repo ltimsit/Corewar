@@ -6,12 +6,13 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 14:16:38 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/28 17:32:03 by abinois          ###   ########.fr       */
+/*   Updated: 2019/08/29 16:45:45 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include <unistd.h>
+#include <stdlib.h>
 
 int		skip_sp(char *line, int i)
 {
@@ -31,6 +32,12 @@ int		get_error(t_data *data, int err_type, char *elem)
 {
 	D->err = err_type;
 	print_error(data, elem);
+	if (D->gc)
+	{
+		ft_free_gc(D->gc);
+		free(D->gc);
+	}
+	exit(0);
 	return (0);
 }
 
@@ -41,6 +48,8 @@ void	fill_op_and_err_tab()
 	err_tab[2] = "read error !";
 	err_tab[3] = "param error : ";
 	err_tab[4] = "missing coma !";
+	err_tab[5] = "malloc error !";
+	err_tab[6] = "file error !";
 }
 
 int		get_new_read(t_data *data)
@@ -50,9 +59,9 @@ int		get_new_read(t_data *data)
 	ret = 0;
 	if (!D->start
 			&& !(D->start = ft_alloc_gc(READSIZE + 1, sizeof(char), D->gc)))
-		return (0);
+		get_error(D, malloc_err, NULL);
 	if ((ret = read(D->fd, D->start, READSIZE)) == -1)
-		return (get_error(D, read_error, NULL));
+		get_error(D, read_error, NULL);
 	D->start[ret] = '\0';
 	D->line = D->start;
 	return (ret ? 1 : 0);

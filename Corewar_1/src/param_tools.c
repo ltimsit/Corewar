@@ -6,17 +6,17 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 13:30:25 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/28 20:13:53 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/29 15:19:49 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		check_separator_char(t_data *data)
+int		check_separator_char(t_data *data, char *cmd)
 {
 	go_to_next_elem(D, &D->curr_line, &D->curr_index);
 	if (*D->line != SEPARATOR_CHAR)
-		return (get_error(D, coma, NULL));
+		get_error(D, coma, cmd);
 	else
 	{
 		D->line++;
@@ -38,11 +38,11 @@ int		check_param(t_data *data, int type, int cmd_param, char *cmd)
 
 	ret = 0;
 	if (cmd_param && !(ret = type & cmd_param))
-		return (get_error(D, param, cmd));
+		get_error(D, param, cmd);
 	return (ret);
 }
 
-int		param_type_tool(t_data *data, char *cmd, int *val)
+int		param_type_tool(char *cmd, int *val)
 {
 	int 	value;
 	int 	i;
@@ -51,7 +51,7 @@ int		param_type_tool(t_data *data, char *cmd, int *val)
 	while (cmd[++i])
 	{
 		if (!ft_isdigit(cmd[i]) && !(i == 0 && cmd[i] == '-'))
-			return (get_error(D, syntax, cmd));
+			return (0);
 	}
 	value = ft_atoi(cmd);
 	*val = value;
@@ -75,10 +75,10 @@ int		get_param_type(t_data *data, char *cmd, int *val, int pc_cpt)
 			|| (cmd[0] == DIRECT_CHAR && (ret = DIR_CODE))
 			|| (ret = IND_CODE))
 	{
-		if (!(param_type_tool(D, cmd + (ret == IND_CODE ? 0 : 1), val)))
-			return (get_error(D, syntax, cmd));
+		if (!(param_type_tool(cmd + (ret == IND_CODE ? 0 : 1), val)))
+			get_error(D, syntax, cmd);
 		if (ret == REG_CODE && (*val < 0 || ret > 16))
-			return (get_error(D, syntax, cmd));
+			get_error(D, syntax, cmd);
 	}
 	return (ret);
 }
