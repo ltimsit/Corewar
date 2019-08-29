@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/28 14:18:09 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/29 19:10:05 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdlib.h>
 
 
-void	print_champ_h(t_champ *champ)
+void	print_champ(t_champ *champ)
 {
 	unsigned int i;
 
@@ -37,14 +37,19 @@ void	print_champ_h(t_champ *champ)
 		btohex(champ->buff[i]);
 		ft_putchar(' ');
 	}
+	ft_putchar('\n');
 }
 
-int		open_files(char *filename)
+unsigned char		*open_read(char *filename, unsigned char *buffer)
 {	
 	int	fd;
+	int	ret;
 
 	fd = open(filename, O_RDONLY);	
-	return (fd);
+	if (fd == -1)
+		ft_error("Open failed\n");
+	ret = read(fd, buffer, 10000);
+	return (buffer);
 }
 
 unsigned int change_endian(unsigned int little)
@@ -62,8 +67,7 @@ unsigned int change_endian(unsigned int little)
 	return (big);
 }
 
-
-t_champ		create_champ(unsigned char *buff)
+t_champ		new_champ(unsigned char *buff)
 {	
 	t_champ 		champ;
 
@@ -71,29 +75,40 @@ t_champ		create_champ(unsigned char *buff)
 	ft_memcpy(&champ.h, buff, sizeof(header_t));
 	champ.h.magic = change_endian(champ.h.magic);
 	champ.h.prog_size = change_endian(champ.h.prog_size);
-	champ.size = champ.h.prog_size;
 	if (champ.h.magic != COREWAR_EXEC_MAGIC)
 		ft_error("WRONG MAGIC NUMBER\n");
 	if (champ.h.prog_size > CHAMP_MAX_SIZE)
 		ft_error("CHAMP SIZE TO BIG\n");
-
 	ft_memcpy(champ.buff, buff + sizeof(header_t), champ.h.prog_size);
 	return (champ);
 }
 
+void	create_add_champ(char *filename, t_arena *arena)
+{
+	unsigned char	*buffer;
+	static int  	id_champ = 0;
+	
+	if (!(buffer = (unsigned char*)malloc(sizeof(char) * 10000)))
+		ft_error("Malloc error\n");
+	ft_bzero(buffer, 10000);
+	buffer = open_read(filename, buffer);
+	arena->champ[id_champ] = new_champ(buffer);
+	id_champ++;
+}
+
 int		main(int ac, char **av)
 {
-	int 				fd;
-	t_champ 			champ;
-	unsigned char 		buffer[10000];
-	int 				ret;
-
-	(void)ac;
-	fd = open_files(av[1]);
-	ft_bzero(buffer,9999);
-	ret = read(fd, buffer, 9999);
-	champ = create_champ(buffer);
-//	launch_fight(&champ);
-	print_champ_h(&champ);
+	int 	i;
+	t_arena arena;
+	
+	i = 0;
+	ft_bzero(&arena,sizeof(arena));
+	while (i + 1 < ac)
+	{
+		create_add_champ(av[i + 1], &arena);
+		print_champ(&arena.champ[i]);
+		i++;
+	}
+	launch_fight(&arena);
 	return (0);
 }

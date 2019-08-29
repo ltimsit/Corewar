@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/27 16:40:23 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/29 19:09:42 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,9 @@ void print_arena( t_arena *arena)
 	}
 }
 
-void launch_fight(t_champ *champ)
+void launch_fight(t_arena *arena)
 {
-	t_arena arena;
-
-	ft_bzero(&arena, sizeof(arena));
-	ft_memcpy(arena.field, champ->buff, champ->h.prog_size);
-	print_arena(&arena);
+	ft_memcpy(arena->field, arena->champ[0].buff, arena->champ[0].h.prog_size);
+	print_arena(arena);
 }
 

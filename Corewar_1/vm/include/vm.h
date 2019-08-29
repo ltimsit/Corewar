@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/28 11:18:40 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/29 19:06:38 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,41 +21,33 @@
 
 typedef struct	s_process
 {
-	unsigned char		reg[REG_NUMBER];
-	unsigned char		pc;
-	int					carry;
-	int 				live;
+	int					reg[REG_NUMBER];
+	int					pc;
+	char				carry;
+	int 				nb_live;
+	int					alive;
 	int					dead;
 
 	struct s_procces	*next;
 }				t_process;
 
-typedef struct s_instruc
-{
-	unsigned char	op;
-	unsigned char	ocp;
-	int				param_type[3];
-	int				param_len[3];
-	int				pos;
-}				t_instruc;
-
 typedef struct	s_champ
 {
-	char 		name[PROG_NAME_LENGTH + 1];
-	char		comment[COMMENT_LENGTH + 1];
 	int			id;
-	int			size;
-	int			id_start;
 	char		buff[CHAMP_MAX_SIZE];
 	t_process  *first_process;
-	header_t	h;
-	
+	header_t	h;	
 }				t_champ;
 
 typedef struct	s_arena
 {
-	t_champ			tchamp[MAX_PLAYERS];
+	int				total_cycle;
+	int				actual_cycle;
+	int 			nb_check;
+	int				nb_live;
+	t_champ			champ[MAX_PLAYERS];
 	unsigned char 	field[MEM_SIZE];
+
 }				t_arena;
 
 /*
@@ -68,7 +60,7 @@ int				btohex(unsigned char byte);
 ** arena.c
 */
 
-void			launch_fight(t_champ *champ);
-
+void			print_arena(t_arena *arena);
+void 			launch_fight(t_arena *arena);
 
 #endif
