@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/29 16:46:05 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/29 17:50:52 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "ft_printf.h"
 
 # define D data
-# define MEMSIZE 2048
+# define MEMSIZE 4096
 # define READSIZE 20
 # define PARAM_SIZE 128
 
@@ -85,6 +85,7 @@ typedef struct	s_data
 	bool		comment_set;
 	char		*mem_stock;
 	int			mem_stock_index;
+	int			size_mem_tot;
 	int			mem_size;
 }				t_data;
 
@@ -161,7 +162,7 @@ int				get_new_read(t_data *data);
 
 int				fc_namecom(t_data *data, char *namecom, int size);
 int				mem_stock(t_data *data, char *content, int content_size);
-int				change_endian(t_data *data, char *h, int size);
+int				change_endian(char *h, int size);
 
 /*
 ** header.c     ----------------------------------------------------------------

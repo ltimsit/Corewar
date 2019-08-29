@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/29 16:28:50 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/29 17:53:07 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,16 @@ static t_op	op_tab[17] =
 
 int		set_header(t_data *data)
 {
-	change_endian(D, (char *)&(D->header.magic), 4);
+/*
 	mem_stock(D, D->header.prog_name, PROG_NAME_LENGTH);
-	change_endian(D, (char *)&(D->header.prog_size), 4);
 	mem_stock(D, D->header.comment, COMMENT_LENGTH);
+	*/
+	D->size_mem_tot = D->mem_stock_index;
+	D->mem_stock_index = 0;
+	D->header.prog_size = D->pc;
+	change_endian((char *)&(D->header.magic), 4);
+	change_endian((char *)&(D->header.prog_size), 4);
+	mem_stock(D, (char *)&(D->header), sizeof(D->header));
 	return (1);
 }
 
@@ -128,17 +134,17 @@ int		get_header(t_data *data)
 		if (!ft_strcmp(cmd, NAME_CMD_STRING) && (D->name_set = true))
 		{
 			D->curr_index += i;
-			fc_namecom(D, D->header.prog_name, PROG_NAME_LENGTH);
+			fc_namecom(D, D->header.prog_name, sizeof(D->header.prog_name));//PROG_NAME_LENGTH);
 		}
 		else if (!ft_strcmp(cmd, COMMENT_CMD_STRING) && (D->comment_set = true))
 		{
 			D->curr_index += i;
-			fc_namecom(D, D->header.comment, COMMENT_LENGTH);
+			fc_namecom(D, D->header.comment, sizeof(D->header.comment)); //COMMENT_LENGTH);
 		}
 		else
 			get_error(D, syntax, cmd);
 	}
-	set_header(data);
+//	set_header(data);
 	read_and_dispatch(D);
 	return (1);
 }
@@ -161,5 +167,6 @@ int		read_and_dispatch(t_data *data)
 		ft_printf("{cyan}-- boucle --{reset}\n");
 	}
 	fill_missing_label(D);
+	set_header(data);
 	return (1);
 }

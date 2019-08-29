@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/29 15:18:09 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/29 17:33:54 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int		fc_cmd(t_data *data, int type, t_op op)
 	while (++cpt < op.nb_param)
 	{
 //		D->pc += p.size_para[cpt];
-		change_endian(D, (char *)&(p.val[cpt]), p.size_para[cpt]);
+		change_endian((char *)&(p.val[cpt]), p.size_para[cpt]);
+		mem_stock(D, (char *)&(p.val[cpt]), p.size_para[cpt]);
 	}
 	return (1);
 }

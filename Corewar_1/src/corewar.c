@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:37:22 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/29 16:55:08 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/29 17:51:21 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int		init_data(t_data *data)
 	D->name_set = false;
 	D->comment_set = false;
 	D->mem_stock = NULL;
+	D->mem_stock_index = sizeof(D->header);
 	D->mem_size = MEMSIZE;
 	D->header.magic = COREWAR_EXEC_MAGIC;
 	D->header.prog_size = 23;
@@ -83,7 +84,7 @@ void	write_in_file(t_data *data, char *output, char *filename)
 		get_error(D, file_err, NULL);
 	ft_strcat(file, ext);
 	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0666);
-	write(fd, output, D->mem_stock_index);
+	write(fd, output, D->size_mem_tot);
 }
 
 int		main(int ac, char **av)

@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 10:55:17 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/29 15:14:37 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/29 17:46:21 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int			mem_stock(t_data *data, char *content, int content_size)
 	{
 		if (!(D->mem_stock = ft_alloc_gc(D->mem_size, sizeof(char), D->gc)))
 			get_error(D, malloc_err, NULL);
-		D->mem_stock_index = 0;
 	}
 	if (D->mem_stock_index + content_size >= D->mem_size)
 	{
@@ -38,7 +37,7 @@ int			mem_stock(t_data *data, char *content, int content_size)
 	return (1);
 }
 
-int			change_endian(t_data *data, char *h, int size)
+int			change_endian(char *h, int size)
 {
 	char	endian[size];
 	int		i;
@@ -46,7 +45,9 @@ int			change_endian(t_data *data, char *h, int size)
 	i = -1;
 	while (++i < size)
 		endian[i] = h[size - 1 - i];
-	mem_stock(D, endian, size);
+	i = -1;
+	while (++i < size)
+		h[i] = endian[i];
 	return (1);
 }
 
