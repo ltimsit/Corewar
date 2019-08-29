@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:37:22 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/29 17:51:21 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/29 18:55:46 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int		init_data(t_data *data)
 	D->err = 0;
 	D->line = NULL;
 	D->start = NULL;
-	D->curr_line = 0;
-	D->curr_index = 0;
+	D->curr_line = 1;
+	D->curr_index = 1;
 	D->chmp_name = NULL;
 	D->chmp_com = NULL;
 	D->name_set = false;
@@ -61,10 +61,14 @@ void	print_error(t_data *data, char *elem)
 
 int		get_fd_file(char *filename)
 {
-//	(void)filename;
 	int fd;
 
 	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_printf("read error or file \"%s\" does not exist\n", filename);
+		exit(0);
+	}
 	return (fd);
 }
 
@@ -84,6 +88,7 @@ void	write_in_file(t_data *data, char *output, char *filename)
 		get_error(D, file_err, NULL);
 	ft_strcat(file, ext);
 	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0666);
+	ft_printf("{under}{cyan}Writing output file in \"%s\"{reset}\n", file);
 	write(fd, output, D->size_mem_tot);
 }
 
@@ -103,7 +108,6 @@ int		main(int ac, char **av)
 		return (0);
 	else
 	{
-		ft_printf("{under}{cyan}Writing output file{reset}\n");
 		write_in_file(&D, D.mem_stock, av[1]);
 	}
 	ft_free_gc(D.gc);

@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:16:33 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/29 15:18:39 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/29 18:55:47 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int		check_in_label_char(t_data *data, char *elem)
 		if (!label_chars[i])
 			get_error(D, syntax, elem);
 	}
+	get_error(D, syntax, elem);
 	return (0);
 }
 

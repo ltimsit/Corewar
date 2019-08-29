@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/29 17:53:07 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/08/29 18:55:48 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		go_to_next_elem(t_data *data, int *line_id, int *col_id)
 		if (*(D->line) == '\n')
 		{
 			(*line_id)++;
-			*col_id = 0;
+			*col_id = 1;
 			D->line++;
 			continue ;
 		}
@@ -126,7 +126,6 @@ int		get_header(t_data *data)
 	char	cmd[14];
 	int		i;
 
-	ft_printf("bonjour\n");
 	while (!D->name_set || !D->comment_set)
 	{
 		go_to_next_elem(D, &D->curr_line, &D->curr_index);
