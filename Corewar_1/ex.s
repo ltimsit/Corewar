@@ -3,7 +3,8 @@ e   "
  
 .comment "just a basic living prog"
 		
-l2:	sti	r1,%:live,%0 #banane
+l2:	sti	r1,%:live,%1
 	and	r1,%0,r1
+#3comment#    
 live:	live	%1
 	zjmp	%:live

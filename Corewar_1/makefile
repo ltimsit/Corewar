@@ -1,7 +1,8 @@
 NAME = coretest
 
 SRCS = $(addprefix $(SRCDIR)/, $(addsuffix .c, \
-	   corewar tools champtools header byte_to_hexa param param_tools label))
+	   corewar champtools header byte_to_hexa param label \
+	   tools tools2 param_tools))
 
 OBJ = $(SRCS:.c=.o)
 DEP = $(SRCS:.c=.d)
