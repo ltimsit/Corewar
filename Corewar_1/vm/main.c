@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/31 16:55:58 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/31 18:49:47 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int		main(int ac, char **av)
 		i++;
 	}
 	load_champ(&arena);
-	read_ocp(1, 0x64);
+//	read_ocp(1, 0x64);
 //	print_arena(&arena);
 	launch_fight(&arena);
 	return (0);

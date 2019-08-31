@@ -1,4 +1,4 @@
-NAME = coretest
+NAME = vm
 
 SRCS = $(addprefix $(SRCDIR), $(addsuffix .c, \
 	   arena main operation process utils))
@@ -12,7 +12,7 @@ LIBFTPRINTF = ../libftprintf.a
 LIBMLX = libmlx.a
 INC = -I include -I ../libft
 
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 CC = gcc $(INC) $(FLAGS) -c
 
 BLACK = \033[30m
@@ -49,7 +49,7 @@ $(LIBFT) : force
 force :
 
 clean :
-	@make clean -C libft
+	@make clean -C ../libft
 	@rm -f $(OBJ)
 	@echo "$(MAGENTA)SUPPR  $(YELLOW)OBJ $(MAGENTA): $(GREEN) OK !$(NOCOLOR)"
 	@rm -f $(DEP)
@@ -57,7 +57,7 @@ clean :
 	@echo "$(GREEN)LEMIN CLEAN : 👌 $(NOCOLOR)"
 
 fclean : clean
-	@make fclean -C libft
+	@make fclean -C ../libft
 	@echo "$(MAGENTA)SUPPR  $(YELLOW)EXE$(MAGENTA): $(RED)$(NAME)$(NOCOLOR)"
 	@rm -rf $(NAME)
 

@@ -6,14 +6,13 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/31 16:37:48 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/31 18:49:46 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/vm.h"
 #include "include/op.h"
 
-/*
 static t_op	op_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
@@ -40,9 +39,34 @@ static t_op	op_tab[17] =
 	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0},
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
-*/
 
-void	read_ocp(int dir_size, char ocp)
+void	fc_sti(t_op op, t_process *process, t_arena *arena)
+{
+	t_ocp	ocp;
+
+	ocp = read_ocp(1, arena->field[update_pc(process->pc, 1)]);
+	process->c_todo = op.time;
+	process->pc_next = ocp.param1 + ocp.param2 + ocp.param3 + 1 + op.ocp ? 1 : 0;
+
+	ft_memcpy((char *)&process->param1, &arena->field[update_pc(process->pc, 2)], ocp.param1);
+	ft_memcpy((char *)&process->param2, &arena->field[update_pc(process->pc, 2 + ocp.param1)], ocp.param2);
+	ft_memcpy((char *)&process->param3, &arena->field[update_pc(process->pc, 2 + ocp.param1 + ocp.param2)], ocp.param3);
+
+	process->dest_pc = update_pc(process->pc, process->param2 + process->param3);
+	ft_memcpy(process->data, (char *)&process->reg[process->param1], 4);
+}
+
+void	read_instruction(t_arena *arena, t_process *process, char opcode)
+{
+	g_fct_instr[(int)opcode](op_tab[(int)opcode - 1], process, arena);
+}
+
+void	execute_sti(t_process *process, t_arena *arena)
+{
+	ft_memcpy(&arena->field[process->dest_pc], process->data, 2);
+}
+
+t_ocp	read_ocp(int dir_size, char ocp)
 {
 	int i;
 	int mask;
@@ -65,5 +89,14 @@ void	read_ocp(int dir_size, char ocp)
 		i += 2;
 		val--;
 	}
+	return (new_ocp);
 	ft_printf("--- %d %d %d ---\n", new_ocp.param1, new_ocp.param2, new_ocp.param3);
 }
+
+void	init_fct_instr_tab()
+{
+	g_fct_instr[0] = NULL;
+//	g_fct_instr[1] = fc_live;
+	g_fct_instr[0x0b] = fc_sti;
+}
+

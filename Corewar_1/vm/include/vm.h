@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/31 17:32:07 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/31 18:41:01 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ typedef struct	s_process
 	int					c_total;
 	int					alive;
 	int					dead;
+	char				data[4];
+	int					param1;
+	int					param2;
+	int					param3;
+	int					dest_pc;
 
 	struct s_process	*next;
 }				t_process;
@@ -77,6 +82,8 @@ typedef struct	s_ocp
 	int			param3;
 }				t_ocp;
 
+void	(*g_fct_instr[17])(t_op, t_process *, t_arena *);
+
 /*
 ** utils.c
 */
@@ -90,6 +97,7 @@ int				btohex(unsigned char byte);
 void			load_champ(t_arena *arena);
 void			print_arena(t_arena *arena);
 void 			launch_fight(t_arena *arena);
+int				update_pc(int old_pc, int i);
 
 /*
 ** process.c
@@ -103,6 +111,8 @@ void			print_process(t_champ *champ);
 ** operation.c
 */
 
-void	read_ocp(int dir_size, char ocp);
+t_ocp			read_ocp(int dir_size, char ocp);
+void			read_instruction(t_arena *arena, t_process *process, char opcode);
+void			execute_sti(t_process *process, t_arena *field);
 
 #endif

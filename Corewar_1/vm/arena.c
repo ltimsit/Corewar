@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/31 17:31:36 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/31 18:49:45 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	load_champ(t_arena *arena)
 	int	i;
 	int	space;
 
+	ft_printf("bonjour \n");
 	i = -1;
 	space = MEM_SIZE / arena->nb_champ;
 	while (++i < arena->nb_champ)
@@ -56,13 +57,14 @@ int		update_pc(int old_pc, int i)
 }
 
 
-
 void	check_process(t_arena *arena, t_process *process)
 {
+	char opcode;
+
 	if (!process->c_todo)
 	{
-		if (arena->field[process->pc] > 0 && arena->field[process->pc] < 17)
-			read_instruction(arena);
+		if ((opcode = arena->field[process->pc]) > 0 && opcode < 17)
+			read_instruction(arena, process, opcode);
 		else
 			process->pc = update_pc(process->pc, 1);
 	}
@@ -73,7 +75,7 @@ void	check_process(t_arena *arena, t_process *process)
 	else
 	{
 		process->pc = process->pc_next;
-		execute_instruction();
+		execute_sti(process, arena);
 	}
 }
 
@@ -92,11 +94,15 @@ void	process_champ(t_arena *arena, t_champ *champ)
 void launch_fight(t_arena *arena)
 {
 	int i;
+	int j;
 
-	while (1)
+	j = -1;
+	ft_printf("bonjour \n");
+	while (++j < 26)
 	{
 		i = -1;
 		while (++i < arena->nb_champ)
 			process_champ(arena, &arena->champ[i]);
 	}
+	print_arena(arena);
 }
