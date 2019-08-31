@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/29 19:10:05 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/31 16:55:58 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	print_champ(t_champ *champ)
 		btohex(champ->buff[i]);
 		ft_putchar(' ');
 	}
+	ft_putchar('\n');
 	ft_putchar('\n');
 }
 
@@ -88,12 +89,17 @@ void	create_add_champ(char *filename, t_arena *arena)
 	unsigned char	*buffer;
 	static int  	id_champ = 0;
 	
-	if (!(buffer = (unsigned char*)malloc(sizeof(char) * 10000)))
+	if (!(buffer = (unsigned char*)ft_alloc_gc(CHAMP_MAX_SIZE +
+				   	sizeof(header_t), sizeof(char), arena->gc)))
 		ft_error("Malloc error\n");
 	ft_bzero(buffer, 10000);
 	buffer = open_read(filename, buffer);
 	arena->champ[id_champ] = new_champ(buffer);
+	add_process(arena, id_champ);
+	init_process(arena->champ[id_champ].process, id_champ);
 	id_champ++;
+	arena->nb_champ++;
+	printf("yo %d\n", arena->nb_champ);
 }
 
 int		main(int ac, char **av)
@@ -103,12 +109,18 @@ int		main(int ac, char **av)
 	
 	i = 0;
 	ft_bzero(&arena,sizeof(arena));
+	if (!(arena.gc = (t_gc*)malloc(sizeof(t_gc))))
+		ft_error("Malloc error\n");
+	ft_bzero(arena.gc, sizeof(t_gc));
 	while (i + 1 < ac)
 	{
 		create_add_champ(av[i + 1], &arena);
 		print_champ(&arena.champ[i]);
 		i++;
 	}
+	load_champ(&arena);
+	read_ocp(1, 0x64);
+//	print_arena(&arena);
 	launch_fight(&arena);
 	return (0);
 }
