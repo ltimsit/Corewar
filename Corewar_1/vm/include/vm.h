@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/31 18:41:01 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/01 12:55:15 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct	s_process
 typedef struct	s_champ
 {
 	int			id;
+	int 		pos;
 	char		buff[CHAMP_MAX_SIZE];
 	t_process  *process;
 	t_process  *p_head;
@@ -82,8 +83,9 @@ typedef struct	s_ocp
 	int			param3;
 }				t_ocp;
 
-void	(*g_fct_instr[17])(t_op, t_process *, t_arena *);
+void	(*g_fct_instr[17])(t_op, t_process*, t_arena*);
 
+unsigned int change_endian(unsigned int little);
 /*
 ** utils.c
 */

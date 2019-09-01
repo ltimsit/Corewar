@@ -12,7 +12,7 @@ LIBFTPRINTF = ../libftprintf.a
 LIBMLX = libmlx.a
 INC = -I include -I ../libft
 
-FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g 
 CC = gcc $(INC) $(FLAGS) -c
 
 BLACK = \033[30m

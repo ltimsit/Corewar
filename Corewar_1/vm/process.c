@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:40:52 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/31 17:32:18 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/01 12:30:45 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,21 @@ void	init_process(t_process *process, int id_champ)
 
 
 
-void	add_process(t_arena *arena, int id_champ)
+void	add_process(t_arena *arena, int pos)
 {
 	t_process *new_process;
 
 	if (!(new_process = ft_alloc_gc(1, sizeof(t_process), arena->gc)))
 		ft_error("Malloc error\n");
-	if (!(arena->champ[id_champ].p_head))
+	ft_bzero(new_process, sizeof(t_process));
+	if (!(arena->champ[pos].p_head))
 	{
-		arena->champ[id_champ].p_head = new_process;
-		arena->champ[id_champ].process = new_process;
+		arena->champ[pos].p_head = new_process;
+		arena->champ[pos].process = new_process;
 	}
 	else
 	{
-		arena->champ[id_champ].process->next = new_process;
-		arena->champ[id_champ].process = new_process;
+		arena->champ[pos].process->next = new_process;
+		arena->champ[pos].process = new_process;
 	}
-	ft_bzero(new_process, sizeof(t_process));
 }	

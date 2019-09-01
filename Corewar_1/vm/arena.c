@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/31 18:49:45 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/01 10:55:38 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void print_arena( t_arena *arena)
 
 	i = -1;
 	count = 0;
-	while (++i < MEM_SIZE)
+	while (++i < 32)
 	{
 		btohex(arena->field[i]);
 		count++;
@@ -38,17 +38,17 @@ void	load_champ(t_arena *arena)
 	int	i;
 	int	space;
 
-	ft_printf("bonjour \n");
 	i = -1;
+	
 	space = MEM_SIZE / arena->nb_champ;
 	while (++i < arena->nb_champ)
 	{
 		ft_memcpy(arena->field + (i * space), arena->champ[i].buff,
 		   	arena->champ[i].h.prog_size);
 		arena->champ[i].process->pc = i * space;
-		print_process(&arena->champ[i]);
-	//	arena->champ[i];
+	//	print_process(&arena->champ[i]);
 	}
+
 }
 
 int		update_pc(int old_pc, int i)
@@ -64,9 +64,13 @@ void	check_process(t_arena *arena, t_process *process)
 	if (!process->c_todo)
 	{
 		if ((opcode = arena->field[process->pc]) > 0 && opcode < 17)
+		{
+			ft_printf("\n");
 			read_instruction(arena, process, opcode);
+		}
 		else
 			process->pc = update_pc(process->pc, 1);
+		process->c_done++;
 	}
 	else if (process->c_done < process->c_todo)
 	{
@@ -74,6 +78,7 @@ void	check_process(t_arena *arena, t_process *process)
 	}
 	else
 	{
+		ft_printf("exec\n");
 		process->pc = process->pc_next;
 		execute_sti(process, arena);
 	}
@@ -97,12 +102,17 @@ void launch_fight(t_arena *arena)
 	int j;
 
 	j = -1;
-	ft_printf("bonjour \n");
 	while (++j < 26)
 	{
 		i = -1;
 		while (++i < arena->nb_champ)
+		{
+//			ft_printf("boucle cycle\n");
 			process_champ(arena, &arena->champ[i]);
+//			ft_printf("cycle : %d\n", j + 1);
+//			print_arena(arena);
+//			ft_putchar('\n');
+		}
 	}
 	print_arena(arena);
 }
