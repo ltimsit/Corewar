@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/01 10:55:38 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/01 15:22:06 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	check_process(t_arena *arena, t_process *process)
 	{
 		if ((opcode = arena->field[process->pc]) > 0 && opcode < 17)
 		{
-			ft_printf("\n");
+			ft_printf("process opcode == %hhd\n", opcode);
 			read_instruction(arena, process, opcode);
 		}
 		else
@@ -74,6 +74,7 @@ void	check_process(t_arena *arena, t_process *process)
 	}
 	else if (process->c_done < process->c_todo)
 	{
+		ft_printf("cycle -- \n");
 		process->c_done++;
 	}
 	else
@@ -91,7 +92,9 @@ void	process_champ(t_arena *arena, t_champ *champ)
 	tmp = champ->p_head;
 	while (tmp)
 	{
+		ft_printf("process_champ 1 -- \n");
 		check_process(arena, tmp);
+		ft_printf("process_champ 2 -- \n");
 		tmp = tmp->next;
 	}
 }
@@ -102,12 +105,14 @@ void launch_fight(t_arena *arena)
 	int j;
 
 	j = -1;
+	print_arena(arena);
+	ft_putchar('\n');
 	while (++j < 26)
 	{
 		i = -1;
 		while (++i < arena->nb_champ)
 		{
-//			ft_printf("boucle cycle\n");
+			ft_printf("boucle cycle\n");
 			process_champ(arena, &arena->champ[i]);
 //			ft_printf("cycle : %d\n", j + 1);
 //			print_arena(arena);

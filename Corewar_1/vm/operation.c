@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/01 12:48:17 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/01 15:18:31 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,29 @@ static t_op	op_tab[17] =
 
 void	fc_sti(t_op op, t_process *process, t_arena *arena)
 {
-	t_ocp	ocp;
+	t_param	param;
 
-	ocp = read_ocp(1, arena->field[update_pc(process->pc, 1)]);
+	read_ocp(&param, 1, arena->field[update_pc(process->pc, 1)]);
 	process->c_todo = op.time;
-	process->pc_next = ocp.param1 + ocp.param2 + ocp.param3 + 1 + op.ocp ? 1 : 0;
-	ft_printf("data %x\n", process->data[2]);
-	ft_printf("ocp1 :%d , ocp2 :%d, ocp3:%d \n", ocp.param1, ocp.param2, ocp.param3);
-	ft_printf("%d",process->dest_pc);
+	process->pc_next = param.size[0] + param.size[1]
+		+ param.size[2] + 1 + op.ocp ? 1 : 0;
+	ft_printf("data %x\n", param.data);
+	ft_printf("ocp1 :%d , ocp2 :%d, ocp3:%d \n", param.size[0], param.size[1], param.size[2]);
 
-	ft_memcpy((char*)&process->param1, &arena->field[update_pc(process->pc, 2)], ocp.param1);
-	ft_memcpy((char*)&process->param2 , &arena->field[update_pc(process->pc, 2 + ocp.param1)], ocp.param2);
+
+	stock_in_param(arena, &param.value[0], 1, update_pc(process->pc, 2));
+	stock_in_param(arena, &param.value[1], 2, update_pc(process->pc, 2 + param.size[0]));
+	stock_in_param(arena, &param.value[2], 2,
+			update_pc(process->pc, 2 + param.size[0] + param.size[1]));
+	param.data = change_endian(process->reg[change_endian(param.value[0]) - 1]);
+	ft_printf("re[0] = %d\n", process->reg[0]);
 	
-	ft_memcpy((char*)&process->param3, &arena->field[update_pc(process->pc, 2 + ocp.param1 + ocp.param2)], ocp.param3);
-	ft_memcpy(&process->data, (char *)&process->reg[process->param1], 4);
-	
-	process->param2= change_endian(process->param2);
-	process->param3= process->param3 >>	8;
-	process->dest_pc = update_pc(process->pc, process->param2 + process->param3);
-	ft_printf("param 1 :%d , param 2:%hd , param 3:%hd , dest :%d\n", process->param1
-			,process->param2, process->param3, process->dest_pc);
-	ft_printf("param 1 :%#x , param 2:%#x , param 3:%#x , dest :%#x  data: %d\n", process->param1
-			,process->param2, process->param3, process->dest_pc, (int)(*process->data));
+	param.dest_pc = update_pc(process->pc, change_endian(param.value[1] + param.value[2]));
+	ft_printf("param 1 :%d , param 2:%hd , param 3:%hd , dest :%d\n", param.value[0]
+			, param.value[1], param.value[2], param.dest_pc);
+	ft_printf("param 1 :%.2x , param 2:%.2x , param 3:%.2x , dest :%.2x\n", param.value[0]
+			, param.value[1], param.value[2], param.dest_pc);
+	process->param = param;
 }
 
 void	init_fct_instr_tab()
@@ -84,10 +85,13 @@ void	read_instruction(t_arena *arena, t_process *process, char opcode)
 
 void	execute_sti(t_process *process, t_arena *arena)
 {
-	ft_memcpy(&arena->field[process->dest_pc], &process->data, 4);
+//	ft_printf("data =%d, dest_pc = %d\n", (int)process->data, process->dest_pc);
+//	ft_memcpy(&arena->field[process->dest_pc], (char *)&process->data, 4);
+	ft_printf("fjdkjshjkshgkjdfhg\n");
+	put_param_in_field(arena, process->param.data, 4, process->param.dest_pc);
 }
 
-t_ocp	read_ocp(int dir_size, char ocp)
+void	read_ocp(t_param *param, int dir_size, char ocp)
 {
 	int i;
 	int mask;
@@ -97,7 +101,7 @@ t_ocp	read_ocp(int dir_size, char ocp)
 
 	mask = 3;
 	i = 2;
-	val = &new_ocp.param3;
+	val = &param->size[2];
 	while (i < 8)
 	{
 		cmp = ((ocp >> i) & mask);
@@ -110,6 +114,5 @@ t_ocp	read_ocp(int dir_size, char ocp)
 		i += 2;
 		val--;
 	}
-	return (new_ocp);
 	ft_printf("--- %d %d %d ---\n", new_ocp.param1, new_ocp.param2, new_ocp.param3);
 }

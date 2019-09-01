@@ -1,7 +1,7 @@
 NAME = vm
 
 SRCS = $(addprefix $(SRCDIR), $(addsuffix .c, \
-	   arena main operation process utils))
+	   arena main operation process utils tools))
 
 OBJ = $(SRCS:.c=.o)
 DEP = $(SRCS:.c=.d)

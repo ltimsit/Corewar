@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/01 12:55:15 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/01 15:09:28 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@
 # include "../../libft/libft.h"
 
 
+typedef struct	s_param
+{
+	int			value[3];
+	int			size[3];
+	int			data;
+	int			data_size;
+	int			dest_pc;
+}				t_param;
 
 typedef struct	s_process
 {
@@ -32,11 +40,7 @@ typedef struct	s_process
 	int					c_total;
 	int					alive;
 	int					dead;
-	char				data[4];
-	int					param1;
-	int					param2;
-	int					param3;
-	int					dest_pc;
+	t_param				param;
 
 	struct s_process	*next;
 }				t_process;
@@ -83,6 +87,7 @@ typedef struct	s_ocp
 	int			param3;
 }				t_ocp;
 
+
 void	(*g_fct_instr[17])(t_op, t_process*, t_arena*);
 
 unsigned int change_endian(unsigned int little);
@@ -113,8 +118,11 @@ void			print_process(t_champ *champ);
 ** operation.c
 */
 
-t_ocp			read_ocp(int dir_size, char ocp);
+void			read_ocp(t_param *param, int dir_size, char ocp);
 void			read_instruction(t_arena *arena, t_process *process, char opcode);
 void			execute_sti(t_process *process, t_arena *field);
+
+void	stock_in_param(t_arena *arena, int *param, int size, int pc);
+void 			put_param_in_field(t_arena *arena, int param, int size, int pc);
 
 #endif
