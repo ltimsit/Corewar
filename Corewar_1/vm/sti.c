@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:34:46 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/02 14:50:10 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/02 18:56:01 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,8 @@ void	fc_sti(t_op op, t_process *process, t_arena *arena)
 	ft_printf("YO");
 	i = -1;
 	ft_bzero(&param, sizeof(param));
-	param = fill_param(arena, op, process);
+	param = fill_param(arena, op, process, elem);
 	ft_printf("\ntodo = %d val[0] = %x\n", process->c_todo, param.value[0]);
-	while (++i < 3)
-	{
-		ft_printf("{rev}param type = %d\n{rev}", param.type[i]);
-		if (param.type[i] == REG_CODE)
-			elem[i] = process->reg[change_endian(param.value[i]) - 1];
-		else if (param.type[i] == DIR_CODE)
-			elem[i] = param.value[i];
-		else if (param.type[i] == IND_CODE)
-			elem[i] = fill_index_content(arena, process, param, i);
-	}
 	ft_printf("elem[0] = %d \n", elem[0]);
 	param.data = change_endian(elem[0]);
 	ft_printf("re[0] = %d\n", process->reg[0]);

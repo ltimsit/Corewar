@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/02 15:41:36 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/02 18:42:06 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct	s_param
 	int			data;
 	int			data_size;
 	int			dest_pc;
+	int			error;
 }				t_param;
 
 typedef struct	s_process
@@ -106,7 +107,7 @@ int				btohex(unsigned char byte);
 
 void			stock_in_param(t_arena *arena, int *param, int size, int pc);
 void 			put_param_in_field(t_arena *arena, int param, int size, int pc);
-int				fill_index_content(t_arena *arena, t_process *process, t_param param, int i);
+int				fill_index_content(t_arena *arena, t_process *process, int val);
 void 			put_data_in_reg(t_process *process, int reg_nb);
 
 /*
@@ -149,8 +150,9 @@ void			set_op_table(t_arena *arena);
  ** operation.c
  */
 
-t_param			fill_param(t_arena *arena, t_op op, t_process *process);
-void			read_ocp(t_param *param, int dir_size, char ocp);
+t_param			fill_param(t_arena *arena, t_op op, t_process *process, int elem[3]);
+void			fill_elem(t_arena *arena, t_process *process, int nb_elem, int elem[3]);
+void			read_ocp(t_param *param, int dir_size, char ocp, int param_type[3]);
 void			read_instruction(t_arena *arena, t_process *process, char opcode);
 void			execute_sti(t_process *process, t_arena *field);
 
