@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:40:52 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/01 12:30:45 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/02 16:07:23 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	init_process(t_process *process, int id_champ)
 {
 	process->reg[0] = id_champ;
 	process->alive = 1;
-	process->nb_live = 0;
 }
 
 

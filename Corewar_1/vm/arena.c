@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/01 18:38:07 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/02 15:44:28 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,6 @@ void	load_champ(t_arena *arena)
 	}
 
 }
-
-int		update_pc(int old_pc, int i)
-{
-	return ((old_pc + i) % MEM_SIZE);
-}
-
 
 void	check_process(t_arena *arena, t_process *process)
 {
@@ -111,7 +105,7 @@ void launch_fight(t_arena *arena)
 	j = -1;
 	print_arena(arena);
 	ft_putchar('\n');
-	while (++j < 44)
+	while (++j < 50)
 	{
 		i = -1;
 		while (++i < arena->nb_champ)

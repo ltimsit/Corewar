@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 15:17:25 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/27 15:58:39 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/02 15:34:06 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ void	ft_error(char *message)
 	ft_putstr(message);
 	exit(EXIT_FAILURE);	
 }
+
+int		update_pc(int old_pc, int i)
+{
+	return ((old_pc + i) % MEM_SIZE);
+}
+
 
 int		btohex(unsigned char byte)
 {
