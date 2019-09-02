@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/01 15:09:28 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/01 18:35:56 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct	s_param
 {
 	int			value[3];
 	int			size[3];
+	int			type[3];
 	int			data;
 	int			data_size;
 	int			dest_pc;
@@ -34,6 +35,7 @@ typedef struct	s_process
 	int					pc;
 	int 				pc_next;
 	char				carry;
+	char				opcode;
 	int 				nb_live;
 	int 				c_done;
 	int					c_todo;
@@ -89,6 +91,7 @@ typedef struct	s_ocp
 
 
 void	(*g_fct_instr[17])(t_op, t_process*, t_arena*);
+void	(*g_fct_exec[17])(t_process*, t_arena*);
 
 unsigned int change_endian(unsigned int little);
 /*
@@ -121,8 +124,16 @@ void			print_process(t_champ *champ);
 void			read_ocp(t_param *param, int dir_size, char ocp);
 void			read_instruction(t_arena *arena, t_process *process, char opcode);
 void			execute_sti(t_process *process, t_arena *field);
+void			execute_and(t_process *process, t_arena *arena);
+void			execute_live(t_process *process, t_arena *arena);
+
+/*
+** tools.c
+*/
 
 void	stock_in_param(t_arena *arena, int *param, int size, int pc);
 void 			put_param_in_field(t_arena *arena, int param, int size, int pc);
+void			put_data_in_reg(t_process *process, int reg_nb);
+int		fill_index_content(t_arena *arena, t_process *process, t_param param, int i);
 
 #endif

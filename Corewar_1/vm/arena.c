@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/01 15:22:06 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/01 18:38:07 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,13 @@ void	check_process(t_arena *arena, t_process *process)
 {
 	char opcode;
 
+	ft_printf("{red}todo = %d\n{reset}", process->c_todo);
 	if (!process->c_todo)
 	{
 		if ((opcode = arena->field[process->pc]) > 0 && opcode < 17)
 		{
 			ft_printf("process opcode == %hhd\n", opcode);
+			process->opcode = opcode;
 			read_instruction(arena, process, opcode);
 		}
 		else
@@ -80,8 +82,11 @@ void	check_process(t_arena *arena, t_process *process)
 	else
 	{
 		ft_printf("exec\n");
-		process->pc = process->pc_next;
-		execute_sti(process, arena);
+		process->pc = update_pc(process->pc, process->pc_next);
+		ft_printf("{yellow}pc = %d\n{reset}", process->pc);
+		process->c_done = 0;
+		process->c_todo = 0;
+		g_fct_exec[(int)process->opcode](process, arena);
 	}
 }
 
@@ -92,10 +97,9 @@ void	process_champ(t_arena *arena, t_champ *champ)
 	tmp = champ->p_head;
 	while (tmp)
 	{
-		ft_printf("process_champ 1 -- \n");
 		check_process(arena, tmp);
-		ft_printf("process_champ 2 -- \n");
 		tmp = tmp->next;
+//		ft_printf("tmp = %p\n", tmp);
 	}
 }
 
@@ -107,15 +111,15 @@ void launch_fight(t_arena *arena)
 	j = -1;
 	print_arena(arena);
 	ft_putchar('\n');
-	while (++j < 26)
+	while (++j < 44)
 	{
 		i = -1;
 		while (++i < arena->nb_champ)
 		{
-			ft_printf("boucle cycle\n");
+			ft_printf("boucle cycle : %d\n", j + 1);
 			process_champ(arena, &arena->champ[i]);
 //			ft_printf("cycle : %d\n", j + 1);
-//			print_arena(arena);
+			print_arena(arena);
 //			ft_putchar('\n');
 		}
 	}
