@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/03 14:32:21 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/03 15:55:54 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	load_champ(t_arena *arena)
 void	check_process(t_arena *arena, t_process *process)
 {
 	char opcode;
+	int j;
 
 //	ft_printf("{red}todo = %d\n{reset}", process->c_todo);
 	if (!process->c_todo)
@@ -82,6 +83,11 @@ void	check_process(t_arena *arena, t_process *process)
 		process->c_done = 0;
 		process->c_todo = 0;
 		g_fct_exec[(int)process->opcode](process, arena);
+	}
+	j = -1;
+	while (++j < 17)
+	{
+		n_print_reg(process, arena, j);
 	}
 	n_print_pc(process->pc, arena, 0);
 }

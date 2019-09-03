@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:25:02 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/03 14:36:30 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/03 15:56:26 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void nprint_arena(t_arena *arena)
 	while (++i < MEM_SIZE)
 	{
 		nbtohex(arena->field[i], line, col);
-		if (col != COLS - 2)
+		if (col != COLS - CMENU - 2)
 			mvaddch(line, col + 2, ' ');
-		if (col == COLS - 2)
+		if (col >= COLS - CMENU - 2)
 		{
 			line++;
 			col = 0;
@@ -52,14 +52,31 @@ void nprint_arena(t_arena *arena)
 	}
 }
 
+void	n_print_reg(t_process *process, t_arena *arena, int reg_nb)
+{
+	int col;
+	int line;
+	int i;
+	(void)arena;
+
+	i = -1;
+	col = COLS - CMENU + 3;
+	line = reg_nb;
+	while (++i < 4)
+	{
+		nbtohex(((char *)&process->reg[reg_nb])[i], line, col);
+		col += 3;
+	}
+}
+
 int		pc_to_line_col(int pc, int option)
 {
 	if (!option)
 	{
-		return (pc / (COLS / 3));
+		return (pc / ((COLS - CMENU) / 3));
 	}
 	else
-		return ((pc % COLS) * 3);
+		return ((pc % (COLS - CMENU)) * 3);
 }
 
 void	n_print_op_exec(int pc, int size, t_arena *arena)

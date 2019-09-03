@@ -2,7 +2,7 @@ NAME = vm
 
 SRCS = $(addprefix $(SRCDIR), $(addsuffix .c, \
 	   arena main operation process utils tools op champ live  and sti \
-	   zjump ncurses))
+	   sub add or xor zjump ncurses))
 
 OBJ = $(SRCS:.c=.o)
 DEP = $(SRCS:.c=.d)

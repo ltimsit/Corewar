@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/03 14:37:03 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/03 16:12:23 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define PLAYER_2 2
 # define PLAYER_3 3
 # define PLAYER_4 4
+# define CMENU	25
 
 typedef struct	s_param
 {
@@ -115,7 +116,7 @@ int				btohex(unsigned char byte);
 void			stock_in_param(t_arena *arena, int *param, int size, int pc);
 void 			put_param_in_field(t_arena *arena, int param, int size, int pc);
 int				fill_index_content(t_arena *arena, t_process *process, int val);
-void 			put_data_in_reg(t_process *process, int reg_nb);
+void 			put_data_in_reg(t_process *process, int data,int reg_nb);
 
 /*
 **champ.c
@@ -173,6 +174,7 @@ int				pc_to_line_col(int pc, int option);
 void			n_print_op_exec(int pc, int size, t_arena *arena);
 void			n_print_pc(int pc, t_arena *arena, int o);
 int				nbtohex(unsigned char byte, int line, int col);
+void			n_print_reg(t_process *process, t_arena *arena, int reg_nb);
 
 
 /*
@@ -201,5 +203,33 @@ void			execute_and(t_process *process, t_arena *arena);
 
 void			fc_zjump(t_op op, t_process *process, t_arena *arena);
 void			execute_zjump(t_process *process, t_arena *arena);
+
+/*
+**zjump
+*/
+
+void			fc_or(t_op op, t_process *process, t_arena *arena);
+void			execute_or(t_process *process, t_arena *arena);
+
+/*
+**zjump
+*/
+
+void			fc_xor(t_op op, t_process *process, t_arena *arena);
+void			execute_xor(t_process *process, t_arena *arena);
+
+/*
+**zjump
+*/
+
+void			fc_add(t_op op, t_process *process, t_arena *arena);
+void			execute_add(t_process *process, t_arena *arena);
+
+/*
+**zjump
+*/
+
+void			fc_sub(t_op op, t_process *process, t_arena *arena);
+void			execute_sub(t_process *process, t_arena *arena);
 
 #endif

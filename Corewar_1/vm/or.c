@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 17:17:38 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/02 18:07:30 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/03 16:16:59 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,9 @@ void	fc_or(t_op op, t_process *process, t_arena *arena)
 	int i;
 
 	i = 0;
-	param = fill_param(arena, op, process);
-	while (++i < 3)
-	{
-		if (param.type[i] == REG_CODE)
-			elem[i] = process->reg[change_endian(param.value[i])];
-		if (param.type[i] == DIR_CODE)
-			elem[i] = param.value[i];
-		if (param.type[i] == IND_CODE)
-			elem[i] = fill_index_content(arena, process, param.value[i]);
-	}
+	param = fill_param(arena, op, process, elem);
 	param.data = elem[0] | elem[1];
-	param.dest_pc = -change_endian(param.value[2]);
+	param.dest_pc = change_endian(param.value[2]);
 	process->carry = param.data ? 0 : 1;
 	process->param = param;
 	ft_printf("{cyan}data = %d{reset}\n", param.data);
@@ -41,8 +32,8 @@ void	fc_or(t_op op, t_process *process, t_arena *arena)
 void	execute_or(t_process *process, t_arena *arena)
 {
 	(void)arena;
-	ft_printf("{magenta}fkdjfkd === %d\n{reset}", change_endian(process->param.value[2]));
+//	ft_printf("{magenta}fkdjfkd === %d\n{reset}", change_endian(process->param.value[2]));
 //	put_data_in_reg(process, change_endian(process->param.value[2]));
-	put_data_in_reg(process, -process->param.dest_pc);
-	ft_printf(" -        -- and fin reg[0] = %d\n", process->reg[0]);
+	put_data_in_reg(process, process->param.data, process->param.dest_pc);
+//	ft_printf(" -        -- and fin reg[0] = %d\n", process->reg[0]);
 }
