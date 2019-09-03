@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/03 16:12:23 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/03 19:00:29 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct	s_param
 typedef struct	s_process
 {
 	int					reg[REG_NUMBER];
-	int					start;
+	int					id_champ;
 	int					pc;
 	int 				pc_next;
 	char				carry;
@@ -46,9 +46,6 @@ typedef struct	s_process
 	int 				nb_live;
 	int 				c_done;
 	int					c_todo;
-	int					c_total;
-	int					alive;
-	int					dead;
 	t_param				param;
 
 	struct s_process	*next;
@@ -59,8 +56,6 @@ typedef struct	s_champ
 	int			id;
 	int 		pos;
 	char		buff[CHAMP_MAX_SIZE];
-	t_process  *process;
-	t_process  *p_head;
 	header_t	h;
 }				t_champ;
 
@@ -84,10 +79,13 @@ typedef struct	s_arena
 	int				actual_cycle;
 	int 			nb_check;
 	int				nb_live;
+	int				cycle_to_die;
 	t_champ			champ[MAX_PLAYERS];
 	unsigned char 	field[MEM_SIZE];
 	t_gc			*gc;
-	t_op			op[17];
+	t_op			op[16];
+	t_process  		*process;
+	t_process 		*p_head;
 }				t_arena;
 
 
@@ -140,6 +138,7 @@ void			load_champ(t_arena *arena);
 void			print_arena(t_arena *arena);
 void 			launch_fight(t_arena *arena);
 int				update_pc(int old_pc, int i);
+void    		process_champ(t_arena *arena);
 
 /*
  ** process.c
@@ -147,7 +146,8 @@ int				update_pc(int old_pc, int i);
 
 void			init_process(t_process *process, int id_champ);
 void			add_process(t_arena *arena, int id_champ);
-void			print_process(t_champ *champ);
+void			print_process(t_process *process);
+void    		del_process(t_arena *arena, t_process *todel, t_process *prev);
 
 /*
 **op.c
@@ -205,31 +205,44 @@ void			fc_zjump(t_op op, t_process *process, t_arena *arena);
 void			execute_zjump(t_process *process, t_arena *arena);
 
 /*
-**zjump
+**or
 */
 
 void			fc_or(t_op op, t_process *process, t_arena *arena);
 void			execute_or(t_process *process, t_arena *arena);
 
 /*
-**zjump
+**xor
 */
 
 void			fc_xor(t_op op, t_process *process, t_arena *arena);
 void			execute_xor(t_process *process, t_arena *arena);
 
 /*
-**zjump
+**add
 */
 
 void			fc_add(t_op op, t_process *process, t_arena *arena);
 void			execute_add(t_process *process, t_arena *arena);
 
 /*
-**zjump
+**sub
 */
 
 void			fc_sub(t_op op, t_process *process, t_arena *arena);
 void			execute_sub(t_process *process, t_arena *arena);
 
+/*
+**st
+*/
+
+void			fc_st(t_op op, t_process *process, t_arena *arena);
+void			execute_st(t_process *process, t_arena *arena);
+
+/*
+**ld
+*/
+
+void			fc_ld(t_op op, t_process *process, t_arena *arena);
+void			execute_ld(t_process *process, t_arena *arena);
 #endif

@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:18:42 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/03 15:14:55 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/03 19:00:39 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ void	set_op_table(t_arena *arena)
 	int		i;
 	
 	i = -1;
-	while (++i <= 16)
+	while (++i < 16)
 		arena->op[i] = op_tab[i];
 }
