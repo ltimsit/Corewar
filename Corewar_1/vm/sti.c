@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:34:46 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/02 18:56:01 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/03 13:58:43 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,17 @@ void	fc_sti(t_op op, t_process *process, t_arena *arena)
 	int elem[3];
 	int i;
 
-	ft_printf("YO");
 	i = -1;
 	ft_bzero(&param, sizeof(param));
 	param = fill_param(arena, op, process, elem);
-	ft_printf("\ntodo = %d val[0] = %x\n", process->c_todo, param.value[0]);
-	ft_printf("elem[0] = %d \n", elem[0]);
 	param.data = change_endian(elem[0]);
-	ft_printf("re[0] = %d\n", process->reg[0]);
 	
 	param.dest_pc = update_pc(process->pc, change_endian(elem[1] + elem[2]));
 	process->param = param;
-	ft_printf("{yellow}%.4x %.4x\n{reset}", process->param.data, process->param.dest_pc);
-	ft_printf("{green}pc = %d todo = %d\n{reset}", process->pc_next, process->c_todo);
 }
 
 void	execute_sti(t_process *process, t_arena *arena)
 {
-//	ft_printf("data =%d, dest_pc = %d\n", (int)process->data, process->dest_pc);
-//	ft_memcpy(&arena->field[process->dest_pc], (char *)&process->data, 4);
-	ft_printf("fjdkjshjkshgkjdfhg\n");
-	ft_printf("{yellow}%.4x %.4x\n{reset}", process->param.data, process->param.dest_pc);
 	put_param_in_field(arena, process->param.data, 4, process->param.dest_pc);
+	n_print_op_exec(process->param.dest_pc, 4, arena);
 }
