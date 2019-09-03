@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/02 18:42:06 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/03 14:37:03 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # include "op.h"
 # include "ft_printf.h"
 # include "../../libft/libft.h"
+# include <ncurses.h>
+
+# define PLAYER_1 1
+# define PLAYER_2 2
+# define PLAYER_3 3
+# define PLAYER_4 4
 
 typedef struct	s_param
 {
@@ -72,6 +78,7 @@ typedef struct	s_op
 typedef struct	s_arena
 {
 	int				nb_champ;
+	int				ncurses;
 	int				total_cycle;
 	int				actual_cycle;
 	int 			nb_check;
@@ -156,6 +163,17 @@ void			read_ocp(t_param *param, int dir_size, char ocp, int param_type[3]);
 void			read_instruction(t_arena *arena, t_process *process, char opcode);
 void			execute_sti(t_process *process, t_arena *field);
 
+/*
+**ncurses
+*/
+
+void			init_ncurses(t_arena *arena);
+void 			nprint_arena(t_arena *arena);
+int				pc_to_line_col(int pc, int option);
+void			n_print_op_exec(int pc, int size, t_arena *arena);
+void			n_print_pc(int pc, t_arena *arena, int o);
+int				nbtohex(unsigned char byte, int line, int col);
+
 
 /*
 **sti
@@ -176,5 +194,12 @@ void			execute_live(t_process *process, t_arena *arena);
 
 void			fc_and(t_op op, t_process *process, t_arena *arena);
 void			execute_and(t_process *process, t_arena *arena);
+
+/*
+**zjump
+*/
+
+void			fc_zjump(t_op op, t_process *process, t_arena *arena);
+void			execute_zjump(t_process *process, t_arena *arena);
 
 #endif

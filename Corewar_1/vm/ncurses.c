@@ -6,19 +6,23 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:25:02 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/02 16:23:01 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/03 14:36:30 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ncurses.h>
 #include "vm.h"
 
-void	init_ncurses()
+void	init_ncurses(t_arena *arena)
 {
+	if (!arena->ncurses)
+		return ;
 	initscr();
 	start_color();
-	init_pair(1, COLOR_YELLOW, COLOR_GREEN);
 	init_pair(0, COLOR_WHITE, COLOR_BLACK);
+	init_pair(PLAYER_1, COLOR_YELLOW, COLOR_GREEN);
+	init_pair(PLAYER_2, COLOR_YELLOW, COLOR_GREEN);
+	init_pair(PLAYER_3, COLOR_YELLOW, COLOR_GREEN);
+	init_pair(PLAYER_4, COLOR_YELLOW, COLOR_GREEN);
 }
 
 void nprint_arena(t_arena *arena)
@@ -27,6 +31,8 @@ void nprint_arena(t_arena *arena)
 	int line;
 	int col;
 
+	if (!arena->ncurses)
+		return ;
 	i = -1;
 	line = 0;
 	col = 0;
@@ -60,6 +66,8 @@ void	n_print_op_exec(int pc, int size, t_arena *arena)
 {
 	int i;
 
+	if (!arena->ncurses)
+		return ;
 	i = -1;
 	while (++i < size)
 		nbtohex(arena->field[pc + i], pc_to_line_col(pc + i, 0), pc_to_line_col(pc + i, 1));
@@ -67,6 +75,8 @@ void	n_print_op_exec(int pc, int size, t_arena *arena)
 
 void	n_print_pc(int pc, t_arena *arena, int o)
 {
+	if (!arena->ncurses)
+		return ;
 	if (!o)
 	{
 		attron(COLOR_PAIR(1));

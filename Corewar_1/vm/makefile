@@ -1,13 +1,15 @@
 NAME = vm
 
 SRCS = $(addprefix $(SRCDIR), $(addsuffix .c, \
-	   arena main operation process utils tools op champ live  and sti))
+	   arena main operation process utils tools op champ live  and sti \
+	   zjump ncurses))
 
 OBJ = $(SRCS:.c=.o)
 DEP = $(SRCS:.c=.d)
 
 SRCDIR =
 LIBFT = ../libft/libft.a
+LIBNCURSES = -lncurses
 LIBFTPRINTF = ../libftprintf.a
 LIBMLX = libmlx.a
 INC = -I include -I ../libft
@@ -34,7 +36,7 @@ all : $(NAME)
 
 
 $(NAME) : $(LIBFT) $(OBJ)
-	@gcc $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(LIBFTPRINTF)
+	@gcc $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(LIBFTPRINTF) $(LIBNCURSES)
 	@echo "\n                               $(BLINK)👌  $(NOCOLOR)$(GREEN)A L L   G O O D $(NOCOLOR)$(BLINK)👌 $(NOCOLOR)"
 
 -include $(DEP)
