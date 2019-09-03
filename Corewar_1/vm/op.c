@@ -6,12 +6,12 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:18:42 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/02 14:23:39 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/03 15:14:55 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/vm.h"
-#include "include/op.h"
+#include "vm.h"
+#include "op.h"
 
 static t_op	op_tab[17] =
 {

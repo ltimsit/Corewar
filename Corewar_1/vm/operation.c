@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/03 13:59:25 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/03 15:48:52 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,28 @@
 void	init_fct_instr_tab()
 {
 	g_fct_instr[0] = NULL;
-	g_fct_instr[1] = fc_live;
+	g_fct_instr[0x01] = fc_live;
+	g_fct_instr[0x02] = fc_ld;
+	g_fct_instr[0x03] = fc_st;
+	g_fct_instr[0x04] = fc_add;
+	g_fct_instr[0x05] = fc_sub;
 	g_fct_instr[0x06] = fc_and;
-	g_fct_instr[0x0b] = fc_sti;
 	g_fct_instr[0x09] = fc_zjump;
+	g_fct_instr[0x0A] = fc_ldi;
+	g_fct_instr[0x0B] = fc_sti;
+	g_fct_instr[0x0D] = fc_lld;
+	g_fct_instr[0x0E] = fc_lldi;
 	g_fct_exec[0x01] = execute_live;
-	g_fct_exec[0x0b] = execute_sti;
+	g_fct_exec[0x02] = execute_ld;
+	g_fct_exec[0x03] = execute_st;
+	g_fct_exec[0x04] = execute_add;
+	g_fct_exec[0x05] = execute_sub;
 	g_fct_exec[0x06] = execute_and;
 	g_fct_exec[0x09] = execute_zjump;
+	g_fct_exec[0x0A] = execute_ldi;
+	g_fct_exec[0x0B] = execute_sti;
+	g_fct_exec[0x0D] = execute_lld;
+	g_fct_exec[0x0E] = execute_lldi;
 }
 
 void	read_instruction(t_arena *arena, t_process *process, char opcode)
