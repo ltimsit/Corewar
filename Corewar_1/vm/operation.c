@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/03 16:55:52 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/03 17:17:37 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_fct_instr_tab()
 	g_fct_instr[0x0B] = fc_sti;
 //	g_fct_instr[0x0D] = fc_lld;
 //	g_fct_instr[0x0E] = fc_lldi;
+//	g_fct_instr[0x10] = fc_aff;
 	g_fct_exec[0x01] = execute_live;
 //	g_fct_exec[0x02] = execute_ld;
 //	g_fct_exec[0x03] = execute_st;
@@ -42,6 +43,7 @@ void	init_fct_instr_tab()
 	g_fct_exec[0x0B] = execute_sti;
 //	g_fct_exec[0x0D] = execute_lld;
 //	g_fct_exec[0x0E] = execute_lldi;
+//	g_fct_exec[0x10] = execute_aff;
 }
 
 void	read_instruction(t_arena *arena, t_process *process, char opcode)
