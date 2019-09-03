@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:25:02 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/03 15:56:26 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/03 16:22:55 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	n_print_reg(t_process *process, t_arena *arena, int reg_nb)
 	int i;
 	(void)arena;
 
+	if (!arena->ncurses)
+		return ;
 	i = -1;
 	col = COLS - CMENU + 3;
 	line = reg_nb;

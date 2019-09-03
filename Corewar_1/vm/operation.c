@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/03 16:16:29 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/03 16:55:52 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_param		fill_param(t_arena *arena, t_op op, t_process *process, int elem[3])
 		if (param.type[i] == REG_CODE)
 			elem[i] = process->reg[change_endian(param.value[i]) - 1];
 		if (param.type[i] == DIR_CODE)
-			elem[i] = param.value[i];
+			elem[i] = change_endian(param.value[i]);
 		if (param.type[i] == IND_CODE)
 			elem[i] = fill_index_content(arena, process, param.value[i]);
 		pc_prev += param.size[i];

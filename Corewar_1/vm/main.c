@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/03 14:35:02 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/03 16:51:24 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		main(int ac, char **av)
 	t_arena arena;
 
 	i = 0;
-	ft_bzero(&arena,sizeof(arena));
+	ft_bzero(&arena, sizeof(arena));
 	if (!(arena.gc = (t_gc*)malloc(sizeof(t_gc))))
 		ft_error("Malloc error\n");
 	ft_bzero(arena.gc, sizeof(t_gc));
