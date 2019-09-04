@@ -6,12 +6,11 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 14:04:23 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/04 16:35:16 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-#include "op.h"
 
 void	init_fct_instr_tab()
 {
@@ -27,8 +26,12 @@ void	init_fct_instr_tab()
 	g_fct_instr[0x09] = fc_zjump;
 	g_fct_instr[0x0A] = fc_ldi;
 	g_fct_instr[0x0B] = fc_sti;
+//	g_fct_instr[0x0C] = fc_fork;
 	g_fct_instr[0x0D] = fc_lld;
 	g_fct_instr[0x0E] = fc_lldi;
+//	g_fct_instr[0x0F] = fc_lfork;
+//	g_fct_instr[0x10] = fc_aff;
+	g_fct_exec[0] = NULL;
 	g_fct_exec[0x01] = execute_live;
 	g_fct_exec[0x02] = execute_ld;
 	g_fct_exec[0x03] = execute_st;
@@ -40,8 +43,11 @@ void	init_fct_instr_tab()
 	g_fct_exec[0x09] = execute_zjump;
 	g_fct_exec[0x0A] = execute_ldi;
 	g_fct_exec[0x0B] = execute_sti;
+//	g_fct_exec[0x0C] = execute_fork;
 	g_fct_exec[0x0D] = execute_lld;
 	g_fct_exec[0x0E] = execute_lldi;
+//	g_fct_exec[0x0F] = execute_lfork;
+//	g_fct_exec[0x10] = execute_aff;
 }
 
 void	read_instruction(t_arena *arena, t_process *process, char opcode)
@@ -53,25 +59,6 @@ void	read_instruction(t_arena *arena, t_process *process, char opcode)
 	g_fct_instr[(int)opcode](arena->op[(int)opcode - 1], process, arena);
 //	ft_printf("{red}todo = %d{reset}\n", process->c_todo);
 }
-
-/*
-void		fill_elem(t_arena *arena, t_process *process, int nb_elem, int elem[3])
-{
-	int i;
-
-	i = -1;
-	while (++i < nb_elem)
-	{
-		if (process->param.type[i] == REG_CODE)
-			elem[i] = process->reg[change_endian(process->param.value[i])];
-		if (process->param.type[i] == DIR_CODE)
-			elem[i] = process->param.value[i];
-		if (process->param.type[i] == IND_CODE)
-			elem[i] = fill_index_content(arena, process, process->param.value[i]);
-	ft_printf("{blue}elem[i] = %d\n{reset}", elem[i]);
-	}
-}
-*/
 
 t_param		fill_param(t_arena *arena, t_op op, t_process *process, int elem[3])
 {
@@ -85,12 +72,6 @@ t_param		fill_param(t_arena *arena, t_op op, t_process *process, int elem[3])
 	process->c_todo = op.time;
 	process->pc_next = param.size[0] + param.size[1]
 		+ param.size[2] + 1 + (op.ocp ? 1 : 0);
-/*
-	stock_in_param(arena, &param.value[0], param.size[0], update_pc(process->pc, 2));
-	stock_in_param(arena, &param.value[1], param.size[1], update_pc(process->pc, 2 + param.size[0]));
-	stock_in_param(arena, &param.value[2], param.size[2],
-			update_pc(process->pc, 2 + param.size[0] + param.size[1]));
-	*/
 	i = -1;
 	pc_prev = 0;
 	while (++i < op.nb_param)
@@ -111,20 +92,17 @@ void	read_ocp(t_param *param, int dir_size, char ocp, int param_type[3])
 {
 	int i;
 	int j;
-	int mask;
-//	t_ocp new_ocp;
 	int cmp;
 	int	*val;
 	int	*type;
 
-	mask = 3;
 	i = 2;
 	j = 2;
 	val = &param->size[2];
 	type = &param->type[2];
 	while (i < 8)
 	{
-		cmp = ((ocp >> i) & mask);
+		cmp = ((ocp >> i) & 3);
 		if (!(param_type[j] & cmp))
 		{
 			param->error = 1;
@@ -151,5 +129,4 @@ void	read_ocp(t_param *param, int dir_size, char ocp, int param_type[3])
 		type--;
 		j--;
 	}
-//	ft_printf("--- %d %d %d ---\n", new_ocp.param1, new_ocp.param2, new_ocp.param3);
 }

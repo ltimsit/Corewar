@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 14:01:49 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/04 16:31:02 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ unsigned char		*open_read(char *filename, unsigned char *buffer)
 	return (buffer);
 }
 
-unsigned int change_endian(unsigned int little)
+unsigned int		change_endian(unsigned int little)
 {
 	unsigned char 	t_little[4];
 	unsigned char 	t_big[4];
@@ -42,37 +42,27 @@ unsigned int change_endian(unsigned int little)
 	return (big);
 }
 
-/*
-int		main(int ac, char **av)
+void				sort_champ(t_arena *arena)
 {
-	int 	i;
-	t_arena arena;
+	int		i;
+	int		j;
+	int		tmp;
 
-	i = 0;
-	ft_bzero(&arena, sizeof(arena));
-	if (!(arena.gc = (t_gc*)malloc(sizeof(t_gc))))
-		ft_error("Malloc error\n");
-	ft_bzero(arena.gc, sizeof(t_gc));
-	set_op_table(&arena);
-	if (!ft_strcmp(av[1], "-nc"))
+	i = -1;
+	while (++i < arena->nb_champ - 1)
 	{
-		arena.ncurses = 1;
-		i++;
+		j = i;
+		while (++j < arena->nb_champ)
+			if (arena->champ[i].id < arena->champ[j].id)
+			{
+				tmp = arena->champ[i].id;
+				arena->champ[i].id = arena->champ[j].id;
+				arena->champ[j].id = tmp;
+			}
 	}
-	while (i + 1 < ac)
-	{
-		create_add_champ(av[i + 1], &arena);
-		print_champ(&arena.champ[i]);
-		i++;
-	}
-	load_champ(&arena);
-	//	read_ocp(1, 0x64);
-	//	print_arena(&arena);
-	launch_fight(&arena);
-	return (0);
 }
-*/
-int		main(int ac, char **av)
+
+int					main(int ac, char **av)
 {
 	int 	i;
 	t_arena arena;
@@ -89,14 +79,10 @@ int		main(int ac, char **av)
 		i++;
 	}
 	while (i + 1 < ac)
-	{
-		create_add_champ(av[i + 1], &arena);
-		print_champ(&arena.champ[i]);
-		i++;
-	}
+		create_add_champ(av[i++ + 1], &arena);
+	i = -1;
+	sort_champ(&arena);
 	load_champ(&arena);
-	//	read_ocp(1, 0x64);
-	//	print_arena(&arena);
 	launch_fight(&arena);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 14:29:20 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/04 16:35:29 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,6 @@ void print_arena( t_arena *arena)
 	}
 }
 
-/*
-void	load_champ(t_arena *arena)
-{
-	int	i;
-	int	space;
-
-	i = -1;
-	
-	space = MEM_SIZE / arena->nb_champ;
-	while (++i < arena->nb_champ)
-	{
-		ft_memcpy(arena->field + (i * space), arena->champ[i].buff,
-		   	arena->champ[i].h.prog_size);
-		arena->champ[i].process->pc = i * space;
-	//	print_process(&arena->champ[i]);
-	}
-}
-*/
-
 void    load_champ(t_arena *arena)
 {
     int i;
@@ -63,12 +44,8 @@ void    load_champ(t_arena *arena)
     {
         ft_memcpy(arena->field + (i * space), arena->champ[i].buff,
                 arena->champ[i].h.prog_size);
-        ft_printf("%d YOO ID %d", arena->nb_champ, arena->champ[i].id);
         add_process(arena, arena->champ[i].id);
-        ft_printf("YOO ID %d", arena->champ[i].id);
         arena->process->pc = i * space;
-        ft_printf("YOO ID %d", arena->champ[i].id);
-        //  print_process(&arena->champ[i]);
     }
 }
 
@@ -79,9 +56,6 @@ void	check_process(t_arena *arena, t_process *process)
 
 	ft_printf("{blue}process = %p{reset}\n", process);
 	ft_printf("{green}head = %p\n{reset}", arena->p_head);
-//	ft_printf("{cyan}opcode = %d\n{reset}", process->opcode);
-//	ft_printf("START CHECK PROCESS{yellow}done = %d\n{reset}", process->c_done);
-//	ft_printf("START CHECK PROCESS{red}todo = %d\n{reset}", process->c_todo);
 	if (!process->c_todo)
 	{
 		ft_printf("{cyan}process opcode == %hhd\n{reset}", arena->field[process->pc]);
@@ -95,10 +69,7 @@ void	check_process(t_arena *arena, t_process *process)
 		process->c_done++;
 	}
 	else if (process->c_done < process->c_todo)
-	{
-//		ft_printf("cycle -- \n");
 		process->c_done++;
-	}
 	else
 	{
 		ft_printf("exec ------ r[0] = %d\n", process->reg[0]);
@@ -106,48 +77,31 @@ void	check_process(t_arena *arena, t_process *process)
 		ft_printf("exec ------ r[0] = %d\n", process->reg[0]);
 		n_print_pc(process->pc, arena, 1);
 		process->pc = update_pc(process->pc, process->pc_next);
-//		ft_printf("{yellow}pc = %d\n{reset}", process->pc);
 		process->c_done = 0;
 		process->c_todo = 0;
 	}
 	j = -1;
 	while (++j < 17)
-	{
 		n_print_reg(process, arena, j);
-	}
 	n_print_pc(process->pc, arena, 0);
 	ft_putendl("- - - END OF CHECK PROCESS - - -");
 	ft_printf("{yellow}done = %d\n{reset}", process->c_done);
 	ft_printf("{red}todo = %d\n{reset}", process->c_todo);
 	ft_printf("{italic}pc next  = %d{reset}\n", process->pc_next);
-//	ft_printf("{blue}process = %p{reset}\n", process);
 }
 
-/*
-void	process_champ(t_arena *arena, t_champ *champ)
-{
-	t_process *tmp;
-
-	tmp = champ->p_head;
-	while (tmp)
-	{
-		check_process(arena, tmp);
-		tmp = tmp->next;
-//		ft_printf("tmp = %p\n", tmp);
-	}
-}
-*/
 void    process_champ(t_arena *arena)
 {
     t_process *tmp;
+
     tmp = arena->p_head;
     while (tmp)
     {
         check_process(arena, tmp);
         tmp = tmp->next;
-       ft_printf("{green}tmp->next = %p\n{reset}", tmp);
     }
 }
+
 int     verif_process(t_arena *arena, t_process *head)
 {
     t_process   *tmp;
@@ -159,7 +113,7 @@ int     verif_process(t_arena *arena, t_process *head)
     while (tmp)
     {
         if (!tmp->nb_live)
-            del_process(arena, tmp, prev);//add prev
+            del_process(arena, tmp, prev);
         else
         {
             nb_live += tmp->nb_live;
@@ -176,21 +130,27 @@ void	print_winner(t_arena *arena)
 	int		i;
 
 	i = -1;
-	while (++i < arena->nb_champ)
+	if (!arena->last_living_champ)
 	{
+		ft_printf("☠️  Personne n'est en vie ! ☠️ \n");
+		ft_free_gc(arena->gc);
+		free(arena->gc);
+		exit(1);
+	}
+	while (++i < arena->nb_champ)
 		if (arena->last_living_champ == arena->champ[i].id)
 		{
-			ft_printf("Le joueur %s a gagné !\n", arena->champ[i].h.prog_name);
-			//ft_free_gc(arena->gc);
+			ft_printf("😎  Le joueur %s a gagné ! 😎 \n",
+					arena->champ[i].h.prog_name);
+			ft_free_gc(arena->gc);
+			free(arena->gc);
 			exit(1);
 		}
-	}
 }
+
 void 	launch_fight(t_arena *arena)
 {
     int j;
-    //  print_arena(arena);
-    //  ft_putchar('\n');
 //  	init_ncurses(arena);
     //  nprint_arena(arena);
     while (1)
@@ -212,34 +172,3 @@ void 	launch_fight(t_arena *arena)
         }
     }
 }
-
-
-
-
-
-/*
-void launch_fight(t_arena *arena)
-{
-	int i;
-	int j;
-
-	j = -1;
-//	print_arena(arena);
-//	ft_putchar('\n');
-	init_ncurses(arena);
-	nprint_arena(arena);
-	while (getch())//++j < 44)
-	{
-		i = -1;
-		while (++i < arena->nb_champ)
-		{
-	//		ft_printf("boucle cycle : %d\n", j + 1);
-			process_champ(arena, &arena->champ[i]);
-//			ft_printf("cycle : %d\n", j + 1);
-	//		print_arena(arena);
-//			ft_putchar('\n');
-		}
-	}
-//	print_arena(arena);
-}
-*/
