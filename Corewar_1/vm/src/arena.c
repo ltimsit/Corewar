@@ -6,11 +6,11 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/03 19:43:54 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:52:17 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/vm.h"
+#include "vm.h"
 
 void print_arena( t_arena *arena)
 {

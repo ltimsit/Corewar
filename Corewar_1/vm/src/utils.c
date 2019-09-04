@@ -6,12 +6,12 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 15:17:25 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/02 15:34:06 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:53:19 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "include/vm.h"
+#include "vm.h"
 #include <stdlib.h>
 
 void	ft_error(char *message)

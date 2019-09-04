@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/03 19:00:29 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:54:53 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct	s_param
 
 typedef struct	s_process
 {
+	struct s_process	*next;
 	int					reg[REG_NUMBER];
 	int					id_champ;
 	int					pc;
@@ -47,8 +48,6 @@ typedef struct	s_process
 	int 				c_done;
 	int					c_todo;
 	t_param				param;
-
-	struct s_process	*next;
 }				t_process;
 
 typedef struct	s_champ

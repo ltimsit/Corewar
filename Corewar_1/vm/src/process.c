@@ -6,11 +6,11 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:40:52 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/03 19:01:43 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:53:03 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/vm.h"
+#include "vm.h"
 
 void    print_process(t_process *process)
 {

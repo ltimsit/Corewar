@@ -6,11 +6,11 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:29:19 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/03 18:47:09 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:53:34 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/vm.h"
+#include "vm.h"
 
 void	print_champ(t_champ *champ)
 {

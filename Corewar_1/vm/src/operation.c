@@ -6,12 +6,12 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/03 19:43:56 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:52:37 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/vm.h"
-#include "include/op.h"
+#include "vm.h"
+#include "op.h"
 
 void	init_fct_instr_tab()
 {

@@ -1,13 +1,13 @@
 NAME = vm
 
-SRCS = $(addprefix $(SRCDIR), $(addsuffix .c, \
-	   arena main operation process utils tools op champ live  and sti \
+SRCS = $(addprefix $(SRCDIR)/, $(addsuffix .c, \
+	   arena main operation process utils tools op champ live and sti \
 	   sub add or xor st ld zjump ncurses))
 
 OBJ = $(SRCS:.c=.o)
 DEP = $(SRCS:.c=.d)
 
-SRCDIR =
+SRCDIR = src
 LIBFT = ../libft/libft.a
 LIBNCURSES = -lncurses
 LIBFTPRINTF = ../libftprintf.a
@@ -48,6 +48,7 @@ $(SRCDIR)/%.o : $(SRCDIR)/%.c makefile
 
 $(LIBFT) : force
 	@make -C ../libft
+
 force :
 
 clean :
