@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 10:52:17 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/04 11:31:05 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,15 @@ void	check_process(t_arena *arena, t_process *process)
 	int j;
 
 	ft_printf("{blue}process = %p{reset}\n", process);
+	ft_printf("{blue}pc next  = %d{reset}\n", process->pc_next);
 	ft_printf("{red}todo = %d\n{reset}", process->c_todo);
+	ft_printf("{yellow}done = %d\n{reset}", process->c_done);
+	ft_printf("{cyan}opcode = %d\n{reset}", process->opcode);
 	if (!process->c_todo)
 	{
+		ft_printf("{italic}process opcode == %hhd\n{reset}", arena->field[process->pc]);
 		if ((opcode = arena->field[process->pc]) > 0 && opcode < 17)
 		{
-	//		ft_printf("process opcode == %hhd\n", opcode);
 			process->opcode = opcode;
 			read_instruction(arena, process, opcode);
 		}
@@ -103,7 +106,7 @@ void	check_process(t_arena *arena, t_process *process)
 		n_print_pc(process->pc, arena, 1);
 		process->pc = update_pc(process->pc, process->pc_next);
 //		ft_printf("{yellow}pc = %d\n{reset}", process->pc);
-		process->c_done = 0;
+		process->c_done = 1;
 		process->c_todo = 0;
 	}
 	j = -1;
@@ -112,8 +115,7 @@ void	check_process(t_arena *arena, t_process *process)
 		n_print_reg(process, arena, j);
 	}
 	n_print_pc(process->pc, arena, 0);
-	ft_printf("{blue}process = %p{reset}\n", process);
-	ft_printf("{blue}process n  = %p{reset}\n", process->next);
+//	ft_printf("{blue}process = %p{reset}\n", process);
 }
 
 /*
@@ -166,7 +168,6 @@ int     verif_process(t_arena *arena, t_process *head)
 void launch_fight(t_arena *arena)
 {
     int j;
-    j = -1;
     //  print_arena(arena);
     //  ft_putchar('\n');
 //  	init_ncurses(arena);
@@ -189,7 +190,6 @@ void launch_fight(t_arena *arena)
         }
     }
 }
-
 
 
 
