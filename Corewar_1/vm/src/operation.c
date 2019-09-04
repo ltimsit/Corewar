@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 16:35:16 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/04 17:38:09 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ void	read_ocp(t_param *param, int dir_size, char ocp, int param_type[3])
 		if (!(param_type[j] & cmp))
 		{
 			param->error = 1;
-			ft_printf("HHHHHHHHHHHHHHHH\n");
 	//		return ;
 		}
 		if (cmp == 1)

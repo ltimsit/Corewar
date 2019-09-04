@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 16:35:29 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/04 17:38:05 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	check_process(t_arena *arena, t_process *process)
 		if ((opcode = arena->field[process->pc]) > 0 && opcode < 17)
 		{
 			process->opcode = opcode;
-			read_instruction(arena, process, opcode);
+	//		read_instruction(arena, process, opcode);
 		}
 		else
 			process->pc = update_pc(process->pc, 1);
@@ -73,7 +73,11 @@ void	check_process(t_arena *arena, t_process *process)
 	else
 	{
 		ft_printf("exec ------ r[0] = %d\n", process->reg[0]);
-		g_fct_exec[(int)process->opcode](process, arena);
+		read_instruction(arena, process, opcode);
+		if (!process->param.error)
+		{
+			g_fct_exec[(int)process->opcode](process, arena);
+		}
 		ft_printf("exec ------ r[0] = %d\n", process->reg[0]);
 		n_print_pc(process->pc, arena, 1);
 		process->pc = update_pc(process->pc, process->pc_next);
