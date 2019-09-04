@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 15:37:32 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:35:16 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	init_fct_instr_tab()
 	g_fct_instr[0x0E] = fc_lldi;
 //	g_fct_instr[0x0F] = fc_lfork;
 //	g_fct_instr[0x10] = fc_aff;
+	g_fct_exec[0] = NULL;
 	g_fct_exec[0x01] = execute_live;
 	g_fct_exec[0x02] = execute_ld;
 	g_fct_exec[0x03] = execute_st;

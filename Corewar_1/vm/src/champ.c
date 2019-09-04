@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:29:19 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 15:24:27 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:10:34 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,9 @@ void	print_champ(t_champ *champ)
 {
 	unsigned int i;
 
-	ft_putstr("Name : ");
-	ft_putstr(champ->h.prog_name);
-	ft_putchar('\n');
-	ft_putstr("Comment : ");
-	ft_putstr(champ->h.comment);
-	ft_putchar('\n');
-	ft_putstr("Prog size : ");
-	ft_putnbr(champ->h.prog_size);
-	ft_putchar('\n');
+	ft_printf("Champ[id = %d] : %s\n",champ->id,  champ->h.prog_name);
+	ft_printf("Comment : %s\n", champ->h.comment);
+	ft_printf("Prog size : %d", champ->h.prog_size);
 	ft_putstr("champ en hex : \n");
 	i = -1;
 	while (++i < champ->h.prog_size)
@@ -32,7 +26,6 @@ void	print_champ(t_champ *champ)
 		btohex(champ->buff[i]);
 		ft_putchar(' ');
 	}
-	ft_putchar('\n');
 	ft_putchar('\n');
 }
 
@@ -56,7 +49,7 @@ t_champ		new_champ(unsigned char *buff)
 void    create_add_champ(char *filename, t_arena *arena)
 {
     unsigned char    *buffer;
-    static int      id_champ = 12;
+    static int      id_champ = 18;
     static int         pos = 0;;
     if (!(buffer = (unsigned char*)ft_alloc_gc(CHAMP_MAX_SIZE +
                     sizeof(header_t), sizeof(char), arena->gc)))

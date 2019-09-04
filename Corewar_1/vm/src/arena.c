@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 15:27:40 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:35:29 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	check_process(t_arena *arena, t_process *process)
 		ft_printf("exec ------ r[0] = %d\n", process->reg[0]);
 		n_print_pc(process->pc, arena, 1);
 		process->pc = update_pc(process->pc, process->pc_next);
-//		ft_printf("{yellow}pc = %d\n{reset}", process->pc);
 		process->c_done = 0;
 		process->c_todo = 0;
 	}
@@ -89,20 +88,20 @@ void	check_process(t_arena *arena, t_process *process)
 	ft_printf("{yellow}done = %d\n{reset}", process->c_done);
 	ft_printf("{red}todo = %d\n{reset}", process->c_todo);
 	ft_printf("{italic}pc next  = %d{reset}\n", process->pc_next);
-//	ft_printf("{blue}process = %p{reset}\n", process);
 }
 
 void    process_champ(t_arena *arena)
 {
     t_process *tmp;
+
     tmp = arena->p_head;
     while (tmp)
     {
         check_process(arena, tmp);
         tmp = tmp->next;
-       ft_printf("{green}tmp->next = %p\n{reset}", tmp);
     }
 }
+
 int     verif_process(t_arena *arena, t_process *head)
 {
     t_process   *tmp;
@@ -131,17 +130,24 @@ void	print_winner(t_arena *arena)
 	int		i;
 
 	i = -1;
-	while (++i < arena->nb_champ)
+	if (!arena->last_living_champ)
 	{
+		ft_printf("☠️  Personne n'est en vie ! ☠️ \n");
+		ft_free_gc(arena->gc);
+		free(arena->gc);
+		exit(1);
+	}
+	while (++i < arena->nb_champ)
 		if (arena->last_living_champ == arena->champ[i].id)
 		{
-			ft_printf("Le joueur %s a gagné !\n", arena->champ[i].h.prog_name);
+			ft_printf("😎  Le joueur %s a gagné ! 😎 \n",
+					arena->champ[i].h.prog_name);
 			ft_free_gc(arena->gc);
 			free(arena->gc);
 			exit(1);
 		}
-	}
 }
+
 void 	launch_fight(t_arena *arena)
 {
     int j;
