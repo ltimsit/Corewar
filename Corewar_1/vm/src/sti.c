@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:34:46 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 18:46:16 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/04 19:01:35 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,4 @@ void	fc_sti(t_op op, t_process *process, t_arena *arena)
 void	execute_sti(t_process *process, t_arena *arena)
 {
 	put_param_in_field(arena, process->param.data, 4, process->param.dest_pc);
-	n_print_op_exec(process->param.dest_pc, 4, arena);
 }
