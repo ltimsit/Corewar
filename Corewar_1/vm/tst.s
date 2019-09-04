@@ -1,4 +1,4 @@
-.name "zork"
+.name "zork 22"
 .comment "just a basic living prog"
 
 and:	xor r1, %1, r1

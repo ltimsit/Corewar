@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:30:58 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 14:39:23 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/04 15:21:09 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	execute_live(t_process *process, t_arena *arena)
 
 	(void)arena;
 	(void)process;
-	process->nb_live += 100;
+	process->nb_live += 1;
 	if (!(name = check_valid_champ(process->param.data, arena)))
 	{
 		ft_printf("---------------invalid id_champ for live----------------\n");
