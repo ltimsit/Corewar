@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 18:31:28 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/04 19:28:09 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,8 +160,6 @@ void	print_winner(t_arena *arena)
 void 	launch_fight(t_arena *arena)
 {
     int j;
-//  	init_ncurses(arena);
-    //  nprint_arena(arena);
     while (1)
     {
         j = -1;
