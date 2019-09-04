@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 17:38:05 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/04 18:31:28 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,27 @@ void	check_process(t_arena *arena, t_process *process)
 		if ((opcode = arena->field[process->pc]) > 0 && opcode < 17)
 		{
 			process->opcode = opcode;
-	//		read_instruction(arena, process, opcode);
+			process->c_todo = arena->op[(int)opcode - 1].time;
+			process->c_done++;
 		}
 		else
 			process->pc = update_pc(process->pc, 1);
-		process->c_done++;
 	}
 	else if (process->c_done < process->c_todo)
 		process->c_done++;
 	else
 	{
 		ft_printf("exec ------ r[0] = %d\n", process->reg[0]);
-		read_instruction(arena, process, opcode);
+		ft_printf("{rev}-------------------------- %d --------------\n{reset}", process->opcode);
+		read_instruction(arena, process, process->opcode);
+		ft_printf("{magenta} para 1 = %d {green}para 2 = %d {yellow}param 3 = %d\n{cyan}data = %d {blue}where ? -> %d\n{reset}" ,
+				change_endian(process->param.value[0]),
+				change_endian(process->param.value[1]),
+				change_endian(process->param.value[2]),
+				change_endian(process->param.data),
+				change_endian(process->param.dest_pc));
 		if (!process->param.error)
-		{
 			g_fct_exec[(int)process->opcode](process, arena);
-		}
 		ft_printf("exec ------ r[0] = %d\n", process->reg[0]);
 		n_print_pc(process->pc, arena, 1);
 		process->pc = update_pc(process->pc, process->pc_next);

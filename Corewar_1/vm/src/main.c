@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 16:31:02 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/04 17:55:12 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int					main(int ac, char **av)
 		ft_error("Malloc error\n");
 	ft_bzero(arena.gc, sizeof(t_gc));
 	arena.cycle_to_die = CYCLE_TO_DIE;
+	init_fct_instr_tab();
+	init_fct_exec_tab();
 	set_op_table(&arena);
 	if (!ft_strcmp(av[1], "-nc"))
 	{

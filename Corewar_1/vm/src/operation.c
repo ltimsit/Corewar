@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 17:38:09 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/04 18:46:20 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	init_fct_instr_tab()
 	g_fct_instr[0x0E] = fc_lldi;
 //	g_fct_instr[0x0F] = fc_lfork;
 //	g_fct_instr[0x10] = fc_aff;
+}
+
+void	init_fct_exec_tab()
+{
 	g_fct_exec[0] = NULL;
 	g_fct_exec[0x01] = execute_live;
 	g_fct_exec[0x02] = execute_ld;
@@ -52,7 +56,6 @@ void	init_fct_instr_tab()
 
 void	read_instruction(t_arena *arena, t_process *process, char opcode)
 {
-	init_fct_instr_tab();
 //	ft_printf("opcode :%d",opcode);
 //	ft_printf("%s",op_tab[1].name);
 //	fc_sti(
@@ -69,7 +72,6 @@ t_param		fill_param(t_arena *arena, t_op op, t_process *process, int elem[3])
 	ft_bzero(&param, sizeof(t_param));
 	if (op.ocp)
 		read_ocp(&param, op.dir_size, arena->field[update_pc(process->pc, 1)], op.param_type);
-	process->c_todo = op.time;
 	process->pc_next = param.size[0] + param.size[1]
 		+ param.size[2] + 1 + (op.ocp ? 1 : 0);
 	i = -1;

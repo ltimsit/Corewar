@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 16:35:20 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/04 17:53:55 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,8 @@ void			set_op_table(t_arena *arena);
  ** operation.c
  */
 
+void			init_fct_exec_tab();
+void			init_fct_instr_tab();
 t_param			fill_param(t_arena *arena, t_op op, t_process *process, int elem[3]);
 void			fill_elem(t_arena *arena, t_process *process, int nb_elem, int elem[3]);
 void			read_ocp(t_param *param, int dir_size, char ocp, int param_type[3]);
