@@ -12,5 +12,5 @@ and:	xor r1, %1, r1
 		xor r2, %1, r3
 		sub r2, r3, r4
 		and r1, %0, r1
-live: 	live %1
+live: 	live %12
 		zjmp %:and

@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 12:29:41 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/04 14:04:23 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ void	read_ocp(t_param *param, int dir_size, char ocp, int param_type[3])
 	while (i < 8)
 	{
 		cmp = ((ocp >> i) & mask);
-//		ft_printf("{green}{rev}cmp = %bd\ntype = %bd\n{reset}", cmp, param_type[j]);
 		if (!(param_type[j] & cmp))
 		{
 			param->error = 1;

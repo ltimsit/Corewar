@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:40:52 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 10:53:03 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/04 14:02:41 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void    print_process(t_process *process)
 {
         ft_printf("\n {green}PC = %d{reset}", process->pc);
-        ft_printf("\n {blue}carry = %d{reset}", process->carry);
-        ft_printf("\n {yellow}nb_live = %d{reset}", process->nb_live);
+        ft_printf("\n {blue}Carry = %d{reset}", process->carry);
+        ft_printf("\n {yellow}Nb_Live = %d{reset}", process->nb_live);
         ft_printf("\n {red}id_champ =  %d{reset}\n", process->id_champ);
 }
 /*

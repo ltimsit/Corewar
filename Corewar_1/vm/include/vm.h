@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 12:04:11 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/04 14:34:19 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct	s_op
 typedef struct	s_arena
 {
 	int				nb_champ;
+	int				last_living_champ;
 	int				ncurses;
 	int				total_cycle;
 	int				actual_cycle;

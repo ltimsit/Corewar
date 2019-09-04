@@ -6,11 +6,12 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 12:43:09 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/04 14:29:20 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include <stdlib.h>
 
 void print_arena( t_arena *arena)
 {
@@ -169,6 +170,22 @@ int     verif_process(t_arena *arena, t_process *head)
     }
     return (nb_live);
 }
+
+void	print_winner(t_arena *arena)
+{
+	int		i;
+
+	i = -1;
+	while (++i < arena->nb_champ)
+	{
+		if (arena->last_living_champ == arena->champ[i].id)
+		{
+			ft_printf("Le joueur %s a gagné !\n", arena->champ[i].h.prog_name);
+			//ft_free_gc(arena->gc);
+			exit(1);
+		}
+	}
+}
 void 	launch_fight(t_arena *arena)
 {
     int j;
@@ -181,11 +198,13 @@ void 	launch_fight(t_arena *arena)
         j = -1;
         while (++j < arena->cycle_to_die)
         {
-      	  ft_printf("boucle cycle : %d\n", j + 1);
+			ft_printf("boucle cycle : %d\n", j + 1);
             process_champ(arena);
             print_arena(arena);
         }
         arena->nb_live = verif_process(arena, arena->p_head);
+		if (!arena->p_head)
+			print_winner(arena);
         if ((arena->nb_live >= NBR_LIVE) || (++arena->nb_check >= MAX_CHECKS))
         {
             arena->cycle_to_die -= CYCLE_DELTA;
