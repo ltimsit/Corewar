@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 11:23:43 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/04 12:04:11 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,4 +244,16 @@ void			execute_st(t_process *process, t_arena *arena);
 
 void			fc_ld(t_op op, t_process *process, t_arena *arena);
 void			execute_ld(t_process *process, t_arena *arena);
+void			fc_lld(t_op op, t_process *process, t_arena *arena);
+void			execute_lld(t_process *process, t_arena *arena);
+
+/*
+**ldi
+*/
+
+void			fc_ldi(t_op op, t_process *process, t_arena *arena);
+void			execute_ldi(t_process *process, t_arena *arena);
+void			fc_lldi(t_op op, t_process *process, t_arena *arena);
+void			execute_lldi(t_process *process, t_arena *arena);
+
 #endif

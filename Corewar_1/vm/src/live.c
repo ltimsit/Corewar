@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:30:58 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/03 17:17:32 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/04 12:43:37 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ void	execute_live(t_process *process, t_arena *arena)
 {
 	(void)arena;
 	(void)process;
+	process->nb_live += 1;
 //	ft_printf("le joueur {blue}%s[%d]{reset} a ete declare en vie !\n", "banane", process->param.data);
 }

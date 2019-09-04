@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 11:31:05 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/04 12:43:09 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void print_arena( t_arena *arena)
 
 	i = -1;
 	count = 0;
-	while (++i < 32)
+	while (++i < 77)
 	{
 		btohex(arena->field[i]);
 		count++;
@@ -77,13 +77,13 @@ void	check_process(t_arena *arena, t_process *process)
 	int j;
 
 	ft_printf("{blue}process = %p{reset}\n", process);
-	ft_printf("{blue}pc next  = %d{reset}\n", process->pc_next);
-	ft_printf("{red}todo = %d\n{reset}", process->c_todo);
-	ft_printf("{yellow}done = %d\n{reset}", process->c_done);
-	ft_printf("{cyan}opcode = %d\n{reset}", process->opcode);
+	ft_printf("{green}head = %p\n{reset}", arena->p_head);
+//	ft_printf("{cyan}opcode = %d\n{reset}", process->opcode);
+//	ft_printf("START CHECK PROCESS{yellow}done = %d\n{reset}", process->c_done);
+//	ft_printf("START CHECK PROCESS{red}todo = %d\n{reset}", process->c_todo);
 	if (!process->c_todo)
 	{
-		ft_printf("{italic}process opcode == %hhd\n{reset}", arena->field[process->pc]);
+		ft_printf("{cyan}process opcode == %hhd\n{reset}", arena->field[process->pc]);
 		if ((opcode = arena->field[process->pc]) > 0 && opcode < 17)
 		{
 			process->opcode = opcode;
@@ -106,7 +106,7 @@ void	check_process(t_arena *arena, t_process *process)
 		n_print_pc(process->pc, arena, 1);
 		process->pc = update_pc(process->pc, process->pc_next);
 //		ft_printf("{yellow}pc = %d\n{reset}", process->pc);
-		process->c_done = 1;
+		process->c_done = 0;
 		process->c_todo = 0;
 	}
 	j = -1;
@@ -115,6 +115,10 @@ void	check_process(t_arena *arena, t_process *process)
 		n_print_reg(process, arena, j);
 	}
 	n_print_pc(process->pc, arena, 0);
+	ft_putendl("- - - END OF CHECK PROCESS - - -");
+	ft_printf("{yellow}done = %d\n{reset}", process->c_done);
+	ft_printf("{red}todo = %d\n{reset}", process->c_todo);
+	ft_printf("{italic}pc next  = %d{reset}\n", process->pc_next);
 //	ft_printf("{blue}process = %p{reset}\n", process);
 }
 
@@ -165,7 +169,7 @@ int     verif_process(t_arena *arena, t_process *head)
     }
     return (nb_live);
 }
-void launch_fight(t_arena *arena)
+void 	launch_fight(t_arena *arena)
 {
     int j;
     //  print_arena(arena);
@@ -175,10 +179,9 @@ void launch_fight(t_arena *arena)
     while (1)
     {
         j = -1;
-        while (++j < CYCLE_TO_DIE)
+        while (++j < arena->cycle_to_die)
         {
       	  ft_printf("boucle cycle : %d\n", j + 1);
-        ft_printf("{green}head = %p\n{reset}", arena->p_head);
             process_champ(arena);
             print_arena(arena);
         }
