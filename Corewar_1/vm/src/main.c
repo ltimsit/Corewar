@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/05 13:02:44 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/05 14:55:23 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ int					main(int ac, char **av)
 	init_fct_instr_tab();
 	init_fct_exec_tab();
 	set_op_table(&arena);
-	if (!ft_strcmp(av[1], "-nc"))
+	if (!ft_strcmp(av[1], "-dis"))
 	{
-		arena.ncurses = 1;
+		arena.display_on = 1;
 		i++;
 	}
 	while (i + 1 < ac)
@@ -85,6 +85,13 @@ int					main(int ac, char **av)
 	i = -1;
 	sort_champ(&arena);
 	load_champ(&arena);
-	launch_fight(&arena);
+//	launch_fight(&arena);
+	if (arena.display_on)	
+		init_display(&arena);
+	else
+	{
+		while (1)
+			launch_fight(&arena);
+	}
 	return (0);
 }

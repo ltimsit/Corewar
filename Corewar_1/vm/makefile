@@ -2,7 +2,7 @@ NAME = vm
 
 SRCS = $(addprefix $(SRCDIR)/, $(addsuffix .c, \
 	   arena main operation process utils tools op champ live and sti \
-	   sub add or xor st ld ldi zjump fork ncurses))
+	   sub add or xor st ld ldi zjump fork init_display hook))
 
 OBJ = $(SRCS:.c=.o)
 DEP = $(SRCS:.c=.d)
@@ -11,7 +11,8 @@ SRCDIR = src
 LIBFT = ../libft/libft.a
 LIBNCURSES = -lncurses
 LIBFTPRINTF = ../libftprintf.a
-LIBMLX = libmlx.a
+LIBMLX = display/libmlx.a
+FRAMEWORK = -framework OpenGL -framework AppKit
 INC = -I include -I ../libft
 
 FLAGS = -Wall -Wextra -Werror -g 
@@ -36,7 +37,7 @@ all : $(NAME)
 
 
 $(NAME) : $(LIBFT) $(OBJ)
-	@gcc $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(LIBFTPRINTF) $(LIBNCURSES)
+	@gcc $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(LIBFTPRINTF) $(LIBNCURSES) $(LIBMLX) $(FRAMEWORK)
 	@echo "\n                               $(BLINK)👌  $(NOCOLOR)$(GREEN)A L L   G O O D $(NOCOLOR)$(BLINK)👌 $(NOCOLOR)"
 
 -include $(DEP)

@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/05 12:14:23 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/05 14:58:07 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	check_process(t_arena *arena, t_process *process)
 
 	ft_printf("{blue}process = %p{reset}\n", process);
 	ft_printf("{green}pc_next = %d\n{reset}", arena->process->pc_next);
+	arena->carriage[process->pc] = 1;
 	if (!process->c_todo)
 	{
 		ft_printf("{cyan}process opcode == %hhd\n{reset}", arena->field[process->pc]);
@@ -76,15 +77,12 @@ void	check_process(t_arena *arena, t_process *process)
 		if (!process->param.error)
 			g_fct_exec[(int)process->opcode](process, arena);
 		ft_printf("exec ------ r[0] = %d\n", process->reg[0]);
-		n_print_pc(process->pc, arena, 1);
+		arena->carriage[process->pc] = 0;
 		process->pc = update_pc(process->pc, process->pc_next);
 		process->c_done = 0;
 		process->c_todo = 0;
 	}
 	j = -1;
-	while (++j < 17)
-		n_print_reg(process, arena, j);
-	n_print_pc(process->pc, arena, 0);
 	ft_putendl("- - - END OF CHECK PROCESS - - -");
 	ft_printf("{yellow}done = %d\n{reset}", process->c_done);
 	ft_printf("{red}todo = %d\n{reset}", process->c_todo);
@@ -151,25 +149,28 @@ void	print_winner(t_arena *arena)
 
 void 	launch_fight(t_arena *arena)
 {
-    int j;
-    while (1)
-    {
-		j = -1;
-        while (++j <  arena->cycle_to_die)
-        {
-			arena->total_cycle++;
-			ft_printf("\n{red}TOTAL CYCLE: %d\n{reset}",arena->total_cycle);
-			ft_printf("boucle cycle : %d\n", j + 1);
-            process_process(arena);
-            print_arena(arena);
-        }
-        arena->nb_live = verif_process(arena, arena->p_head);
+    static int j = -1;
+
+	if (++j < arena->cycle_to_die)
+	{
+		arena->total_cycle++;
+		ft_printf("\n{red}TOTAL CYCLE: %d\n{reset}",arena->total_cycle);
+		ft_printf("boucle cycle : %d\n", j + 1);
+		process_process(arena);
+		print_arena(arena);
+		if (arena->dis)
+			print_map(arena, j);
+	}
+	else
+	{
+		arena->nb_live = verif_process(arena, arena->p_head);
 		if (!arena->p_head)
 			print_winner(arena);
-        if ((arena->nb_live >= NBR_LIVE) || (++arena->nb_check >= MAX_CHECKS))
-        {
-            arena->cycle_to_die -= CYCLE_DELTA;
-            arena->nb_check = 0;
-        }
-    }
+		if ((arena->nb_live >= NBR_LIVE) || (++arena->nb_check >= MAX_CHECKS))
+		{
+			arena->cycle_to_die -= CYCLE_DELTA;
+			arena->nb_check = 0;
+		}
+		j = -1;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/05 12:58:30 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/05 14:55:34 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "ft_printf.h"
 # include "../../libft/libft.h"
 # include <ncurses.h>
+# include "display.h"
 
 # define PLAYER_1 1
 # define PLAYER_2 2
@@ -74,7 +75,7 @@ typedef struct	s_arena
 {
 	int				nb_champ;
 	int				last_living_champ;
-	int				ncurses;
+	int				display_on;
 	int				total_cycle;
 	int				actual_cycle;
 	int 			nb_check;
@@ -82,10 +83,13 @@ typedef struct	s_arena
 	int				cycle_to_die;
 	t_champ			champ[MAX_PLAYERS];
 	unsigned char 	field[MEM_SIZE];
+	unsigned char 	carriage[MEM_SIZE];
 	t_gc			*gc;
 	t_op			op[16];
 	t_process  		*process;
 	t_process 		*p_head;
+	t_display		*dis;
+	int				pause;
 }				t_arena;
 
 typedef struct	s_ocp
@@ -98,6 +102,17 @@ typedef struct	s_ocp
 
 void	(*g_fct_instr[17])(t_op, t_process*, t_arena*);
 void	(*g_fct_exec[17])(t_process*, t_arena*);
+
+int		print_hexa_dis(t_arena *arena, t_display *dis, int index);
+int		display_all(t_display *dis);
+int		mouse_press(int button, int x, int y, t_display *dis);
+int		key_press(int keycode, t_arena *arena);
+void	fill_img(char *d_img);
+char	*get_data_ptr(void *img_ptr);
+int		loop_fight(t_arena *arena);
+int		print_nb(t_arena *arena, int nb, int x, int y);
+void	init_display(t_arena *arena);
+void	print_map(t_arena *arena, int c_nb);
 
 /*
  ** utils.c
