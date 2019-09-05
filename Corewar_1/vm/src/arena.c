@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/05 14:58:07 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/05 17:33:31 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,13 @@ void	check_process(t_arena *arena, t_process *process)
 		read_instruction(arena, process, process->opcode);
 		if (!process->param.error)
 			g_fct_exec[(int)process->opcode](process, arena);
-		ft_printf("exec ------ r[0] = %d\n", process->reg[0]);
+		ft_printf("error = %d, exec ------ r[0] = %d\n", process->param.error, process->reg[0]);
 		arena->carriage[process->pc] = 0;
 		process->pc = update_pc(process->pc, process->pc_next);
+//		arena->carriage[process->pc] = 1;
 		process->c_done = 0;
 		process->c_todo = 0;
+		check_process(arena, process);
 	}
 	j = -1;
 	ft_putendl("- - - END OF CHECK PROCESS - - -");

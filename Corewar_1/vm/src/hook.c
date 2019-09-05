@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/05 14:25:27 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/05 17:35:47 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		print_nb(t_arena *arena, int nb, int x, int y)
 		nb_tab[--size] = nb % 10 + '0';
 		nb /= 10;
 	}
-	mlx_string_put(arena->dis->mlx, arena->dis->win, x, y, 0xFFFFFF, nb_tab);
+	mlx_string_put(arena->dis->mlx, arena->dis->win, x, y, HEX_COLOR, nb_tab);
 	return (0);
 }
 int		key_press(int keycode, t_arena *arena)

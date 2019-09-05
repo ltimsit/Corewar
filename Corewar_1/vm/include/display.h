@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:40:50 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/04 18:39:36 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/05 18:33:48 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "mlx.h"
 # include "vm.h"
 # define BYTE_PER_COL 64
-# define W_LEN 1900
+# define W_LEN 2200
 # define W_HGT 1900
 # define C_LEN 20
 # define C_HGT 20
@@ -24,6 +24,11 @@
 # define P2 2
 # define P3 4
 # define P4 8
+# define HEX_COLOR 0x8c8c8c
+# define X_OFFSET 40
+# define Y_OFFSET 40
+# define BORDER_COLOR 0x456810
+# define BACKGROUND_COLOR 0x123456
 
 
 typedef struct	s_display
@@ -31,7 +36,9 @@ typedef struct	s_display
 	void		*mlx;
 	void		*win;
 	void		*img;
+	void		*border_img;
 	char		*d_img;
+	char		*d_border_img;
 }				t_display;
 
 /*
