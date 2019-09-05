@@ -1,4 +1,4 @@
-NAME = coretest
+NAME = asm
 
 SRCS = $(addprefix $(SRCDIR)/, $(addsuffix .c, \
 	   corewar champtools header byte_to_hexa param label \

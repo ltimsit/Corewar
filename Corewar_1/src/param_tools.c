@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 13:30:25 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/29 15:19:49 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/05 19:03:21 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		check_separator_char(t_data *data, char *cmd)
 {
-	go_to_next_elem(D, &D->curr_line, &D->curr_index);
+	go_to_next_elem(D, &D->curr_line, &D->curr_index, 0);
 	if (*D->line != SEPARATOR_CHAR)
 		get_error(D, coma, cmd);
 	else
@@ -37,15 +37,15 @@ int		check_param(t_data *data, int type, int cmd_param, char *cmd)
 	int ret;
 
 	ret = 0;
-	if (cmd_param && !(ret = type & cmd_param))
+	if (cmd_param && !((ret = type) & cmd_param))
 		get_error(D, param, cmd);
 	return (ret);
 }
 
 int		param_type_tool(char *cmd, int *val)
 {
-	int 	value;
-	int 	i;
+	int		value;
+	int		i;
 
 	i = -1;
 	while (cmd[++i])
@@ -61,7 +61,7 @@ int		param_type_tool(char *cmd, int *val)
 int		get_param_type(t_data *data, char *cmd, int *val, int pc_cpt)
 {
 	int		i;
-	int 	ret;
+	int		ret;
 
 	i = 0;
 	ret = 0;
@@ -69,15 +69,15 @@ int		get_param_type(t_data *data, char *cmd, int *val, int pc_cpt)
 	{
 		if ((*val = check_label(D, cmd + 2)) == -1)
 			add_to_label_instr(D, cmd + 2, D->mem_stock_index + pc_cpt);
-		return (DIR_CODE);
+		return (T_DIR);
 	}
-	if ((cmd[0] == 'r' && (ret = REG_CODE))
-			|| (cmd[0] == DIRECT_CHAR && (ret = DIR_CODE))
-			|| (ret = IND_CODE))
+	if ((cmd[0] == 'r' && (ret = T_REG))
+			|| (cmd[0] == DIRECT_CHAR && (ret = T_DIR))
+			|| (ret = T_IND))
 	{
-		if (!(param_type_tool(cmd + (ret == IND_CODE ? 0 : 1), val)))
+		if (!(param_type_tool(cmd + (ret == T_IND ? 0 : 1), val)))
 			get_error(D, syntax, cmd);
-		if (ret == REG_CODE && (*val < 0 || ret > 16))
+		if (ret == T_REG && (*val < 0 || ret > 16))
 			get_error(D, syntax, cmd);
 	}
 	return (ret);

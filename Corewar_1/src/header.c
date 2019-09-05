@@ -6,14 +6,14 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/29 18:55:48 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/05 18:42:59 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
 
-static t_op	op_tab[17] =
+static	t_op	g_op_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
@@ -40,12 +40,8 @@ static t_op	op_tab[17] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
-int		set_header(t_data *data)
+int			set_header(t_data *data)
 {
-/*
-	mem_stock(D, D->header.prog_name, PROG_NAME_LENGTH);
-	mem_stock(D, D->header.comment, COMMENT_LENGTH);
-	*/
 	D->size_mem_tot = D->mem_stock_index;
 	D->mem_stock_index = 0;
 	D->header.prog_size = D->pc;
@@ -55,36 +51,16 @@ int		set_header(t_data *data)
 	return (1);
 }
 
-int		get_elem(t_data *data, char *tab, int tab_size, char sep_char)
+int			go_to_next_elem(t_data *data, int *line_id, int *col_id, int i)
 {
-	int i;
-
-	i = 0;
-	while (i < tab_size && *D->line != ' ' && *D->line != '\t'
-			&& *D->line != '\n')
-	{
-		if (!*D->line)
-		{
-			get_new_read(data);
-			continue ;
-		}
-		if (sep_char && *D->line == sep_char)
-			break ;
-		tab[i++] = *(D->line)++;
-	}
-	tab[i] = '\0';
-	return (i);
-}
-
-int		go_to_next_elem(t_data *data, int *line_id, int *col_id)
-{
-	int		i;
-
 	if (!D->line && !get_new_read(D))
-		get_error(D, read_error, NULL);
+		return (0);
 	while ((i = skip_sp(D->line, 0)) != -1)
 	{
 		D->line += i;
+		if (!(*D->line))
+			if (!(get_new_read(D)))
+				return (0);
 		if (*(D->line) == '#')
 			if (!(skip_comment_block(D)))
 				return (0);
@@ -95,11 +71,6 @@ int		go_to_next_elem(t_data *data, int *line_id, int *col_id)
 			D->line++;
 			continue ;
 		}
-		else if (!(*D->line))
-		{
-			if (!(get_new_read(D)))
-				return (0);
-		}
 		else
 		{
 			(*col_id) = (*col_id) + i;
@@ -109,61 +80,59 @@ int		go_to_next_elem(t_data *data, int *line_id, int *col_id)
 	return (42);
 }
 
-int		get_type(t_data *data, char *elem)
+int			get_type(t_data *data, char *elem)
 {
 	int		cpt;
 
 	cpt = -1;
 	while (++cpt < NB_COMMAND - 1)
-		if (!ft_strcmp(elem, op_tab[cpt].name))
+		if (!ft_strcmp(elem, g_op_tab[cpt].name))
 			return (command_line + cpt);
 	check_in_label_char(D, elem);
 	return (label_line);
 }
 
-int		get_header(t_data *data)
+int			get_header(t_data *data)
 {
 	char	cmd[14];
 	int		i;
 
 	while (!D->name_set || !D->comment_set)
 	{
-		go_to_next_elem(D, &D->curr_line, &D->curr_index);
+		go_to_next_elem(D, &D->curr_line, &D->curr_index, 0);
 		i = get_elem(D, cmd, 14, 0);
 		if (!ft_strcmp(cmd, NAME_CMD_STRING) && (D->name_set = true))
 		{
 			D->curr_index += i;
-			fc_namecom(D, D->header.prog_name, sizeof(D->header.prog_name));//PROG_NAME_LENGTH);
+			fc_namecom(D, D->header.prog_name, sizeof(D->header.prog_name), 0);
 		}
 		else if (!ft_strcmp(cmd, COMMENT_CMD_STRING) && (D->comment_set = true))
 		{
 			D->curr_index += i;
-			fc_namecom(D, D->header.comment, sizeof(D->header.comment)); //COMMENT_LENGTH);
+			fc_namecom(D, D->header.comment, sizeof(D->header.comment), 0);
 		}
 		else
 			get_error(D, syntax, cmd);
 	}
-//	set_header(data);
 	read_and_dispatch(D);
 	return (1);
 }
-int		read_and_dispatch(t_data *data)
+
+int			read_and_dispatch(t_data *data)
 {
 	int		type;
 	char	cmd[PARAM_SIZE];
 	int		i;
 
-	while (go_to_next_elem(D, &D->curr_line, &D->curr_index))
+	while (go_to_next_elem(D, &D->curr_line, &D->curr_index, 0))
 	{
 		i = get_elem(D, cmd, PARAM_SIZE, 0);
 		type = get_type(D, cmd);
 		D->curr_index += i;
-		ft_printf("{blue}pc = %d elem = \"%s\"{reset} | {yellow}type = %d\n{reset}", D->pc, cmd, type);
 		if (type == 3)
 			add_to_label_list(D, cmd, D->pc);
 		if (type > 3)
-			fc_cmd(D, type, op_tab[type - command_line]);
-		ft_printf("{cyan}-- boucle --{reset}\n");
+			fc_cmd(D, g_op_tab[type - command_line]);
 	}
 	fill_missing_label(D);
 	set_header(data);

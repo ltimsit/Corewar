@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 10:55:17 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/29 17:46:21 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/05 18:43:53 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ int			mem_stock(t_data *data, char *content, int content_size)
 
 	i = -1;
 	if (!D->mem_stock)
-	{
 		if (!(D->mem_stock = ft_alloc_gc(D->mem_size, sizeof(char), D->gc)))
 			get_error(D, malloc_err, NULL);
-	}
 	if (D->mem_stock_index + content_size >= D->mem_size)
 	{
 		D->mem_size += MEMSIZE;
@@ -51,19 +49,16 @@ int			change_endian(char *h, int size)
 	return (1);
 }
 
-int			fc_namecom(t_data *data, char *namecom, int size)
+int			fc_namecom(t_data *data, char *namecom, int size, int i)
 {
-	int		i;
-
-	i = 0;
-	go_to_next_elem(D, &D->curr_line, &D->curr_index);
+	go_to_next_elem(D, &D->curr_line, &D->curr_index, 0);
 	if (*(D->line) != '"')
-		get_error(D, syntax, NULL);
+		get_error(D, syntax, namecom);
 	D->line++;
 	while (i < size)
 	{
-		if (!(*D->line))
-			get_new_read(D);
+		if (!(*D->line) && !get_new_read(D))
+			get_error(D, data_err, NULL);
 		if (*D->line != '"')
 		{
 			if (*(D->line) == '\n')

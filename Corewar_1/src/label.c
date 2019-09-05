@@ -6,40 +6,12 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:16:33 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/29 18:55:47 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/05 14:34:31 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include <stdlib.h>
-
-int		check_in_label_char(t_data *data, char *elem)
-{
-	int		i;
-	int		j;
-	char	*label_chars;
-
-	label_chars = LABEL_CHARS;
-	j = -1;
-	while (elem[++j])
-	{
-		i = -1;
-		while (label_chars[++i])
-		{
-			if (elem[j] == label_chars[i])
-				break ;
-			if (elem[j] == LABEL_CHAR)
-			{
-				elem[j] = '\0';
-				return (1);
-			}
-		}
-		if (!label_chars[i])
-			get_error(D, syntax, elem);
-	}
-	get_error(D, syntax, elem);
-	return (0);
-}
 
 int		add_to_label_instr(t_data *data, char *elem, int mem_index)
 {
@@ -93,30 +65,10 @@ int		calc_val_from_pc(int curr_pc, int label_pc)
 	short val;
 
 	if (label_pc >= curr_pc)
-	{
 		val = 0x0000 + ((short)label_pc - (short)curr_pc);
-		ft_printf("{green} lab = %d, curr = %d val = %d\n{reset}", label_pc, curr_pc, val);
-	}
 	else
-	{
 		val = 0xFFFF + (label_pc - curr_pc + 1);
-		ft_printf("{green}val = %d\n{reset}", val);
-	}
 	return ((int)val);
-}
-
-int		check_label(t_data *data, char *elem)
-{
-	t_label_add *tmp;
-
-	tmp = D->label->head_add;
-	while (tmp)
-	{
-		if (!ft_strcmp(tmp->name, elem))
-			return (calc_val_from_pc(D->pc, tmp->pc));
-		tmp = tmp->next;
-	}
-	return (-1);
 }
 
 int		put_add_in_mem_stock(t_data *data, int mem_index, int add)
@@ -128,9 +80,9 @@ int		put_add_in_mem_stock(t_data *data, int mem_index, int add)
 
 int		fill_missing_label(t_data *data)
 {
-	t_label_instr *tmp;
-	t_label_add *tmp2;
-	int i;
+	t_label_instr	*tmp;
+	t_label_add		*tmp2;
+	int				i;
 
 	tmp = D->label->head_instr;
 	while (tmp)
@@ -140,7 +92,8 @@ int		fill_missing_label(t_data *data)
 		while (tmp2)
 		{
 			if (!ft_strcmp(tmp->name, tmp2->name))
-				i = put_add_in_mem_stock(D, tmp->mem_index, calc_val_from_pc(tmp->pc, tmp2->pc));
+				i = put_add_in_mem_stock(D, tmp->mem_index,
+						calc_val_from_pc(tmp->pc, tmp2->pc));
 			tmp2 = tmp2->next;
 		}
 		if (!i)
