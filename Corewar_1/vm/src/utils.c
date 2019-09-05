@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 15:17:25 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 19:00:32 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/05 11:26:42 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ int		btohex(unsigned char byte)
 		hex[size] = base[byte % 16];
 		byte /= 16;
 	}
-	ft_printf("%s\n", hex);
+	ft_printf("%s", hex);
 	return (1);
 }

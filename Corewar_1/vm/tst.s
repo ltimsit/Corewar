@@ -2,6 +2,7 @@
 .comment "just a basic living prog"
 
 and:	xor r1, %1, r1
+		fork %10
 		st r1, 0
 		st r1, r2
 		ld 0, r2

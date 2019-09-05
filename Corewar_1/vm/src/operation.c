@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 18:46:20 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/05 12:58:26 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_fct_instr_tab()
 	g_fct_instr[0x09] = fc_zjump;
 	g_fct_instr[0x0A] = fc_ldi;
 	g_fct_instr[0x0B] = fc_sti;
-//	g_fct_instr[0x0C] = fc_fork;
+	g_fct_instr[0x0C] = fc_fork;
 	g_fct_instr[0x0D] = fc_lld;
 	g_fct_instr[0x0E] = fc_lldi;
 //	g_fct_instr[0x0F] = fc_lfork;
@@ -47,7 +47,7 @@ void	init_fct_exec_tab()
 	g_fct_exec[0x09] = execute_zjump;
 	g_fct_exec[0x0A] = execute_ldi;
 	g_fct_exec[0x0B] = execute_sti;
-//	g_fct_exec[0x0C] = execute_fork;
+	g_fct_exec[0x0C] = execute_fork;
 	g_fct_exec[0x0D] = execute_lld;
 	g_fct_exec[0x0E] = execute_lldi;
 //	g_fct_exec[0x0F] = execute_lfork;

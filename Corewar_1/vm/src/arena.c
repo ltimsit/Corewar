@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 19:28:09 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/05 12:14:23 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	check_process(t_arena *arena, t_process *process)
 	int j;
 
 	ft_printf("{blue}process = %p{reset}\n", process);
-	ft_printf("{green}head = %p\n{reset}", arena->p_head);
+	ft_printf("{green}pc_next = %d\n{reset}", arena->process->pc_next);
 	if (!process->c_todo)
 	{
 		ft_printf("{cyan}process opcode == %hhd\n{reset}", arena->field[process->pc]);
@@ -72,15 +72,7 @@ void	check_process(t_arena *arena, t_process *process)
 		process->c_done++;
 	else
 	{
-		ft_printf("exec ------ r[0] = %d\n", process->reg[0]);
-		ft_printf("{rev}-------------------------- %d --------------\n{reset}", process->opcode);
 		read_instruction(arena, process, process->opcode);
-		ft_printf("{magenta} para 1 = %d {green}para 2 = %d {yellow}param 3 = %d\n{cyan}data = %d {blue}where ? -> %d\n{reset}" ,
-				change_endian(process->param.value[0]),
-				change_endian(process->param.value[1]),
-				change_endian(process->param.value[2]),
-				change_endian(process->param.data),
-				change_endian(process->param.dest_pc));
 		if (!process->param.error)
 			g_fct_exec[(int)process->opcode](process, arena);
 		ft_printf("exec ------ r[0] = %d\n", process->reg[0]);
@@ -99,7 +91,7 @@ void	check_process(t_arena *arena, t_process *process)
 	ft_printf("{italic}pc next  = %d{reset}\n", process->pc_next);
 }
 
-void    process_champ(t_arena *arena)
+void    process_process(t_arena *arena)
 {
     t_process *tmp;
 
@@ -162,11 +154,13 @@ void 	launch_fight(t_arena *arena)
     int j;
     while (1)
     {
-        j = -1;
-        while (++j < arena->cycle_to_die)
+		j = -1;
+        while (++j <  arena->cycle_to_die)
         {
+			arena->total_cycle++;
+			ft_printf("\n{red}TOTAL CYCLE: %d\n{reset}",arena->total_cycle);
 			ft_printf("boucle cycle : %d\n", j + 1);
-            process_champ(arena);
+            process_process(arena);
             print_arena(arena);
         }
         arena->nb_live = verif_process(arena, arena->p_head);

@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 17:53:55 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/05 12:58:30 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ typedef struct	s_arena
 	t_process 		*p_head;
 }				t_arena;
 
-
 typedef struct	s_ocp
 {
 	uint8_t		ocp;
@@ -96,7 +95,6 @@ typedef struct	s_ocp
 	int			param2;
 	int			param3;
 }				t_ocp;
-
 
 void	(*g_fct_instr[17])(t_op, t_process*, t_arena*);
 void	(*g_fct_exec[17])(t_process*, t_arena*);
@@ -258,5 +256,11 @@ void			fc_ldi(t_op op, t_process *process, t_arena *arena);
 void			execute_ldi(t_process *process, t_arena *arena);
 void			fc_lldi(t_op op, t_process *process, t_arena *arena);
 void			execute_lldi(t_process *process, t_arena *arena);
+
+/*
+**fork
+*/
+void			fc_fork(t_op op, t_process *process, t_arena *arena);
+void			execute_fork(t_process *process, t_arena *arena);
 
 #endif

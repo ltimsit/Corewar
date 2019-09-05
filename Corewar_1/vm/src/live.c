@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:30:58 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 18:56:16 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/05 13:19:51 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	fc_live(t_op op, t_process *process, t_arena *arena)
 {
 	t_param	param;
 
+	ft_bzero(&param, sizeof(t_param));
 	process->c_todo = op.time;
 	process->pc_next = 5;
 	stock_in_param(arena, &param.value[0], 4, update_pc(process->pc, 1));
