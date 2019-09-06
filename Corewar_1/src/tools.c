@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 14:16:38 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/29 16:45:45 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/05 19:09:15 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,16 @@ int		get_error(t_data *data, int err_type, char *elem)
 	return (0);
 }
 
-void	fill_op_and_err_tab()
+void	fill_op_and_err_tab(void)
 {
-	err_tab[0] = "lexical error : ";
-	err_tab[1] = "syntax error : ";
+	err_tab[0] = "lexical error";
+	err_tab[1] = "syntax error";
 	err_tab[2] = "read error !";
-	err_tab[3] = "param error : ";
-	err_tab[4] = "missing coma !";
+	err_tab[3] = "param error";
+	err_tab[4] = "missing coma";
 	err_tab[5] = "malloc error !";
 	err_tab[6] = "file error !";
+	err_tab[7] = "not enough data at EOF !";
 }
 
 int		get_new_read(t_data *data)

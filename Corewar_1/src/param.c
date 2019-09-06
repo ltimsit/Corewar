@@ -6,13 +6,13 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/29 17:33:54 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/05 19:01:47 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-char		get_param_code(t_data *data, int p1, int p2, int p3)
+char	get_param_code(t_data *data, int p1, int p2, int p3)
 {
 	char	code;
 	int		tmp;
@@ -29,42 +29,45 @@ char		get_param_code(t_data *data, int p1, int p2, int p3)
 	return (code);
 }
 
-int		fc_cmd(t_data *data, int type, t_op op)
+void	cmd_loop_work(t_data *data, t_param *p, int *pc_cpt, t_op op)
 {
 	int		i;
+	int		cpt;
+
+	cpt = -1;
+	while (++cpt < op.nb_param)
+	{
+		if (cpt)
+			check_separator_char(D, p->cmd);
+		go_to_next_elem(D, &D->curr_line, &D->curr_index, 0);
+		i = get_elem(D, p->cmd, PARAM_SIZE, SEPARATOR_CHAR);
+		p->para[cpt] = get_param_type(D, p->cmd, &p->val[cpt], *pc_cpt);
+		check_param(D, p->para[cpt], op.param_type[cpt], p->cmd);
+		D->curr_index += i;
+		p->size_para[cpt] = p->para[cpt] == T_REG ? 1 : 2;
+		p->size_para[cpt] = !op.dir_size && p->para[cpt] == T_DIR ? 4
+			: p->size_para[cpt];
+		*pc_cpt = *pc_cpt + p->size_para[cpt];
+	}
+}
+
+int		fc_cmd(t_data *data, t_op op)
+{
 	int		cpt;
 	t_param	p;
 	int		pc_cpt;
 
-	(void)type;
 	mem_stock(D, (char*)&(op.opcode), 1);
 	cpt = -1;
 	init_param_tab(p.para);
 	pc_cpt = op.ocp ? 1 : 0;
-	while (++cpt < op.nb_param)
-	{
-		ft_printf("{red}-- start param --\n{reset}");
-		if (cpt)
-			check_separator_char(D, p.cmd);
-		go_to_next_elem(D, &D->curr_line, &D->curr_index);
-		i = get_elem(D, p.cmd, PARAM_SIZE, SEPARATOR_CHAR);
-		p.para[cpt] = get_param_type(D, p.cmd, &p.val[cpt], pc_cpt);
-		ft_printf("param[%d] = %d cmd = %s curr=%c\n", cpt, p.para[cpt], p.cmd, *D->line);
-		check_param(D, p.para[cpt], op.param_type[cpt], p.cmd);
-		ft_printf("{red}-- end param --\n{reset}");
-		D->curr_index += i;
-		p.size_para[cpt] = p.para[cpt] == REG_CODE ? 1 : 2;
-		p.size_para[cpt] = !op.dir_size && p.para[cpt] == DIR_CODE ? 4 : p.size_para[cpt];
-		pc_cpt += p.size_para[cpt];
-	}
+	cmd_loop_work(D, &p, &pc_cpt, op);
 	if (op.ocp && (p.ocp = get_param_code(D, p.para[0], p.para[1], p.para[2])))
 		mem_stock(D, &p.ocp, 1);
-//	D->pc += op.ocp ? 2 : 1;
 	cpt = -1;
 	D->pc += pc_cpt + 1;
 	while (++cpt < op.nb_param)
 	{
-//		D->pc += p.size_para[cpt];
 		change_endian((char *)&(p.val[cpt]), p.size_para[cpt]);
 		mem_stock(D, (char *)&(p.val[cpt]), p.size_para[cpt]);
 	}

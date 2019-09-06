@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/29 17:50:52 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/05 18:45:02 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 # define D data
 # define MEMSIZE 4096
-# define READSIZE 20
+# define READSIZE 1
 # define PARAM_SIZE 128
 
 typedef struct	s_param
@@ -126,10 +126,11 @@ enum			e_error
 	param,
 	coma,
 	malloc_err,
-	file_err
+	file_err,
+	data_err
 };
 
-char			*err_tab[7];
+char			*err_tab[8];
 
 /*
 ** corewar.c    ----------------------------------------------------------------
@@ -144,6 +145,9 @@ int				get_fd_file(char *filename);
 */
 
 int				skip_comment_block(t_data *data);
+int				check_in_label_char(t_data *data, char *elem);
+int				check_label(t_data *data, char *elem);
+int				get_elem(t_data *data, char *tab, int tab_size, char sep_char);
 
 /*
 ** tools.c      ----------------------------------------------------------------
@@ -160,7 +164,7 @@ int				get_new_read(t_data *data);
 ** champtools.c ----------------------------------------------------------------
 */
 
-int				fc_namecom(t_data *data, char *namecom, int size);
+int				fc_namecom(t_data *data, char *namecom, int size, int i);
 int				mem_stock(t_data *data, char *content, int content_size);
 int				change_endian(char *h, int size);
 
@@ -169,8 +173,7 @@ int				change_endian(char *h, int size);
 */
 
 int				set_header(t_data *data);
-int				get_elem(t_data *data, char *tab, int tab_size, char sep_char);
-int				go_to_next_elem(t_data *data, int *line_id, int *col_id);
+int				go_to_next_elem(t_data *data, int *line_id, int *col_id, int i);
 int				get_type(t_data *data, char *line);
 int				read_and_dispatch(t_data *data);
 int				get_header(t_data *data);
@@ -186,9 +189,8 @@ int				btohex(unsigned char byte);
 */
 
 char			get_param_code(t_data *data, int p1, int p2, int p3);
-int				get_registre(t_data *data, char *cmd);
-int				get_direct4(t_data *data, char *cmd);
-int				fc_cmd(t_data *data, int type, t_op op);
+void			cmd_loop_work(t_data *data, t_param *p, int *pc_cpt, t_op op);
+int				fc_cmd(t_data *data, t_op op);
 
 /*
 ** param_tools.c----------------------------------------------------------------
@@ -204,11 +206,10 @@ int				get_param_type(t_data *data, char *cmd, int *val, int pc_cpt);
 ** label.c      ----------------------------------------------------------------
 */
 
-int				check_in_label_char(t_data *data, char *elem);
 int				add_to_label_instr(t_data *data, char *elem, int mem_index);
 int				add_to_label_list(t_data *data, char *elem, int pc);
 int				calc_val_from_pc(int curr_pc, int label_pc);
-int				check_label(t_data *data, char *elem);
+int				put_add_in_mem_stock(t_data *data, int mem_index, int add);
 int				fill_missing_label(t_data *data);
 
 #endif
