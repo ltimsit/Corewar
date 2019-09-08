@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:29:19 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/08 15:27:48 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/08 18:40:42 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,9 @@ t_champ		new_champ(unsigned char *buff)
 	return (champ);
 }
 
-void		create_add_champ(char *filename, t_arena *arena)
+void		create_add_champ(char *filename, t_arena *arena, int id_champ)
 {
 	unsigned char	*buffer;
-	static int		id_champ = 18;
 	static int		pos = 0;
 
 	if (!(buffer = (unsigned char*)ft_alloc_gc(CHAMP_MAX_SIZE +
@@ -58,7 +57,6 @@ void		create_add_champ(char *filename, t_arena *arena)
 	buffer = open_read(filename, buffer);
 	arena->champ[pos] = new_champ(buffer);
 	arena->champ[pos].id = id_champ;
-	id_champ++;
 	pos++;
 	arena->nb_champ++;
 }

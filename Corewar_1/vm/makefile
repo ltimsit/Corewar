@@ -1,4 +1,4 @@
-NAME = vm
+NAME = corewar
 
 SRCS = $(addprefix $(SRCDIR)/, $(addsuffix .c, \
 	   arena main operation process utils tools op champ live and sti \

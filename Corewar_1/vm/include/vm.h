@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/05 14:55:34 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/08 18:40:30 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct	s_arena
 	int				last_living_champ;
 	int				display_on;
 	int				total_cycle;
+	int				dump_cycle;
 	int				actual_cycle;
 	int 			nb_check;
 	int				nb_live;
@@ -134,14 +135,15 @@ void 			put_data_in_reg(t_process *process, int data,int reg_nb);
 */
 
 void			print_champ(t_champ *champ);
-void			create_add_champ(char *filename, t_arena *arena);
+void			create_add_champ(char *filename, t_arena *arena, int id_champ);
 
 /*
 **main.c
 */
 unsigned int 	change_endian(unsigned int little);
 unsigned char	*open_read(char *filename, unsigned char *buffer);
-
+int				check_argv(t_arena *arena, char **av, int ac);
+void			print_usage(t_arena *arena);
 
 /*
  ** arena.c
