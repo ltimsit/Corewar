@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 16:48:28 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/04 11:40:18 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/08 15:37:38 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	fc_ld(t_op op, t_process *process, t_arena *arena)
 {
 	t_param	param;
-	int elem[3];
-	int i;
+	int		elem[3];
+	int		i;
 
 	i = -1;
 	ft_bzero(&param, sizeof(param));
@@ -36,8 +36,8 @@ void	execute_ld(t_process *process, t_arena *arena)
 void	fc_lld(t_op op, t_process *process, t_arena *arena)
 {
 	t_param	param;
-	int elem[3];
-	int i;
+	int		elem[3];
+	int		i;
 
 	i = -1;
 	ft_bzero(&param, sizeof(param));

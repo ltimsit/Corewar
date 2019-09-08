@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:34:46 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/05 15:30:06 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/08 15:52:59 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	fc_sti(t_op op, t_process *process, t_arena *arena)
 {
 	t_param	param;
-	int elem[3];
-	int i;
+	int		elem[3];
+	int		i;
 
 	i = -1;
 	ft_bzero(&param, sizeof(param));

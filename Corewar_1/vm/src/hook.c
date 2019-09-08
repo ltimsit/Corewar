@@ -6,19 +6,18 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/05 17:35:47 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/08 15:30:26 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <stdlib.h>
 
-
 int		print_nb(t_arena *arena, int nb, int x, int y)
 {
-	char nb_tab[10];
-	int size;
-	int i;
+	char	nb_tab[10];
+	int		size;
+	int		i;
 
 	i = 10;
 	size = 0;
@@ -34,6 +33,7 @@ int		print_nb(t_arena *arena, int nb, int x, int y)
 	mlx_string_put(arena->dis->mlx, arena->dis->win, x, y, HEX_COLOR, nb_tab);
 	return (0);
 }
+
 int		key_press(int keycode, t_arena *arena)
 {
 	if (keycode == 53)
@@ -46,7 +46,6 @@ int		key_press(int keycode, t_arena *arena)
 	}
 	if (keycode == 82 && arena->pause)
 		launch_fight(arena);
-
 	return (0);
 }
 

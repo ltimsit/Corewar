@@ -6,14 +6,14 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/05 17:33:31 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/08 16:06:19 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <stdlib.h>
 
-void print_arena( t_arena *arena)
+void	print_arena(t_arena *arena)
 {
 	unsigned int i;
 	unsigned int count;
@@ -34,25 +34,25 @@ void print_arena( t_arena *arena)
 	}
 }
 
-void    load_champ(t_arena *arena)
+void	load_champ(t_arena *arena)
 {
-    int i;
-    int space;
-    i = -1;
-    space = MEM_SIZE / arena->nb_champ;
-    while (++i < arena->nb_champ)
-    {
-        ft_memcpy(arena->field + (i * space), arena->champ[i].buff,
-                arena->champ[i].h.prog_size);
-        add_process(arena, arena->champ[i].id);
-        arena->process->pc = i * space;
-    }
+	int		i;
+	int		space;
+
+	i = -1;
+	space = MEM_SIZE / arena->nb_champ;
+	while (++i < arena->nb_champ)
+	{
+		ft_memcpy(arena->field + (i * space), arena->champ[i].buff,
+				arena->champ[i].h.prog_size);
+		add_process(arena, arena->champ[i].id);
+		arena->process->pc = i * space;
+	}
 }
 
 void	check_process(t_arena *arena, t_process *process)
 {
-	char opcode;
-	int j;
+	char	opcode;
 
 	ft_printf("{blue}process = %p{reset}\n", process);
 	ft_printf("{green}pc_next = %d\n{reset}", arena->process->pc_next);
@@ -79,51 +79,50 @@ void	check_process(t_arena *arena, t_process *process)
 		ft_printf("error = %d, exec ------ r[0] = %d\n", process->param.error, process->reg[0]);
 		arena->carriage[process->pc] = 0;
 		process->pc = update_pc(process->pc, process->pc_next);
-//		arena->carriage[process->pc] = 1;
 		process->c_done = 0;
 		process->c_todo = 0;
 		check_process(arena, process);
 	}
-	j = -1;
 	ft_putendl("- - - END OF CHECK PROCESS - - -");
 	ft_printf("{yellow}done = %d\n{reset}", process->c_done);
 	ft_printf("{red}todo = %d\n{reset}", process->c_todo);
 	ft_printf("{italic}pc next  = %d{reset}\n", process->pc_next);
 }
 
-void    process_process(t_arena *arena)
+void	process_process(t_arena *arena)
 {
-    t_process *tmp;
+	t_process *tmp;
 
-    tmp = arena->p_head;
-    while (tmp)
-    {
-        check_process(arena, tmp);
-        tmp = tmp->next;
-    }
+	tmp = arena->p_head;
+	while (tmp)
+	{
+		check_process(arena, tmp);
+		tmp = tmp->next;
+	}
 }
 
-int     verif_process(t_arena *arena, t_process *head)
+int		verif_process(t_arena *arena, t_process *head)
 {
-    t_process   *tmp;
-    int         nb_live;
-    t_process   *prev;
-    prev = NULL;
-    tmp = head;
-    nb_live = 0;
-    while (tmp)
-    {
-        if (!tmp->nb_live)
-            del_process(arena, tmp, prev);
-        else
-        {
-            nb_live += tmp->nb_live;
-            tmp->nb_live = 0;
-            prev = tmp;
-        }
-        tmp = tmp->next;
-    }
-    return (nb_live);
+	t_process	*tmp;
+	int			nb_live;
+	t_process	*prev;
+
+	prev = NULL;
+	tmp = head;
+	nb_live = 0;
+	while (tmp)
+	{
+		if (!tmp->nb_live)
+			del_process(arena, tmp, prev);
+		else
+		{
+			nb_live += tmp->nb_live;
+			tmp->nb_live = 0;
+			prev = tmp;
+		}
+		tmp = tmp->next;
+	}
+	return (nb_live);
 }
 
 void	print_winner(t_arena *arena)
@@ -149,14 +148,14 @@ void	print_winner(t_arena *arena)
 		}
 }
 
-void 	launch_fight(t_arena *arena)
+void	launch_fight(t_arena *arena)
 {
-    static int j = -1;
+	static int j = -1;
 
 	if (++j < arena->cycle_to_die)
 	{
 		arena->total_cycle++;
-		ft_printf("\n{red}TOTAL CYCLE: %d\n{reset}",arena->total_cycle);
+		ft_printf("\n{red}TOTAL CYCLE: %d\n{reset}", arena->total_cycle);
 		ft_printf("boucle cycle : %d\n", j + 1);
 		process_process(arena);
 		print_arena(arena);

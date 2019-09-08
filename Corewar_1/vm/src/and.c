@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:35:33 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/03 16:00:07 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/08 15:19:02 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	fc_and(t_op op, t_process *process, t_arena *arena)
 {
-	t_param	param;
-	int elem[3];
-	int i;
+	t_param		param;
+	int			elem[3];
+	int			i;
 
 	i = 0;
 	param = fill_param(arena, op, process, elem);

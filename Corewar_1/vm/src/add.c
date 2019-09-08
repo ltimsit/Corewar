@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 17:16:32 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/04 15:24:55 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/08 15:18:18 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	fc_add(t_op op, t_process *process, t_arena *arena)
 {
 	t_param	param;
-	int elem[3];
-	int i;
+	int		elem[3];
+	int		i;
 
 	i = -1;
 	ft_bzero(&param, sizeof(param));

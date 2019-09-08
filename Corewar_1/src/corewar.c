@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:37:22 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/05 19:12:24 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/08 15:13:43 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	write_in_file(t_data *data, char *output, char *filename)
 	char	*ext;
 	int		i;
 
-	ext = ".cora";
+	ext = ".cor";
 	i = -1;
 	while (i < 128 - 4 && filename[++i] && filename[i] != '.')
 		file[i] = filename[i];

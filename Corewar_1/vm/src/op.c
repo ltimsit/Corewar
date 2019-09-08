@@ -6,13 +6,13 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:18:42 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/04 15:30:51 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/08 15:46:14 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static t_op	op_tab[17] =
+static t_op	g_op_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
@@ -39,12 +39,11 @@ static t_op	op_tab[17] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
-
 void	set_op_table(t_arena *arena)
 {
 	int		i;
-	
+
 	i = -1;
 	while (++i < 16)
-		arena->op[i] = op_tab[i];
+		arena->op[i] = g_op_tab[i];
 }

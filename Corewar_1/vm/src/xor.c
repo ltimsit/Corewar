@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 17:19:25 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/03 19:24:12 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/08 16:04:00 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	fc_xor(t_op op, t_process *process, t_arena *arena)
 {
 	t_param	param;
-	int elem[3];
-	int i;
+	int		elem[3];
+	int		i;
 
 	i = 0;
 	param = fill_param(arena, op, process, elem);

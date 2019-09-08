@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/05 18:34:51 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/08 15:35:36 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	fill_border(t_arena *arena)
 {
-	int x;
-	int y;
-	int *data;
+	int		x;
+	int		y;
+	int		*data;
 
 	data = (int *)arena->dis->d_border_img;
 	y = 25;
@@ -35,10 +35,10 @@ void	fill_border(t_arena *arena)
 
 void	print_process_dis(t_arena *arena)
 {
-	t_process *tmp;
-	int i;
-	int x;
-	int y;
+	t_process	*tmp;
+	int			i;
+	int			x;
+	int			y;
 
 	x = 1910;
 	y = 40;
@@ -48,7 +48,8 @@ void	print_process_dis(t_arena *arena)
 		i = -1;
 		while (++i < 16)
 		{
-			mlx_string_put(arena->dis->mlx, arena->dis->win, x - 90, y, HEX_COLOR, "reg[  ] = ");
+			mlx_string_put(arena->dis->mlx, arena->dis->win,
+					x - 90, y, HEX_COLOR, "reg[  ] = ");
 			print_nb(arena, i + 1, x - 50, y);
 			print_nb(arena, tmp->reg[i], x, y);
 			y += 20;
@@ -62,8 +63,10 @@ void	print_map(t_arena *arena, int c_nb)
 	int i;
 
 	mlx_clear_window(arena->dis->mlx, arena->dis->win);
-	mlx_put_image_to_window(arena->dis->mlx, arena->dis->win, arena->dis->border_img, 0, 0);
-	mlx_string_put(arena->dis->mlx, arena->dis->win, W_LEN / 2 - 30, 3, HEX_COLOR, "COREWAR");
+	mlx_put_image_to_window(arena->dis->mlx, arena->dis->win,
+			arena->dis->border_img, 0, 0);
+	mlx_string_put(arena->dis->mlx, arena->dis->win,
+			W_LEN / 2 - 30, 3, HEX_COLOR, "COREWAR");
 	i = -1;
 	while (++i < MEM_SIZE)
 	{
@@ -101,14 +104,13 @@ char	*get_data_ptr(void *img_ptr)
 
 int		print_hexa_dis(t_arena *arena, t_display *dis, int index)
 {
-	char *base;
-	unsigned char byte;
-	unsigned char nb;
-	int	size;
-	int line;
-	int col;
-//	int j;
-	char	hex[3];
+	char			*base;
+	unsigned char	byte;
+	unsigned char	nb;
+	int				size;
+	int				line;
+	int				col;
+	char			hex[3];
 
 	base = "0123456789abcdef";
 	size = 1;
@@ -116,7 +118,6 @@ int		print_hexa_dis(t_arena *arena, t_display *dis, int index)
 	byte = arena->field[index];
 	line = (index / BYTE_PER_COL) * 20 + Y_OFFSET;
 	col = (index % BYTE_PER_COL) * 27 + X_OFFSET;
-
 	while (nb / 16)
 	{
 		size++;
@@ -124,10 +125,10 @@ int		print_hexa_dis(t_arena *arena, t_display *dis, int index)
 	}
 	if (size == 1)
 	{
-		hex[0]= '0';
+		hex[0] = '0';
 		size++;
 	}
-	hex[2] ='\0';
+	hex[2] = '\0';
 	while (size--)
 	{
 		hex[size] = base[byte % 16];
@@ -138,7 +139,6 @@ int		print_hexa_dis(t_arena *arena, t_display *dis, int index)
 	mlx_string_put(dis->mlx, dis->win, col, line, HEX_COLOR, hex);
 	return (1);
 }
-
 
 void	init_display(t_arena *arena)
 {

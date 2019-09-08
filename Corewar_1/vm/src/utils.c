@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 15:17:25 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/05 11:26:42 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/08 16:03:30 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	ft_error(char *message)
 {
 	ft_putstr(message);
-	exit(EXIT_FAILURE);	
+	exit(EXIT_FAILURE);
 }
 
 int		update_pc(int old_pc, int i)
@@ -25,18 +25,16 @@ int		update_pc(int old_pc, int i)
 	return ((old_pc + i) % MEM_SIZE);
 }
 
-
 int		btohex(unsigned char byte)
 {
-	char *base;
-	int	size;
-	unsigned char nb;
+	char			*base;
+	int				size;
+	unsigned char	nb;
 	unsigned char	hex[3];
 
 	base = "0123456789abcdef";
 	size = 1;
 	nb = byte;
-
 	while (nb / 16)
 	{
 		size++;
@@ -44,10 +42,10 @@ int		btohex(unsigned char byte)
 	}
 	if (size == 1)
 	{
-		hex[0]= '0';
+		hex[0] = '0';
 		size++;
 	}
-	hex[2] ='\0';
+	hex[2] = '\0';
 	while (size--)
 	{
 		hex[size] = base[byte % 16];

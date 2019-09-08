@@ -6,13 +6,13 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/05 15:45:12 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/08 16:02:58 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	init_fct_instr_tab()
+void	init_fct_instr_tab(void)
 {
 	g_fct_instr[0] = NULL;
 	g_fct_instr[0x01] = fc_live;
@@ -33,7 +33,7 @@ void	init_fct_instr_tab()
 //	g_fct_instr[0x10] = fc_aff;
 }
 
-void	init_fct_exec_tab()
+void	init_fct_exec_tab(void)
 {
 	g_fct_exec[0] = NULL;
 	g_fct_exec[0x01] = execute_live;
@@ -56,34 +56,32 @@ void	init_fct_exec_tab()
 
 void	read_instruction(t_arena *arena, t_process *process, char opcode)
 {
-//	ft_printf("opcode :%d",opcode);
-//	ft_printf("%s",op_tab[1].name);
-//	fc_sti(
 	g_fct_instr[(int)opcode](arena->op[(int)opcode - 1], process, arena);
-//	ft_printf("{red}todo = %d{reset}\n", process->c_todo);
 }
 
-t_param		fill_param(t_arena *arena, t_op op, t_process *process, int elem[3])
+t_param	fill_param(t_arena *arena, t_op op, t_process *process, int elem[3])
 {
-	t_param param;
-	int i;
-	int pc_prev;
-	
+	t_param	param;
+	int		i;
+	int		pc_prev;
+
 	ft_bzero(&param, sizeof(t_param));
 	if (op.ocp)
-		read_ocp(&param, op.dir_size, arena->field[update_pc(process->pc, 1)], op.param_type);
+		read_ocp(&param, op.dir_size, arena->field[update_pc(process->pc, 1)],
+				op.param_type);
 	process->pc_next = param.size[0] + param.size[1]
 		+ param.size[2] + 1 + (op.ocp ? 1 : 0);
 	i = -1;
 	pc_prev = 0;
 	while (++i < op.nb_param)
 	{
-	stock_in_param(arena, &param.value[i], param.size[i], update_pc(process->pc, 2 + pc_prev));
+		stock_in_param(arena, &param.value[i], param.size[i],
+			update_pc(process->pc, 2 + pc_prev));
 		if (param.type[i] == REG_CODE)
 			elem[i] = process->reg[change_endian(param.value[i]) - 1];
-		if (param.type[i] == DIR_CODE)
+		else if (param.type[i] == DIR_CODE)
 			elem[i] = change_endian(param.value[i]);
-		if (param.type[i] == IND_CODE)
+		else if (param.type[i] == IND_CODE)
 			elem[i] = fill_index_content(arena, process, param.value[i]);
 		pc_prev += param.size[i];
 	}
@@ -105,24 +103,19 @@ void	read_ocp(t_param *param, int dir_size, char ocp, int param_type[3])
 	while (i < 8)
 	{
 		cmp = ((ocp >> i) & 3);
-			ft_printf("ocp = %hhd, cmp = %d param = %bd\n", ocp, cmp, param_type[j]);
 		if (param_type[j] && !(param_type[j] & cmp))
-		{
-			ft_printf("ocp = %hhd, cmp = %d param = %bd\n", ocp, cmp, param_type[j]);
 			param->error = 1;
-	//		return ;
-		}
 		if (cmp == 1)
 		{
 			*val = 1;
 			*type = REG_CODE;
 		}
-		if (cmp == 2)
+		else if (cmp == 2)
 		{
 			*val = dir_size == 1 ? 2 : 4;
 			*type = DIR_CODE;
 		}
-		if (cmp == 3)
+		else if (cmp == 3)
 		{
 			*val = 2;
 			*type = IND_CODE;
