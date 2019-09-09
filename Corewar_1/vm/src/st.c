@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 16:58:41 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/08 15:52:19 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/09 18:27:49 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	fc_st(t_op op, t_process *process, t_arena *arena)
 	i = -1;
 	param = fill_param(arena, op, process, elem);
 	param.data = elem[0];
-	param.dest_pc = change_endian(param.value[1]);
+	param.dest_pc = change_endian(param.value[1] % IDX_MOD);
 	process->carry = !param.data ? 1 : 0;
 	process->param = param;
 }

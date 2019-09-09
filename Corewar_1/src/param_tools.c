@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 13:30:25 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/05 19:03:21 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/09 17:33:38 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,22 @@ int		get_param_type(t_data *data, char *cmd, int *val, int pc_cpt)
 
 	i = 0;
 	ret = 0;
-	if (cmd[0] == DIRECT_CHAR && cmd[1] == LABEL_CHAR)
+	if ((cmd[0] == DIRECT_CHAR && cmd[1] == LABEL_CHAR)
+			|| cmd[0] == LABEL_CHAR)
 	{
-		if ((*val = check_label(D, cmd + 2)) == -1)
-			add_to_label_instr(D, cmd + 2, D->mem_stock_index + pc_cpt);
-		return (T_DIR);
+		if ((*val = check_label(D, cmd +
+				(cmd[0] == LABEL_CHAR ? 1 : 2))) == -1)
+			add_to_label_instr(D, cmd + (cmd[0] == LABEL_CHAR ? 1 : 2),
+					D->mem_stock_index + pc_cpt);
+		return (cmd[0] == LABEL_CHAR ? IND_CODE : DIR_CODE);
 	}
-	if ((cmd[0] == 'r' && (ret = T_REG))
-			|| (cmd[0] == DIRECT_CHAR && (ret = T_DIR))
-			|| (ret = T_IND))
+	if ((cmd[0] == 'r' && (ret = REG_CODE))
+			|| (cmd[0] == DIRECT_CHAR && (ret = DIR_CODE))
+			|| (ret = IND_CODE))
 	{
-		if (!(param_type_tool(cmd + (ret == T_IND ? 0 : 1), val)))
+		if (!(param_type_tool(cmd + (ret == IND_CODE ? 0 : 1), val)))
 			get_error(D, syntax, cmd);
-		if (ret == T_REG && (*val < 0 || ret > 16))
+		if (ret == REG_CODE && (*val < 0 || ret > 16))
 			get_error(D, syntax, cmd);
 	}
 	return (ret);
