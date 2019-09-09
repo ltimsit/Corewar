@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:01:14 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/08 15:54:27 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/09 20:31:55 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		fill_index_content(t_arena *arena, t_process *process, int value)
 	int j;
 
 	j = -1;
-	index = update_pc(process->pc, change_endian(value));
+	index = update_pc(process->pc, value);
 	while (++j < 4)
 	{
 		((char *)&elem)[j] = arena->field[index++];

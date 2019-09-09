@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/08 16:02:58 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/09 20:36:20 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_param	fill_param(t_arena *arena, t_op op, t_process *process, int elem[3])
 		else if (param.type[i] == DIR_CODE)
 			elem[i] = change_endian(param.value[i]);
 		else if (param.type[i] == IND_CODE)
-			elem[i] = fill_index_content(arena, process, param.value[i]);
+			elem[i] = fill_index_content(arena, process, change_endian(param.value[i]));
 		pc_prev += param.size[i];
 	}
 	return (param);
