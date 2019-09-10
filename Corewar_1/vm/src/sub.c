@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 17:12:18 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/08 15:53:24 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:41:29 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ void	execute_sub(t_process *process, t_arena *arena)
 {
 	(void)arena;
 	put_data_in_reg(process, process->param.data, process->param.dest_pc);
+	process->carry = !process->param.data ? 1 : 0;
 }

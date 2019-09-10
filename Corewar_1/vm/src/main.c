@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/10 12:20:02 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:48:40 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-unsigned char	*open_read(char *filename, unsigned char *buffer)
+unsigned char	*open_read(t_arena *arena, char *filename, unsigned char *buffer)
 {
 	int	fd;
 	int	ret;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		ft_error("Open failed\n");
+		ft_error(arena ,"Open failed\n");
 	ret = read(fd, buffer, CHAMP_MAX_SIZE + sizeof(header_t));
 	return (buffer);
 }
@@ -119,7 +119,7 @@ int				main(int ac, char **av)
 
 	ft_bzero(&arena, sizeof(t_arena));
 	if (!(arena.gc = (t_gc*)malloc(sizeof(t_gc))))
-		ft_error("Malloc error\n");
+		ft_error(&arena,"Malloc error\n");
 	ft_bzero(arena.gc, sizeof(t_gc));
 	arena.cycle_to_die = CYCLE_TO_DIE;
 	init_fct_instr_tab();

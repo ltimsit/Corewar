@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 15:17:25 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/10 15:06:09 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/10 15:45:47 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 #include "vm.h"
 #include <stdlib.h>
 
-void	ft_error(char *message)
+void	ft_error(t_arena *arena, char *message)
 {
-	
+	ft_free_gc(arena->gc);
+	free(arena->gc);
 	ft_putstr(message);
 	exit(EXIT_FAILURE);
 }

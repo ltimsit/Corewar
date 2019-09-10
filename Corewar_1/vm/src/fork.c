@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 12:29:51 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/09 19:50:08 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:50:23 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	execute_fork(t_process *process, t_arena *arena)
 	t_process *new_process;
 
 	if (!(new_process = ft_alloc_gc(1, sizeof(t_process), arena->gc)))
-		ft_error("Malloc error\n");
+		ft_error(arena, "Malloc error\n");
 	ft_bzero(new_process, sizeof(t_process));
 	new_process->pc = update_pc(process->pc, process->param.data);
 	new_process->carry = process->carry;
@@ -57,7 +57,7 @@ void	execute_lfork(t_process *process, t_arena *arena)
 	t_process *new_process;
 
 	if (!(new_process = ft_alloc_gc(1, sizeof(t_process), arena->gc)))
-		ft_error("Malloc error\n");
+		ft_error(arena, "Malloc error\n");
 	ft_bzero(new_process, sizeof(t_process));
 	new_process->pc = update_pc(process->pc, process->param.data);
 	new_process->carry = process->carry;

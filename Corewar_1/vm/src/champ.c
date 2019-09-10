@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:29:19 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/08 18:40:42 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:49:55 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		print_champ(t_champ *champ)
 	ft_putchar('\n');
 }
 
-t_champ		new_champ(unsigned char *buff)
+t_champ		new_champ(t_arena *arena, unsigned char *buff)
 {
 	t_champ		champ;
 
@@ -38,9 +38,9 @@ t_champ		new_champ(unsigned char *buff)
 	champ.h.magic = change_endian(champ.h.magic);
 	champ.h.prog_size = change_endian(champ.h.prog_size);
 	if (champ.h.magic != COREWAR_EXEC_MAGIC)
-		ft_error("WRONG MAGIC NUMBER\n");
+		ft_error(arena, "WRONG MAGIC NUMBER\n");
 	if (champ.h.prog_size > CHAMP_MAX_SIZE)
-		ft_error("CHAMP SIZE TO BIG\n");
+		ft_error(arena, "CHAMP SIZE TO BIG\n");
 	ft_memcpy(champ.buff, buff + sizeof(header_t), champ.h.prog_size);
 	return (champ);
 }
@@ -52,10 +52,10 @@ void		create_add_champ(char *filename, t_arena *arena, int id_champ)
 
 	if (!(buffer = (unsigned char*)ft_alloc_gc(CHAMP_MAX_SIZE +
 					sizeof(header_t), sizeof(char), arena->gc)))
-		ft_error("Malloc error\n");
+		ft_error(arena ,"Malloc error\n");
 	ft_bzero(buffer, CHAMP_MAX_SIZE + sizeof(header_t));
-	buffer = open_read(filename, buffer);
-	arena->champ[pos] = new_champ(buffer);
+	buffer = open_read(arena, filename, buffer);
+	arena->champ[pos] = new_champ(arena, buffer);
 	arena->champ[pos].id = id_champ;
 	pos++;
 	arena->nb_champ++;

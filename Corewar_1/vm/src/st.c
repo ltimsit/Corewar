@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 16:58:41 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/10 12:21:18 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:40:59 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	fc_st(t_op op, t_process *process, t_arena *arena)
 	param.dest_pc = param.type[1] == IND_CODE ?
 		change_endian(param.value[1] % IDX_MOD) :
 		change_endian(param.value[1]);
-	process->carry = !param.data ? 1 : 0;
 	process->param = param;
 }
 
@@ -36,6 +35,7 @@ void	execute_st(t_process *process, t_arena *arena)
 	else if (process->param.type[1] == IND_CODE)
 		put_param_in_field(arena, change_endian(process->param.data), 4,
 				update_pc(process->pc, process->param.dest_pc));
+	process->carry = !process->param.data ? 1 : 0;
 }
 
 void	fc_sti(t_op op, t_process *process, t_arena *arena)
@@ -43,6 +43,7 @@ void	fc_sti(t_op op, t_process *process, t_arena *arena)
 	t_param	param;
 	int		elem[3];
 	int		i;
+	int		tmp;
 
 	i = -1;
 	ft_bzero(&param, sizeof(param));
@@ -52,11 +53,13 @@ void	fc_sti(t_op op, t_process *process, t_arena *arena)
 		change_endian(param.value[1] % IDX_MOD) : elem[1];
 	elem[2] = param.type[2] == IND_CODE ?
 		change_endian(param.value[2] % IDX_MOD) : elem[2];
-	param.dest_pc = update_pc(process->pc, elem[1] + elem[2]);
+	tmp = change_endian(change_endian(elem[1] + elem[2]) % IDX_MOD);
+	param.dest_pc = update_pc(process->pc, tmp);
 	process->param = param;
 }
 
 void	execute_sti(t_process *process, t_arena *arena)
 {
 	put_param_in_field(arena, process->param.data, 4, process->param.dest_pc);
+	process->carry = !process->param.data ? 1 : 0;
 }

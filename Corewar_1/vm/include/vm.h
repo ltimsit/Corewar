@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/10 12:11:30 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:48:43 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	print_map(t_arena *arena, int c_nb);
 /*
  ** utils.c
  */
-void			ft_error(char *message);
+void			ft_error(t_arena *arena, char *message);
 int				btohex(unsigned char byte);
 
 /*
@@ -150,7 +150,8 @@ void			create_add_champ(char *filename, t_arena *arena, int id_champ);
 **main.c
 */
 unsigned int 	change_endian(unsigned int little);
-unsigned char	*open_read(char *filename, unsigned char *buffer);
+unsigned char	*open_read(t_arena *arena, char *filename,
+	   	unsigned char *buffer);
 int				check_argv(t_arena *arena, char **av, int ac);
 void			print_usage(t_arena *arena);
 
