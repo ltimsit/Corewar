@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/09 20:36:20 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 09:54:47 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	init_fct_instr_tab(void)
 	g_fct_instr[0x0C] = fc_fork;
 	g_fct_instr[0x0D] = fc_lld;
 	g_fct_instr[0x0E] = fc_lldi;
-//	g_fct_instr[0x0F] = fc_lfork;
-//	g_fct_instr[0x10] = fc_aff;
+	g_fct_instr[0x0F] = fc_lfork;
+	g_fct_instr[0x10] = fc_aff;
 }
 
 void	init_fct_exec_tab(void)
@@ -50,8 +50,8 @@ void	init_fct_exec_tab(void)
 	g_fct_exec[0x0C] = execute_fork;
 	g_fct_exec[0x0D] = execute_lld;
 	g_fct_exec[0x0E] = execute_lldi;
-//	g_fct_exec[0x0F] = execute_lfork;
-//	g_fct_exec[0x10] = execute_aff;
+	g_fct_exec[0x0F] = execute_lfork;
+	g_fct_exec[0x10] = execute_aff;
 }
 
 void	read_instruction(t_arena *arena, t_process *process, char opcode)
@@ -69,8 +69,8 @@ t_param	fill_param(t_arena *arena, t_op op, t_process *process, int elem[3])
 	if (op.ocp)
 		read_ocp(&param, op.dir_size, arena->field[update_pc(process->pc, 1)],
 				op.param_type);
-	process->pc_next = param.size[0] + param.size[1]
-		+ param.size[2] + 1 + (op.ocp ? 1 : 0);
+	process->pc_next = param.size[0] + param.size[1] + param.size[2] + 1
+		+ (op.ocp ? 1 : 0);
 	i = -1;
 	pc_prev = 0;
 	while (++i < op.nb_param)

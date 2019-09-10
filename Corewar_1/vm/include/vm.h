@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/09 20:36:32 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 10:50:05 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@
 # include <ncurses.h>
 # include "display.h"
 
-# define PLAYER_1 1
-# define PLAYER_2 2
-# define PLAYER_3 3
-# define PLAYER_4 4
-# define CMENU	25
+# define PLAYER_1	1
+# define PLAYER_2	2
+# define PLAYER_3	3
+# define PLAYER_4	4
+# define CMENU		25
+# define AFF_SIZE	128
 
 typedef struct	s_param
 {
@@ -41,6 +42,8 @@ typedef struct	s_process
 	int					reg[REG_NUMBER];
 	int					id_champ;
 	int					pc;
+	char				aff[AFF_SIZE];
+	unsigned char		aff_index;
 	int 				pc_next;
 	char				carry;
 	char				opcode;
@@ -279,5 +282,13 @@ void			execute_lldi(t_process *process, t_arena *arena);
 */
 void			fc_fork(t_op op, t_process *process, t_arena *arena);
 void			execute_fork(t_process *process, t_arena *arena);
+void			fc_lfork(t_op op, t_process *process, t_arena *arena);
+void			execute_lfork(t_process *process, t_arena *arena);
 
+/*
+**aff
+*/
+
+void			fc_aff(t_op op, t_process *process, t_arena *arena);
+void			execute_aff(t_process *process, t_arena *arena);
 #endif

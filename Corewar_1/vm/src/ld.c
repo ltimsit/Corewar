@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 16:48:28 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/09 20:36:23 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 09:43:53 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	fc_ld(t_op op, t_process *process, t_arena *arena)
 	i = -1;
 	ft_bzero(&param, sizeof(param));
 	param = fill_param(arena, op, process, elem);
-	param.data = param.type[0] == T_IND ?
+	param.data = param.type[0] == IND_CODE ?
 		fill_index_content(arena, process,
 				change_endian(param.value[0]) % IDX_MOD): elem[0];
 	param.dest_pc = change_endian(param.value[1]);
