@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/08 16:06:19 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 12:21:20 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,6 @@ void	launch_fight(t_arena *arena)
 	if (++j < arena->cycle_to_die)
 	{
 		arena->total_cycle++;
-		ft_printf("\n{red}TOTAL CYCLE: %d\n{reset}", arena->total_cycle);
-		ft_printf("boucle cycle : %d\n", j + 1);
 		process_process(arena);
 		print_arena(arena);
 		if (arena->dis)
@@ -174,4 +172,6 @@ void	launch_fight(t_arena *arena)
 		}
 		j = -1;
 	}
+	if (arena->dump_cycle && arena->total_cycle == arena->dump_cycle)
+		exit_dump(arena);
 }

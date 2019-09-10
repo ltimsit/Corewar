@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/08 18:42:07 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 12:20:02 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,11 @@ int				check_argv(t_arena *arena, char **av, int ac)
 	while (++i < ac)
 	{
 		if (!ft_strcmp(av[i], "-dis"))
+		{
 			arena->display_on = 1;
-		else if (!ft_strcmp(av[i], "-dump"))
+			arena->dump_cycle = 0;
+		}
+		else if (!ft_strcmp(av[i], "-dump") && !arena->display_on)
 		{
 			if (++i < ac)
 				arena->dump_cycle = ft_atoi(av[i]);

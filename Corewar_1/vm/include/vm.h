@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/10 10:50:05 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 12:11:30 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct	s_arena
 	int				display_on;
 	int				total_cycle;
 	int				dump_cycle;
-	int				actual_cycle;
 	int 			nb_check;
 	int				nb_live;
 	int				cycle_to_die;
@@ -132,6 +131,13 @@ void			stock_in_param(t_arena *arena, int *param, int size, int pc);
 void 			put_param_in_field(t_arena *arena, int param, int size, int pc);
 int				fill_index_content(t_arena *arena, t_process *process, int val);
 void 			put_data_in_reg(t_process *process, int data,int reg_nb);
+
+/*
+**tools2.c
+*/
+
+int				check_reg_num(t_param *param, int i);
+void			exit_dump(t_arena *arena);
 
 /*
 **champ.c
@@ -196,13 +202,6 @@ void			n_print_pc(int pc, t_arena *arena, int o);
 int				nbtohex(unsigned char byte, int line, int col);
 void			n_print_reg(t_process *process, t_arena *arena, int reg_nb);
 
-
-/*
-**sti
-*/
-void			fc_sti(t_op op, t_process *process, t_arena *arena);
-void			execute_sti(t_process *process, t_arena *arena);
-
 /*
 **live
 */
@@ -258,6 +257,8 @@ void			execute_sub(t_process *process, t_arena *arena);
 
 void			fc_st(t_op op, t_process *process, t_arena *arena);
 void			execute_st(t_process *process, t_arena *arena);
+void			fc_sti(t_op op, t_process *process, t_arena *arena);
+void			execute_sti(t_process *process, t_arena *arena);
 
 /*
 **ld

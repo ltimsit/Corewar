@@ -1,8 +1,8 @@
 NAME = corewar
 
 SRCS = $(addprefix $(SRCDIR)/, $(addsuffix .c, \
-	   arena main operation process utils tools op champ live and sti \
-	   sub add or xor st ld ldi zjump fork aff init_display hook))
+	   arena main operation process utils tools op champ live and \
+	   sub add or xor st ld ldi zjump fork aff init_display hook tools2))
 
 OBJ = $(SRCS:.c=.o)
 DEP = $(SRCS:.c=.d)
