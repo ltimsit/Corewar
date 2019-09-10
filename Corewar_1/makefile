@@ -1,7 +1,7 @@
 NAME = asm
 
 SRCS = $(addprefix $(SRCDIR)/, $(addsuffix .c, \
-	   corewar champtools header byte_to_hexa param label \
+	   corewar champtools header param label \
 	   tools tools2 param_tools))
 
 OBJ = $(SRCS:.c=.o)

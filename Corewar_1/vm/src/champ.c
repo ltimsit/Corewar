@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:29:19 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/10 15:49:55 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:34:19 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		create_add_champ(char *filename, t_arena *arena, int id_champ)
 
 	if (!(buffer = (unsigned char*)ft_alloc_gc(CHAMP_MAX_SIZE +
 					sizeof(header_t), sizeof(char), arena->gc)))
-		ft_error(arena ,"Malloc error\n");
+		ft_error(arena, "Malloc error\n");
 	ft_bzero(buffer, CHAMP_MAX_SIZE + sizeof(header_t));
 	buffer = open_read(arena, filename, buffer);
 	arena->champ[pos] = new_champ(arena, buffer);

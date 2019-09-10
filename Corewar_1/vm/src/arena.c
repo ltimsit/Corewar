@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/10 16:22:11 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:36:18 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	print_arena(t_arena *arena)
 		i + 1, arena->champ[i].h.prog_size,
 		arena->champ[i].h.prog_name, arena->champ[i].h.comment);
 	}
-	i = -1;	
+	i = -1;
 	while (++i < MEM_SIZE)
 	{
-		if (!(i % 32) && i != MEM_SIZE - 1 )
+		if (!(i % 32) && i != MEM_SIZE - 1)
 			ft_printf("%s%-.4p : ", !i ? "" : "\n", i);
 		ft_printf("%.2x", arena->field[i]);
 		if (i % 32 != 31)
@@ -56,7 +56,8 @@ void	load_champ(t_arena *arena)
 	{
 		ft_memcpy(arena->field + (i * space), arena->champ[i].buff,
 				arena->champ[i].h.prog_size);
-		fill_color_value(arena->carriage + (i * space), arena->champ[i].h.prog_size, i);
+		fill_color_value(arena->carriage + (i * space),
+				arena->champ[i].h.prog_size, i);
 		add_process(arena, arena->champ[i].id, i);
 		arena->process->pc = i * space;
 	}
@@ -66,12 +67,9 @@ void	check_process(t_arena *arena, t_process *process)
 {
 	char	opcode;
 
-	ft_printf("{blue}process = %p{reset}\n", process);
-	ft_printf("{green}pc_next = %d\n{reset}", arena->process->pc_next);
 	arena->carriage[process->pc] |= 1 << 4;
 	if (!process->c_todo)
 	{
-		ft_printf("{cyan}process opcode == %hhd\n{reset}", arena->field[process->pc]);
 		if ((opcode = arena->field[process->pc]) > 0 && opcode < 17)
 		{
 			process->opcode = opcode;
@@ -92,17 +90,12 @@ void	check_process(t_arena *arena, t_process *process)
 		read_instruction(arena, process, process->opcode);
 		if (!process->param.error)
 			g_fct_exec[(int)process->opcode](process, arena);
-		ft_printf("error = %d, exec ------ r[0] = %d\n", process->param.error, process->reg[0]);
 		arena->carriage[process->pc] -= 16;
 		process->pc = update_pc(process->pc, process->pc_next);
 		process->c_done = 0;
 		process->c_todo = 0;
 		check_process(arena, process);
 	}
-	ft_putendl("- - - END OF CHECK PROCESS - - -");
-	ft_printf("{yellow}done = %d\n{reset}", process->c_done);
-	ft_printf("{red}todo = %d\n{reset}", process->c_todo);
-	ft_printf("{italic}pc next  = %d{reset}\n", process->pc_next);
 }
 
 void	process_process(t_arena *arena)

@@ -6,8 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/10 16:22:15 by ltimsit-         ###   ########.fr       */
-/*   Updated: 2019/09/08 15:35:36 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 16:44:54 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +48,8 @@ void	print_process_dis(t_arena *arena)
 		i = -1;
 		while (++i < 16)
 		{
-
-	//		mlx_string_put(arena->dis->mlx, arena->dis->win, x - 90, y, HEX_COLOR, get_champ_name(tmp->id));
-			mlx_string_put(arena->dis->mlx, arena->dis->win, x - 90, y + 20, HEX_COLOR, "reg[  ] = ");
+			mlx_string_put(arena->dis->mlx, arena->dis->win,
+					x - 90, y + 20, HEX_COLOR, "reg[  ] = ");
 			print_nb(arena, i + 1, x - 50, y + 20);
 			print_nb(arena, tmp->reg[i], x, y + 20);
 			mlx_string_put(arena->dis->mlx, arena->dis->win,
@@ -121,9 +119,8 @@ char	*get_data_ptr(void *img_ptr)
 
 int		print_hexa_dis(t_arena *arena, t_display *dis, int index)
 {
-	int color;
-//	int j;
-	int k;
+	int				color;
+	int				k;
 	char			*base;
 	unsigned char	byte;
 	unsigned char	nb;
@@ -138,7 +135,6 @@ int		print_hexa_dis(t_arena *arena, t_display *dis, int index)
 	byte = arena->field[index];
 	line = (index / BYTE_PER_COL) * 20 + Y_OFFSET;
 	col = (index % BYTE_PER_COL) * 27 + X_OFFSET;
-
 	color = arena->carriage[index] & 15;
 	if (color == 1)
 		color = 0xFF0000;
@@ -185,8 +181,8 @@ int		print_hexa_dis(t_arena *arena, t_display *dis, int index)
 
 void	init_display(t_arena *arena)
 {
-	t_display dis;
-	int i;
+	t_display	dis;
+	int			i;
 
 	dis.mlx = mlx_init();
 	dis.win = mlx_new_window(dis.mlx, W_LEN, W_HGT, "Corewar");

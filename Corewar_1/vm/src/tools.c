@@ -6,11 +6,26 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:01:14 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/09 20:31:55 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 16:40:58 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+unsigned int	change_endian(unsigned int little)
+{
+	unsigned char	t_little[4];
+	unsigned char	t_big[4];
+	unsigned int	big;
+	int				i;
+
+	i = -1;
+	ft_memcpy(t_little, &little, sizeof(unsigned int));
+	while (++i < 4)
+		t_big[i] = t_little[3 - i];
+	ft_memcpy(&big, t_big, sizeof(unsigned int));
+	return (big);
+}
 
 void	stock_in_param(t_arena *arena, int *param, int size, int pc)
 {
