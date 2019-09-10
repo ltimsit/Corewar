@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 11:52:43 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/10 12:22:25 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 16:20:20 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,17 @@ void	exit_dump(t_arena *arena)
 	ft_free_gc(arena->gc);
 	free(arena->gc);
 	exit(1);
+}
+
+void	ft_error(t_arena *arena, char *message)
+{
+	ft_free_gc(arena->gc);
+	free(arena->gc);
+	ft_printf("{red}%s{reset}\n", message);
+	exit(EXIT_FAILURE);
+}
+
+int		update_pc(int old_pc, int i)
+{
+	return ((old_pc + i) % MEM_SIZE);
 }
