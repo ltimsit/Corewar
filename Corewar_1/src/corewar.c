@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:37:22 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/08 15:13:43 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:57:21 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	print_error(t_data *data, char *elem)
 	if (D->err)
 	{
 		if (!elem)
-			ft_printf("{red}%s\n{reset}", err_tab[D->err]);
+			ft_printf("{red}%s\n{reset}", g_err_tab[D->err]);
 		else
 			ft_printf("{red}%s{reset} : [%d,%d] -> \"%s\"\n",
-					err_tab[D->err],
+					g_err_tab[D->err],
 					D->curr_line,
 					D->curr_index,
 					elem);

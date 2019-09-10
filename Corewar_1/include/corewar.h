@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/05 18:45:02 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:55:50 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ enum			e_error
 	data_err
 };
 
-char			*err_tab[8];
+char			*g_err_tab[8];
 
 /*
 ** corewar.c    ----------------------------------------------------------------
@@ -158,7 +158,6 @@ int				skip_nosp(char *line, int i);
 int				get_error(t_data *data, int err_type, char *elem);
 void			fill_op_and_err_tab();
 int				get_new_read(t_data *data);
-
 
 /*
 ** champtools.c ----------------------------------------------------------------
