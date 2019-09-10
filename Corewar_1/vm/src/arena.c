@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/10 12:21:20 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:06:56 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,23 @@
 
 void	print_arena(t_arena *arena)
 {
-	unsigned int i;
-	unsigned int count;
+	int i;
 
 	i = -1;
-	count = 0;
-	while (++i < 77)
+	ft_printf("Introducing contestants...\n");
+	while (++i < arena->nb_champ)
 	{
-		btohex(arena->field[i]);
-		count++;
-		if (count == 32)
-		{
-			ft_putchar('\n');
-			count = 0;
-		}
-		else
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
+		i + 1, arena->champ[i].h.prog_size,
+		arena->champ[i].h.prog_name, arena->champ[i].h.comment);
+	}
+	i = -1;	
+	while (++i < MEM_SIZE)
+	{
+		if (!(i % 32) && i != MEM_SIZE - 1 )
+			ft_printf("%s%-.4p : ", !i ? "" : "\n", i);
+		ft_printf("%.2x", arena->field[i]);
+		if (i % 32 != 31)
 			ft_putchar(' ');
 	}
 }

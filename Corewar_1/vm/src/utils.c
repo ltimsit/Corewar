@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 15:17:25 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/08 16:03:30 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:06:09 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 void	ft_error(char *message)
 {
+	
 	ft_putstr(message);
 	exit(EXIT_FAILURE);
 }
