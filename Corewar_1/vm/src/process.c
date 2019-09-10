@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:40:52 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/10 15:51:22 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:05:27 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ void	print_process(t_process *process)
 	ft_printf("\n {red}id_champ =  %d{reset}\n", process->id_champ);
 }
 
-void	init_process(t_process *process, int id_champ)
+void	init_process(t_process *process, int id_champ, int player_nb)
 {
 	process->reg[0] = id_champ;
 	process->id_champ = id_champ;
+	process->player_nb = player_nb;
 }
 
-void	add_process(t_arena *arena, int id_champ)
+void	add_process(t_arena *arena, int id_champ, int player_nb)
 {
 	t_process *new_process;
 
@@ -43,7 +44,7 @@ void	add_process(t_arena *arena, int id_champ)
 		arena->process->next = new_process;
 		arena->process = new_process;
 	}
-	init_process(arena->process, id_champ);
+	init_process(arena->process, id_champ, player_nb);
 }
 
 void	del_process(t_arena *arena, t_process *todel, t_process *prev)

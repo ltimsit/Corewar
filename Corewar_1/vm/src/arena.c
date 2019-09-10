@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/10 15:06:56 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:22:11 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ void	print_arena(t_arena *arena)
 	}
 }
 
+void	fill_color_value(unsigned char *carriage, int size, int p_nb)
+{
+	int i;
+
+	i = -1;
+	while (++i < size)
+		carriage[i] += (1 << p_nb);
+}
+
 void	load_champ(t_arena *arena)
 {
 	int		i;
@@ -47,7 +56,8 @@ void	load_champ(t_arena *arena)
 	{
 		ft_memcpy(arena->field + (i * space), arena->champ[i].buff,
 				arena->champ[i].h.prog_size);
-		add_process(arena, arena->champ[i].id);
+		fill_color_value(arena->carriage + (i * space), arena->champ[i].h.prog_size, i);
+		add_process(arena, arena->champ[i].id, i);
 		arena->process->pc = i * space;
 	}
 }
@@ -58,7 +68,7 @@ void	check_process(t_arena *arena, t_process *process)
 
 	ft_printf("{blue}process = %p{reset}\n", process);
 	ft_printf("{green}pc_next = %d\n{reset}", arena->process->pc_next);
-	arena->carriage[process->pc] = 1;
+	arena->carriage[process->pc] |= 1 << 4;
 	if (!process->c_todo)
 	{
 		ft_printf("{cyan}process opcode == %hhd\n{reset}", arena->field[process->pc]);
@@ -69,7 +79,11 @@ void	check_process(t_arena *arena, t_process *process)
 			process->c_done++;
 		}
 		else
+		{
+			arena->carriage[process->pc] ^= 1 << 4;
 			process->pc = update_pc(process->pc, 1);
+			arena->carriage[process->pc] |= 1 << 4;
+		}
 	}
 	else if (process->c_done < process->c_todo)
 		process->c_done++;
@@ -79,7 +93,7 @@ void	check_process(t_arena *arena, t_process *process)
 		if (!process->param.error)
 			g_fct_exec[(int)process->opcode](process, arena);
 		ft_printf("error = %d, exec ------ r[0] = %d\n", process->param.error, process->reg[0]);
-		arena->carriage[process->pc] = 0;
+		arena->carriage[process->pc] -= 16;
 		process->pc = update_pc(process->pc, process->pc_next);
 		process->c_done = 0;
 		process->c_todo = 0;

@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/10 15:48:43 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:18:39 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct	s_process
 {
 	int					reg[REG_NUMBER];
 	int					id_champ;
+	int					player_nb;
 	int					pc;
 	char				aff[AFF_SIZE];
 	unsigned char		aff_index;
@@ -110,7 +111,7 @@ int		print_hexa_dis(t_arena *arena, t_display *dis, int index);
 int		display_all(t_display *dis);
 int		mouse_press(int button, int x, int y, t_display *dis);
 int		key_press(int keycode, t_arena *arena);
-void	fill_img(char *d_img);
+void	fill_img(char **d_img);
 char	*get_data_ptr(void *img_ptr);
 int		loop_fight(t_arena *arena);
 int		print_nb(t_arena *arena, int nb, int x, int y);
@@ -169,8 +170,8 @@ void    		process_champ(t_arena *arena);
  ** process.c
  */
 
-void			init_process(t_process *process, int id_champ);
-void			add_process(t_arena *arena, int id_champ);
+void			init_process(t_process *process, int id_champ, int player_nb);
+void			add_process(t_arena *arena, int id_champ, int player_nb);
 void			print_process(t_process *process);
 void    		del_process(t_arena *arena, t_process *todel, t_process *prev);
 

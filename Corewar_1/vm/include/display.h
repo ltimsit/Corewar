@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:40:50 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/05 18:33:48 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:22:10 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ typedef struct	s_display
 {
 	void		*mlx;
 	void		*win;
-	void		*img;
+	void		*img[5];
 	void		*border_img;
-	char		*d_img;
+	char		*d_img[5];
 	char		*d_border_img;
 }				t_display;
 
