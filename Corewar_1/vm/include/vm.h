@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/10 16:18:39 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/10 19:21:42 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ typedef struct	s_process
 	int					reg[REG_NUMBER];
 	int					id_champ;
 	int					player_nb;
-	int					pc;
+	short				pc;
 	char				aff[AFF_SIZE];
 	unsigned char		aff_index;
-	int 				pc_next;
+	short 				pc_next;
 	char				carry;
 	char				opcode;
 	int 				nb_live;

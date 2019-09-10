@@ -6,12 +6,13 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:29:19 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/10 16:34:19 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/10 19:22:18 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
+/* 
 void		print_champ(t_champ *champ)
 {
 	unsigned int	i;
@@ -28,6 +29,7 @@ void		print_champ(t_champ *champ)
 	}
 	ft_putchar('\n');
 }
+*/
 
 t_champ		new_champ(t_arena *arena, unsigned char *buff)
 {

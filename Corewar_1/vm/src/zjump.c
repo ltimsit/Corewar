@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 12:53:15 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/10 15:43:38 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/10 19:20:58 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	fc_zjump(t_op op, t_process *process, t_arena *arena)
 
 	process->c_todo = op.time;
 	stock_in_param(arena, &param.value[0], 2, update_pc(process->pc, 1));
-	param.data = change_endian(param.value[0] % IDX_MOD);
+	param.data = change_endian(param.value[0]);
 	process->pc_next = !process->carry ? 3 : param.data;
 }
 
