@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/11 14:20:30 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/11 15:05:11 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,12 +177,6 @@ int				go_to_next_elem(t_data *data, int *line_id, int *col_id, int i);
 int				get_type(t_data *data, char *line);
 int				read_and_dispatch(t_data *data);
 int				get_header(t_data *data);
-
-/*
-** byte_to_hexa.c---------------------------------------------------------------
-*/
-
-int				btohex(unsigned char byte);
 
 /*
 ** param.c      ----------------------------------------------------------------
