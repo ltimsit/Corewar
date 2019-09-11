@@ -6,12 +6,13 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/10 15:55:50 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/11 14:20:30 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
+
 # include <stdint.h>
 # include "libft.h"
 # include "op.h"
@@ -20,7 +21,7 @@
 
 # define D data
 # define MEMSIZE 4096
-# define READSIZE 1
+# define READSIZE 4096
 # define PARAM_SIZE 128
 
 typedef struct	s_param
@@ -196,7 +197,6 @@ int				fc_cmd(t_data *data, t_op op);
 */
 
 int				check_separator_char(t_data *data, char *cmd);
-void			init_param_tab(int *params);
 int				check_param(t_data *data, int type, int cmd_param, char *cmd);
 int				param_type_tool(char *cmd, int *val);
 int				get_param_type(t_data *data, char *cmd, int *val, int pc_cpt);

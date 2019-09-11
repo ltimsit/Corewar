@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 13:30:25 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/09 17:33:38 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/11 14:20:37 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,6 @@ int		check_separator_char(t_data *data, char *cmd)
 		D->curr_index++;
 	}
 	return (1);
-}
-
-void	init_param_tab(int *params)
-{
-	params[0] = 0;
-	params[1] = 0;
-	params[2] = 0;
 }
 
 int		check_param(t_data *data, int type, int cmd_param, char *cmd)
@@ -49,10 +42,8 @@ int		param_type_tool(char *cmd, int *val)
 
 	i = -1;
 	while (cmd[++i])
-	{
 		if (!ft_isdigit(cmd[i]) && !(i == 0 && cmd[i] == '-'))
 			return (0);
-	}
 	value = ft_atoi(cmd);
 	*val = value;
 	return (1);
@@ -80,7 +71,7 @@ int		get_param_type(t_data *data, char *cmd, int *val, int pc_cpt)
 	{
 		if (!(param_type_tool(cmd + (ret == IND_CODE ? 0 : 1), val)))
 			get_error(D, syntax, cmd);
-		if (ret == REG_CODE && (*val < 0 || ret > 16))
+		if (ret == REG_CODE && (*val < 0 || *val > 16))
 			get_error(D, syntax, cmd);
 	}
 	return (ret);

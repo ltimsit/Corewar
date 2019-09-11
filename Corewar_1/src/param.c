@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/09 17:31:26 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/11 14:20:42 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		fc_cmd(t_data *data, t_op op)
 
 	mem_stock(D, (char*)&(op.opcode), 1);
 	cpt = -1;
-	init_param_tab(p.para);
+	ft_bzero(&p, sizeof(t_param));
 	pc_cpt = op.ocp ? 1 : 0;
 	cmd_loop_work(D, &p, &pc_cpt, op);
 	if (op.ocp && (p.ocp = get_param_code(D, p.para[0], p.para[1], p.para[2])))

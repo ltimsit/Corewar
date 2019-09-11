@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/05 18:42:59 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/11 14:13:31 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			set_header(t_data *data)
 
 int			go_to_next_elem(t_data *data, int *line_id, int *col_id, int i)
 {
-	if (!D->line && !get_new_read(D))
+	if ((!D->line || !(*D->line)) && !get_new_read(D))
 		return (0);
 	while ((i = skip_sp(D->line, 0)) != -1)
 	{
