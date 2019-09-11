@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op.c                                               :+:      :+:    :+:   */
+/*   fill_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:18:42 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/08 15:46:14 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/11 10:47:15 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,46 @@ void	set_op_table(t_arena *arena)
 	i = -1;
 	while (++i < 16)
 		arena->op[i] = g_op_tab[i];
+}
+
+void	init_fct_instr_tab(void)
+{
+	g_fct_instr[0] = NULL;
+	g_fct_instr[0x01] = fc_live;
+	g_fct_instr[0x02] = fc_ld;
+	g_fct_instr[0x03] = fc_st;
+	g_fct_instr[0x04] = fc_add;
+	g_fct_instr[0x05] = fc_sub;
+	g_fct_instr[0x06] = fc_and;
+	g_fct_instr[0x07] = fc_or;
+	g_fct_instr[0x08] = fc_xor;
+	g_fct_instr[0x09] = fc_zjump;
+	g_fct_instr[0x0A] = fc_ldi;
+	g_fct_instr[0x0B] = fc_sti;
+	g_fct_instr[0x0C] = fc_fork;
+	g_fct_instr[0x0D] = fc_lld;
+	g_fct_instr[0x0E] = fc_lldi;
+	g_fct_instr[0x0F] = fc_lfork;
+	g_fct_instr[0x10] = fc_aff;
+}
+
+void	init_fct_exec_tab(void)
+{
+	g_fct_exec[0] = NULL;
+	g_fct_exec[0x01] = execute_live;
+	g_fct_exec[0x02] = execute_ld;
+	g_fct_exec[0x03] = execute_st;
+	g_fct_exec[0x04] = execute_add;
+	g_fct_exec[0x05] = execute_sub;
+	g_fct_exec[0x06] = execute_and;
+	g_fct_exec[0x07] = execute_or;
+	g_fct_exec[0x08] = execute_xor;
+	g_fct_exec[0x09] = execute_zjump;
+	g_fct_exec[0x0A] = execute_ldi;
+	g_fct_exec[0x0B] = execute_sti;
+	g_fct_exec[0x0C] = execute_fork;
+	g_fct_exec[0x0D] = execute_lld;
+	g_fct_exec[0x0E] = execute_lldi;
+	g_fct_exec[0x0F] = execute_lfork;
+	g_fct_exec[0x10] = execute_aff;
 }

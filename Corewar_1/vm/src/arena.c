@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/10 16:36:18 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/11 10:44:08 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	check_process(t_arena *arena, t_process *process)
 		process->c_done++;
 	else
 	{
-		read_instruction(arena, process, process->opcode);
+		read_instr(arena, process, process->opcode);
 		if (!process->param.error)
 			g_fct_exec[(int)process->opcode](process, arena);
 		arena->carriage[process->pc] -= 16;
