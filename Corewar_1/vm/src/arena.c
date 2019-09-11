@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/11 10:44:08 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/11 11:24:41 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void	launch_fight(t_arena *arena)
 	{
 		arena->total_cycle++;
 		process_process(arena);
-		print_arena(arena);
+//		print_arena(arena);
 		if (arena->dis)
 			print_map(arena, j);
 	}

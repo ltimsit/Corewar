@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/11 10:47:40 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/11 13:36:14 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct	s_param
 	int			type[3];
 	int			data;
 	int			data_size;
-	int			dest_pc;
+	short		dest_pc;
 	int			error;
 }				t_param;
 

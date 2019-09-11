@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 12:29:51 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/10 15:50:23 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/11 11:20:36 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	fc_fork(t_op op, t_process *process, t_arena *arena)
 	process->c_todo = op.time;
 	process->pc_next = 3;
 	stock_in_param(arena, &param.value[0], 2, update_pc(process->pc, 1));
-	param.data = change_endian(param.value[0] % IDX_MOD);
+	param.data = change_endian(param.value[0]) % IDX_MOD;
 	process->param = param;
 }
 

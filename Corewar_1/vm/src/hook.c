@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/08 15:30:26 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/11 11:24:12 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		print_nb(t_arena *arena, int nb, int x, int y)
 	while (++size && nb / i)
 		i *= 10;
 	nb_tab[size] = '\0';
-	ft_printf("size = %d nb = %d\n", size, nb);
+	//ft_printf("size = %d nb = %d\n", size, nb);
 	while (size)
 	{
 		nb_tab[--size] = nb % 10 + '0';
