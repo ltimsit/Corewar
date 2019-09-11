@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/11 13:36:14 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/11 18:43:12 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct	s_param
 	int			type[3];
 	int			data;
 	int			data_size;
-	short		dest_pc;
+	int			dest_pc;
 	int			error;
 }				t_param;
 
@@ -123,7 +123,7 @@ void			print_map(t_arena *arena, int c_nb);
 */
 
 void			stock_in_param(t_arena *arena, int *param, int size, int pc);
-void			put_param_in_field(t_arena *arena, int param, int size, int pc);
+void			put_param_in_field(t_arena *ar, t_process *process, int size);
 int				fill_index_content(t_arena *arena, t_process *process, int val);
 void			put_data_in_reg(t_process *process, int data, int reg_nb);
 

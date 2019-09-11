@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:01:14 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/10 16:40:58 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/11 19:10:18 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,20 @@ void	stock_in_param(t_arena *arena, int *param, int size, int pc)
 	}
 }
 
-void	put_param_in_field(t_arena *arena, int param, int size, int pc)
+/*
+** dest_pc is big_endian
+** data is big_endian
+*/
+
+void	put_param_in_field(t_arena *arena, t_process *process, int size)
 {
 	int		id_start;
 	char	*param_c;
+	int		pc;
 
-	param_c = (char *)&param;
+	pc = update_pc(process->pc, change_endian(process->param.dest_pc));
+	ft_printf("pc = %d\n", pc);
+	param_c = (char *)&process->param.data;
 	id_start = 4 - size;
 	while (id_start < 4)
 	{
@@ -54,6 +62,10 @@ void	put_param_in_field(t_arena *arena, int param, int size, int pc)
 		pc %= MEM_SIZE;
 	}
 }
+
+/*
+**value is little
+*/
 
 int		fill_index_content(t_arena *arena, t_process *process, int value)
 {
@@ -71,8 +83,15 @@ int		fill_index_content(t_arena *arena, t_process *process, int value)
 	return (elem);
 }
 
+/*
+**data is big_endian
+**reg_nb is big_endian
+*/
+
 void	put_data_in_reg(t_process *process, int data, int reg_nb)
 {
+	data = change_endian(data);	
+	reg_nb = change_endian(reg_nb);
 	reg_nb -= 1;
 	if (reg_nb > -1 && reg_nb < 16)
 		process->reg[reg_nb] = data;

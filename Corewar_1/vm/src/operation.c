@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/11 10:47:13 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/11 17:58:58 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ t_param	fill_param(t_arena *arena, t_op op, t_process *process, int elem[3])
 		stock_in_param(arena, &param.value[i], param.size[i],
 			update_pc(process->pc, 2 + pc_prev));
 		if (param.type[i] == REG_CODE && check_reg_num(&param, i))
-			elem[i] = process->reg[change_endian(param.value[i]) - 1];
+			elem[i] = change_endian(process->reg[change_endian(param.value[i]) - 1]);
 		else if (param.type[i] == DIR_CODE)
-			elem[i] = change_endian(param.value[i]);
+			elem[i] = param.value[i];
 		else if (param.type[i] == IND_CODE)
 			elem[i] = fill_index_content(arena, process, change_endian(param.value[i]));
 		pc_prev += param.size[i];
