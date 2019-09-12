@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 10:18:04 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 15:02:22 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +37,32 @@ void	print_process_dis(t_arena *arena)
 {
 	t_process	*tmp;
 	int			i;
+	int			nb_process;
 	int			x;
 	int			y;
 
 	x = 1910;
 	y = 40;
+	nb_process = 0;
 	tmp = A->p_head;
-	while (tmp)
+	while (tmp && ++nb_process)
 	{
 		i = -1;
 		while (++i < 16)
 		{
-			mlx_string_put(A->dis->mlx, A->dis->win,
-					x - 90, y + 20, HEX_COLOR, "reg[  ] = ");
-			print_nb(A, i + 1, x - 50, y + 20);
-			print_nb(A, tmp->reg[i], x, y + 20);
+/*
 			mlx_string_put(A->dis->mlx, A->dis->win,
 					x - 90, y, HEX_COLOR, "reg[  ] = ");
 			print_nb(A, i + 1, x - 50, y);
 			print_nb(A, tmp->reg[i], x, y);
 			y += 20;
+			*/
 		}
 		tmp = tmp->next;
 	}
+	mlx_string_put(A->dis->mlx, A->dis->win,
+			x - 90, y, HEX_COLOR, "process :");
+	print_nb(A, nb_process, x, y);
 }
 
 void	print_map(t_arena *arena, int c_nb)
@@ -77,8 +80,8 @@ void	print_map(t_arena *arena, int c_nb)
 		print_hexa_dis(A, A->dis, i);
 	}
 	ft_printf("nb =%d\n", c_nb);
-	print_nb(A, A->total_cycle, 1910, 0);
-	print_nb(A, c_nb + 1, 1910, 20);
+	print_nb_dec(A, A->total_cycle, 1910, 0);
+	print_nb_dec(A, c_nb + 1, 1910, 20);
 	print_process_dis(A);
 }
 

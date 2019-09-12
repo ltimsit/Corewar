@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 12:09:35 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 15:02:21 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void			fill_img(char **d_img);
 char			*get_data_ptr(void *img_ptr);
 int				loop_fight(t_arena *arena);
 int				print_nb(t_arena *arena, int nb, int x, int y);
+int				print_nb_dec(t_arena *arena, int nb, int x, int y);
 void			init_display(t_arena *arena);
 void			print_map(t_arena *arena, int c_nb);
 
