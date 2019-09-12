@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:18:42 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/11 10:47:15 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 10:16:18 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	set_op_table(t_arena *arena)
 
 	i = -1;
 	while (++i < 16)
-		arena->op[i] = g_op_tab[i];
+		A->op[i] = g_op_tab[i];
 }
 
 void	init_fct_instr_tab(void)

@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 10:55:17 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/11 15:05:28 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 09:37:02 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,6 @@ int			mem_stock(t_data *data, char *content, int content_size)
 	}
 	while (++i < content_size)
 		D->mem_stock[D->mem_stock_index++] = content[i];
-	return (1);
-}
-
-int			change_endian(char *h, int size)
-{
-	char	endian[size];
-	int		i;
-
-	i = -1;
-	while (++i < size)
-		endian[i] = h[size - 1 - i];
-	i = -1;
-	while (++i < size)
-		h[i] = endian[i];
 	return (1);
 }
 

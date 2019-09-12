@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:40:52 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/10 16:26:46 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/12 10:20:51 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,26 @@ void	add_process(t_arena *arena, int id_champ, int player_nb)
 {
 	t_process *new_process;
 
-	if (!(new_process = ft_alloc_gc(1, sizeof(t_process), arena->gc)))
-		ft_error(arena, "Malloc error\n");
+	if (!(new_process = ft_alloc_gc(1, sizeof(t_process), A->gc)))
+		ft_error(A, "Malloc error\n");
 	ft_bzero(new_process, sizeof(t_process));
-	if (!(arena->p_head))
+	if (!(A->p_head))
 	{
-		arena->p_head = new_process;
-		arena->process = new_process;
+		A->p_head = new_process;
+		A->process = new_process;
 	}
 	else
 	{
-		arena->process->next = new_process;
-		arena->process = new_process;
+		A->process->next = new_process;
+		A->process = new_process;
 	}
-	init_process(arena->process, id_champ, player_nb);
+	init_process(A->process, id_champ, player_nb);
 }
 
 void	del_process(t_arena *arena, t_process *todel, t_process *prev)
 {
 	if (!prev)
-		arena->p_head = arena->p_head->next;
+		A->p_head = A->p_head->next;
 	else
 		prev->next = todel->next;
 }

@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/11 15:05:11 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 09:37:46 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,6 @@ int				get_new_read(t_data *data);
 
 int				fc_namecom(t_data *data, char *namecom, int size, int i);
 int				mem_stock(t_data *data, char *content, int content_size);
-int				change_endian(char *h, int size);
 
 /*
 ** header.c     ----------------------------------------------------------------

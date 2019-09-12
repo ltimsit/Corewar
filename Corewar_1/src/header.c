@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/11 14:13:31 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 09:34:05 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int			set_header(t_data *data)
 	D->size_mem_tot = D->mem_stock_index;
 	D->mem_stock_index = 0;
 	D->header.prog_size = D->pc;
-	change_endian((char *)&(D->header.magic), 4);
-	change_endian((char *)&(D->header.prog_size), 4);
+	ft_chen((char *)&(D->header.magic), 4);
+	ft_chen((char *)&(D->header.prog_size), 4);
 	mem_stock(D, (char *)&(D->header), sizeof(D->header));
 	return (1);
 }

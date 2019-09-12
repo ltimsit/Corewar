@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:40:50 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/10 16:22:10 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/12 09:59:14 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@
 # define HEX_COLOR 0x8c8c8c
 # define X_OFFSET 40
 # define Y_OFFSET 40
-# define BORDER_COLOR 0x456810
+# define BORDER_COLOR 0x33cc99
 # define BACKGROUND_COLOR 0x123456
-
 
 typedef struct	s_display
 {
@@ -48,5 +47,4 @@ int		key_press(int keycode, t_display *dis);
 void	fill_img(char *d_img);
 char	*get_data_ptr(void *img_ptr);
 */
-
 #endif

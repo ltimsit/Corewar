@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:24:14 by abinois           #+#    #+#             */
-/*   Updated: 2019/08/24 15:22:06 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/12 09:36:11 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,6 @@ int				ft_free_gc(t_gc *gc);
 int				ft_add_to_gc(void *ptr, t_gc *gc);
 int				ft_skip_char(char *line, char c, int i);
 int				ft_skip_nochar(char *line, char c, int i);
+void			ft_chen(char *octet, int size);
 
 #endif
