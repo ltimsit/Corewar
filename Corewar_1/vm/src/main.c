@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 16:54:36 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/12 19:05:31 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ int				check_argv(t_arena *arena, char **av, int ac)
 	{
 		if (!ft_strcmp(av[i], "-dis"))
 		{
-			A->display_on = 1;
+			if (i + 1 < ac && (A->cycle_before_dis = ft_atoi(av[i + 1])))
+				++i;
+			else
+				A->display_on = 1;
 			A->dump_cycle = 0;
 		}
 		else if (!ft_strcmp(av[i], "-dump") && !A->display_on)
@@ -106,6 +109,13 @@ int				main(int ac, char **av)
 	arena.curr_cycle = -1;
 	if (A.display_on)
 		init_display(&A);
+	else if (A.cycle_before_dis)
+	{
+		ft_printf("test\n");
+		while (A.cycle_before_dis--)
+			launch_fight(&A);
+		init_display(&A);
+	}
 	else
 		while (1)
 			launch_fight(&A);

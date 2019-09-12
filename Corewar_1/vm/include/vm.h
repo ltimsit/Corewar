@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 16:51:57 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/12 19:02:05 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct	s_arena
 	t_process		*process;
 	t_process		*p_head;
 	t_display		*dis;
+	int				cycle_before_dis;
 	int				pause;
 }				t_arena;
 
