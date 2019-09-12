@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 16:22:27 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/12 17:09:53 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,14 +157,12 @@ void	print_winner(t_arena *arena)
 
 void	launch_fight(t_arena *arena)
 {
-	static int j = -1;
-
-	if (++j < A->cycle_to_die)
+	if (++(A->curr_cycle) < A->cycle_to_die)
 	{
 		A->total_cycle++;
 		process_process(A);
-		if (A->dis && (A->total_cycle % A->dis->speed) == 0)
-			print_map(A, j);
+		if (A->dis && (++(A->dis->cpt_to_speed) == A->dis->speed))
+			print_map(A, A->curr_cycle);
 	}
 	else
 	{
@@ -176,7 +174,7 @@ void	launch_fight(t_arena *arena)
 			A->cycle_to_die -= CYCLE_DELTA;
 			A->nb_check = 0;
 		}
-		j = -1;
+		A->curr_cycle = -1;
 	}
 	if (A->dump_cycle && A->total_cycle == A->dump_cycle)
 		exit_dump(A);

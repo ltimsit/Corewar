@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 15:02:21 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/12 16:51:57 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct	s_arena
 	int				last_living_champ;
 	int				display_on;
 	int				total_cycle;
+	int				curr_cycle;
 	int				dump_cycle;
 	int				nb_check;
 	int				nb_live;

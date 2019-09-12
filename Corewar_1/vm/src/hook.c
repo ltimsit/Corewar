@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 16:43:55 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/12 17:09:46 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,24 @@ int		key_press(int keycode, t_arena *arena)
 	}
 	if (keycode == 82 && A->pause)
 	{
-		while (++i < A->dis->speed)
+		while (A->dis->cpt_to_speed < A->dis->speed)
 			launch_fight(A);
+		A->dis->cpt_to_speed = 0;
 	}
 	if (keycode == 126)
+	{
 		A->dis->speed++;
+		A->dis->cpt_to_speed = 0;
+		if (A->pause)
+			print_map(arena, A->curr_cycle);
+	}
 	if (keycode == 125 && A->dis->speed > 1)
+	{
 		A->dis->speed--;
+		A->dis->cpt_to_speed = 0;
+		if (A->pause)
+			print_map(arena, A->curr_cycle);
+	}
 	return (0);
 }
 
@@ -93,5 +104,7 @@ int		loop_fight(t_arena *arena)
 {
 	if (!A->pause)
 		launch_fight(A);
+	if (A->dis->cpt_to_speed == A->dis->speed)
+		A->dis->cpt_to_speed = 0;
 	return (0);
 }

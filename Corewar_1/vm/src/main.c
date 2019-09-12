@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 10:19:58 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 16:54:36 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int				main(int ac, char **av)
 		print_usage(&A);
 	sort_champ(&A);
 	load_champ(&A);
+	arena.curr_cycle = -1;
 	if (A.display_on)
 		init_display(&A);
 	else
