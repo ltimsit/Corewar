@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:01:14 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 11:59:42 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 15:39:25 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void		put_param_in_field(t_arena *arena, t_process *process, int size)
 	id_start = 4 - size;
 	while (id_start < 4)
 	{
-		A->field[pc++] = param_c[id_start++];
+		A->field[pc] = param_c[id_start++];
+		A->carriage[pc++] |= 1 << process->player_nb;
 		pc %= MEM_SIZE;
 	}
 }
