@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 10:41:13 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 13:38:19 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,20 @@
 int		print_nb(t_arena *arena, int nb, int x, int y)
 {
 	char	nb_tab[10];
+	char	*base;
 	int		size;
 	int		i;
 
-	i = 10;
+	base = "0123456789abcdef";
+	i = 16;
 	size = 0;
 	while (++size && nb / i)
-		i *= 10;
+		i *= 16;
 	nb_tab[size] = '\0';
 	while (size)
 	{
-		nb_tab[--size] = nb % 10 + '0';
-		nb /= 10;
+		nb_tab[--size] = base[nb % 16];
+		nb /= 16;
 	}
 	mlx_string_put(A->dis->mlx, A->dis->win, x, y, HEX_COLOR, nb_tab);
 	return (0);
