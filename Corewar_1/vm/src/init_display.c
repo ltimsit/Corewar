@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 15:02:22 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/12 16:25:19 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	print_process_dis(t_arena *arena)
 	int			y;
 
 	x = 1910;
-	y = 40;
+	y = 60;
 	nb_process = 0;
 	tmp = A->p_head;
 	while (tmp && ++nb_process)
@@ -82,6 +82,9 @@ void	print_map(t_arena *arena, int c_nb)
 	ft_printf("nb =%d\n", c_nb);
 	print_nb_dec(A, A->total_cycle, 1910, 0);
 	print_nb_dec(A, c_nb + 1, 1910, 20);
+	mlx_string_put(A->dis->mlx, A->dis->win,
+			1820, 40, HEX_COLOR, "speed :");
+	print_nb_dec(A, A->dis->speed, 1910, 40);
 	print_process_dis(A);
 }
 
@@ -198,6 +201,7 @@ void	init_display(t_arena *arena)
 	dis.border_img = mlx_new_image(dis.mlx, W_LEN, W_HGT);
 	dis.d_border_img = get_data_ptr(dis.border_img);
 	fill_img(dis.d_img);
+	dis.speed = 1;
 	A->dis = &dis;
 	A->pause = 1;
 	fill_border(A);

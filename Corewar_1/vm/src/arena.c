@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 12:10:33 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 16:22:27 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	check_process(t_arena *arena, t_process *process)
 		if ((opcode = A->field[process->pc]) > 0 && opcode < 17)
 		{
 			process->opcode = opcode;
-			process->c_todo = A->op[(int)opcode - 1].time;
+			process->c_todo = A->op[(int)opcode - 1].time - 1;
 			process->c_done++;
 		}
 		else
@@ -92,9 +92,10 @@ void	check_process(t_arena *arena, t_process *process)
 			g_fct_exec[(int)process->opcode](process, A);
 		A->carriage[process->pc] -= 16;
 		process->pc = update_pc(process->pc, process->pc_next);
+	A->carriage[process->pc] |= 1 << 4;
 		process->c_done = 0;
 		process->c_todo = 0;
-		check_process(A, process);
+//		check_process(A, process);
 	}
 }
 
@@ -162,7 +163,7 @@ void	launch_fight(t_arena *arena)
 	{
 		A->total_cycle++;
 		process_process(A);
-		if (A->dis)
+		if (A->dis && (A->total_cycle % A->dis->speed) == 0)
 			print_map(A, j);
 	}
 	else

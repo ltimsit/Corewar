@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:40:50 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 09:59:14 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 16:18:56 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct	s_display
 	void		*border_img;
 	char		*d_img[5];
 	char		*d_border_img;
+	int			speed;
 }				t_display;
 
 /*

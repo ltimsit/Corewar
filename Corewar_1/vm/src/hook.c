@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 15:02:23 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/12 16:22:28 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ int		key_press(int keycode, t_arena *arena)
 	}
 	if (keycode == 82 && A->pause)
 		launch_fight(A);
+	if (keycode == 126)
+		A->dis->speed++;
+	if (keycode == 125 && A->dis->speed > 1)
+		A->dis->speed--;
 	return (0);
 }
 
