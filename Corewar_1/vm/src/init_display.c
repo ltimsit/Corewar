@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 16:25:19 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/12 17:51:44 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	print_map(t_arena *arena, int c_nb)
 	{
 		print_hexa_dis(A, A->dis, i);
 	}
-	ft_printf("nb =%d\n", c_nb);
 	print_nb_dec(A, A->total_cycle, 1910, 0);
 	print_nb_dec(A, c_nb + 1, 1910, 20);
 	mlx_string_put(A->dis->mlx, A->dis->win,
