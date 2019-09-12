@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 17:22:14 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 11:47:52 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 17:42:07 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	fc_ldi(t_op op, t_process *process, t_arena *arena)
 			(short)chen4(param.value[0]) % IDX_MOD) : elem[0];
 	elem[1] = param.type[1] == IND_CODE ? fill_index_content(A, process,
 			(short)chen4(param.value[1]) % IDX_MOD) : elem[1];
-	tmp = (short)chen4(elem[0] + elem[1]) % IDX_MOD;
+	tmp = ((short)chen4(elem[0]) + (short)chen4(elem[1])) % IDX_MOD;
 	param.data = fill_index_content(A, process, tmp);
 	param.dest_pc = param.value[2];
 	process->param = param;

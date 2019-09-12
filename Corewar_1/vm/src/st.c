@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 16:58:41 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 11:53:17 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 17:47:50 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,8 @@ void	fc_sti(t_op op, t_process *process, t_arena *arena)
 				chen4(param.value[2]) % IDX_MOD)) : chen4(elem[2]);
 	elem[1] = param.type[1] == IND_CODE ? chen4(fill_index_content(A, process,
 				chen4(param.value[1]) % IDX_MOD)) : chen4(elem[1]);
-	ft_printf("elem 1 = %d, elem 2 = %d\n", elem[1], elem[2]);
-	tmp = (short)(elem[1] + elem[2]) % IDX_MOD;
+	tmp = ((short)elem[1] + (short)elem[2]) % IDX_MOD;
 	param.dest_pc = chen4(tmp);
-	ft_printf("dest = %d\n", tmp);
 	process->param = param;
 }
 

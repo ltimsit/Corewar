@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 17:09:53 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/12 17:41:03 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	check_process(t_arena *arena, t_process *process)
 			g_fct_exec[(int)process->opcode](process, A);
 		A->carriage[process->pc] -= 16;
 		process->pc = update_pc(process->pc, process->pc_next);
-	A->carriage[process->pc] |= 1 << 4;
+		A->carriage[process->pc] |= 1 << 4;
 		process->c_done = 0;
 		process->c_todo = 0;
 //		check_process(A, process);
