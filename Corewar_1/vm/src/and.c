@@ -6,12 +6,15 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:35:33 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 10:25:05 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 11:10:59 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
+/*
+** RG/ID/D4(source) RG/ID/D4(source) RG(dest)
+*/
 void	fc_and(t_op op, t_process *process, t_arena *arena)
 {
 	t_param		param;
@@ -21,11 +24,11 @@ void	fc_and(t_op op, t_process *process, t_arena *arena)
 	i = 0;
 	param = fill_param(A, op, process, elem);
 	elem[0] = param.type[0] == IND_CODE ? fill_index_content(A, process,
-			chen4(param.value[0]) % IDX_MOD) : elem[0];
+			(short)chen4(param.value[0]) % IDX_MOD) : elem[0];
 	elem[1] = param.type[1] == IND_CODE ? fill_index_content(A, process,
-			chen4(param.value[1]) % IDX_MOD) : elem[1];
+			(short)chen4(param.value[1]) % IDX_MOD) : elem[1];
 	param.data = elem[0] & elem[1];
-	param.dest_pc = chen4(param.value[2]);
+	param.dest_pc = param.value[2];
 	process->param = param;
 }
 

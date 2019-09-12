@@ -6,12 +6,15 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:30:58 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 10:51:56 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 12:11:45 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
+/*
+** D4 (id du joueur)
+*/
 char	*check_valid_champ(int id, t_arena *arena)
 {
 	int		i;
@@ -27,8 +30,8 @@ void	fc_live(t_op op, t_process *process, t_arena *arena)
 {
 	t_param	param;
 
+	(void)op;
 	ft_bzero(&param, sizeof(t_param));
-	process->c_todo = op.time;
 	process->pc_next = 5;
 	stock_in_param(A, &param.value[0], 4, update_pc(process->pc, 1));
 	param.data = chen4(param.value[0]);
@@ -52,10 +55,10 @@ void	fc_aff(t_op op, t_process *process, t_arena *arena)
 {
 	t_param param;
 
-	process->c_todo = op.time;
+	(void)op;
 	process->pc_next = 2;
 	stock_in_param(A, &param.value[0], 1, update_pc(process->pc, 1));
-	param.data = process->reg[chen4(param.value[0])] % 256;
+	param.data = chen4(param.value[0]) % 256;
 	process->param = param;
 }
 
@@ -66,6 +69,7 @@ void	execute_aff(t_process *process, t_arena *arena)
 	if (process->aff_index == AFF_SIZE || !process->param.data)
 	{
 		ft_printf("{purple}%s\n", process->aff);
+		process->aff_index = 0;
 		ft_bzero(process->aff, AFF_SIZE);
 	}
 	else

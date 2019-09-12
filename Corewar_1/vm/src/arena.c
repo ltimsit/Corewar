@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 10:51:54 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 12:10:33 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,7 @@ void	print_winner(t_arena *arena)
 	}
 	else
 	{
-		ft_printf("😎  Le joueur %s a gagné ! 😎 \n",
-				A->champ[i].h.prog_name);
+		ft_printf("😎  Le joueur %s a gagné ! 😎 \n", winner);
 		ft_free_gc(A->gc);
 		free(A->gc);
 		exit(1);

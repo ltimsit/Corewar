@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 16:48:28 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 10:28:10 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/12 11:42:20 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void	execute_ld(t_process *process, t_arena *arena)
 	put_data_in_reg(process, process->param.data, process->param.dest_pc);
 	process->carry = !process->param.data ? 1 : 0;
 }
+
+/*
+**param 1 source  : Index/ Direct 4(number)
+**param 2 dest    : Registre
+*/
 
 void	fc_lld(t_op op, t_process *process, t_arena *arena)
 {
