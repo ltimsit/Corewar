@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:01:14 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 15:39:25 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/12 15:41:30 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void		put_param_in_field(t_arena *arena, t_process *process, int size)
 	int		pc;
 
 	pc = update_pc(process->pc, chen4(process->param.dest_pc));
-	ft_printf("pc = %d\n", pc);
 	param_c = (char *)&process->param.data;
 	id_start = 4 - size;
 	while (id_start < 4)
