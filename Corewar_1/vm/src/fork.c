@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 12:29:51 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 17:43:52 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/13 09:05:22 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 **  D2(dest of son process)
 */
+
 void	fc_fork(t_op op, t_process *process, t_arena *arena)
 {
 	t_param param;
@@ -23,7 +24,6 @@ void	fc_fork(t_op op, t_process *process, t_arena *arena)
 	process->c_todo = op.time;
 	process->pc_next = 3;
 	stock_in_param(A, &param.value[0], 2, update_pc(process->pc, 1));
-//	ft_chen((char*)&param.value[0], 2);
 	param.data = (short)chen4(param.value[0]) % IDX_MOD;
 	process->param = param;
 }
@@ -52,8 +52,7 @@ void	fc_lfork(t_op op, t_process *process, t_arena *arena)
 	process->c_todo = op.time;
 	process->pc_next = 3;
 	stock_in_param(A, &param.value[0], 2, update_pc(process->pc, 1));
-	//ft_chen((char*)&param.value[0], 2);
-	param.data = chen4(param.value[0]) ;
+	param.data = chen4(param.value[0]);
 	process->param = param;
 }
 

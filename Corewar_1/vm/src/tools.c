@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:01:14 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 18:53:34 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/13 08:46:31 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,13 @@ void			stock_in_param(t_arena *arena, int *param, int size, int pc)
 ** data is big_endian
 */
 
-void		put_param_in_field(t_arena *arena, t_process *process, int size)
+void			put_param_in_field(t_arena *arena, t_process *process, int size)
 {
 	int		id_start;
 	char	*param_c;
 	int		pc;
 
 	pc = (process->pc + chen4(process->param.dest_pc)) % 4096;
-	if (A->total_cycle == 2810)
-		ft_printf("pc %d\n",pc);
 	param_c = (char *)&process->param.data;
 	id_start = 4 - size;
 	while (id_start < 4)
@@ -69,14 +67,14 @@ void		put_param_in_field(t_arena *arena, t_process *process, int size)
 **value is little
 */
 
-int			fill_index_content(t_arena *arena, t_process *process, int value)
+int				fill_index_content(t_arena *arena, t_process *process, int val)
 {
 	int index;
 	int	elem;
 	int j;
 
 	j = -1;
-	index = update_pc(process->pc, value);
+	index = update_pc(process->pc, val);
 	while (++j < 4)
 	{
 		((char *)&elem)[j] = A->field[index++];
@@ -90,7 +88,7 @@ int			fill_index_content(t_arena *arena, t_process *process, int value)
 **reg_nb is big_endian
 */
 
-void		put_data_in_reg(t_process *process, int data, int reg_nb)
+void			put_data_in_reg(t_process *process, int data, int reg_nb)
 {
 	data = chen4(data);
 	reg_nb = chen4(reg_nb);

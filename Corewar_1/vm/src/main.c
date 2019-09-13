@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 19:05:31 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/13 09:28:27 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,35 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-unsigned char	*open_read(t_arena *arena, char *filename, unsigned char *buf)
+unsigned char	*open_read(t_arena *arena, char *file, unsigned char *buf)
 {
 	int	fd;
 	int	ret;
 
-	fd = open(filename, O_RDONLY);
+	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		ft_error(A, "Open failed\n");
 	ret = read(fd, buf, CHAMP_MAX_SIZE + sizeof(t_header));
 	return (buf);
 }
 
-void			sort_champ(t_arena *arena)
+void			print_winner(t_arena *arena)
 {
-	int		i;
-	int		j;
-	int		tmp;
+	char	*winner;
 
-	i = -1;
-	while (++i < A->nb_champ - 1)
+	if (!(winner = check_valid_champ(A->last_living_champ, A)))
 	{
-		j = i;
-		while (++j < A->nb_champ)
-			if (A->champ[i].id < A->champ[j].id)
-			{
-				tmp = A->champ[i].id;
-				A->champ[i].id = A->champ[j].id;
-				A->champ[j].id = tmp;
-			}
+		ft_printf("☠️  Personne n'est en vie ! ☠️ \n");
+		ft_free_gc(A->gc);
+		ft_memdel((void**)&(A->gc), 0);
+		exit(1);
+	}
+	else
+	{
+		ft_printf("😎  Le joueur %s a gagné ! 😎 \n", winner);
+		ft_free_gc(A->gc);
+		ft_memdel((void**)&(A->gc), 0);
+		exit(1);
 	}
 }
 
@@ -58,8 +58,10 @@ int				check_argv(t_arena *arena, char **av, int ac)
 	{
 		if (!ft_strcmp(av[i], "-dis"))
 		{
-			if (i + 1 < ac && (A->cycle_before_dis = ft_atoi(av[i + 1])))
-				++i;
+			if (++i < ac)
+				A->cycle_before_dis = ft_atoi(av[i]);
+			if (A->cycle_before_dis < 0)
+				print_usage(A);
 			else
 				A->display_on = 1;
 			A->dump_cycle = 0;
@@ -68,7 +70,7 @@ int				check_argv(t_arena *arena, char **av, int ac)
 		{
 			if (++i < ac)
 				A->dump_cycle = ft_atoi(av[i]);
-			else
+			if (i == ac || A->dump_cycle < 0)
 				print_usage(A);
 		}
 		else if (!ft_strcmp(av[i], "-n"))

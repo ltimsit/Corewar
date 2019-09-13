@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:29:19 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 10:44:48 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 09:17:20 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,42 @@ void		create_add_champ(char *filename, t_arena *arena, int id_champ)
 	A->champ[pos].id = id_champ;
 	pos++;
 	A->nb_champ++;
+}
+
+void		sort_champ(t_arena *arena)
+{
+	int		i;
+	int		j;
+	int		tmp;
+
+	i = -1;
+	while (++i < A->nb_champ - 1)
+	{
+		j = i;
+		while (++j < A->nb_champ)
+			if (A->champ[i].id < A->champ[j].id)
+			{
+				tmp = A->champ[i].id;
+				A->champ[i].id = A->champ[j].id;
+				A->champ[j].id = tmp;
+			}
+	}
+}
+
+void		load_champ(t_arena *arena)
+{
+	int		i;
+	int		space;
+
+	i = -1;
+	space = MEM_SIZE / A->nb_champ;
+	while (++i < A->nb_champ)
+	{
+		ft_memcpy(A->field + (i * space), A->champ[i].buff,
+				A->champ[i].h.prog_size);
+		fill_color_value(A->carriage + (i * space),
+				A->champ[i].h.prog_size, i);
+		add_process(A, A->champ[i].id, i);
+		A->process->pc = i * space;
+	}
 }

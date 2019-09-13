@@ -6,12 +6,11 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:37:59 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/08/26 19:32:23 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/13 08:39:26 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 int	ft_free_gc(t_gc *gc)
 {
@@ -22,8 +21,8 @@ int	ft_free_gc(t_gc *gc)
 	{
 		gc->head = gc->head->next;
 		if (tmp->ptr)
-			free(tmp->ptr);
-		free(tmp);
+			ft_memdel((void**)&(tmp->ptr), 0);
+		ft_memdel((void**)&tmp, 0);
 		tmp = gc->head;
 	}
 	gc->head = NULL;

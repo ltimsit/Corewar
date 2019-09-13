@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 17:09:46 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/13 09:04:24 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,13 @@ int		print_nb_dec(t_arena *arena, int nb, int x, int y)
 
 int		key_press(int keycode, t_arena *arena)
 {
-	int i;
+	int		i;
 
 	i = -1;
 	if (keycode == 53)
-	{
 		exit(0);
-	}
 	if (keycode == 49)
-	{
 		A->pause = A->pause ? 0 : 1;
-	}
 	if (keycode == 82 && A->pause)
 	{
 		while (A->dis->cpt_to_speed < A->dis->speed)

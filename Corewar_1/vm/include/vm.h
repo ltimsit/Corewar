@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 19:02:05 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/13 09:43:15 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void			print_map(t_arena *arena, int c_nb);
 /*
 **tools.c		----------------------------------------------------------------
 */
+unsigned int	chen4(unsigned int little);
 void			stock_in_param(t_arena *arena, int *param, int size, int pc);
 void			put_param_in_field(t_arena *ar, t_process *process, int size);
 int				fill_index_content(t_arena *arena, t_process *process, int val);
@@ -139,38 +140,41 @@ void			put_data_in_reg(t_process *process, int data, int reg_nb);
 int				check_reg_num(t_param *param, int i);
 void			exit_dump(t_arena *arena);
 void			ft_error(t_arena *arena, char *message);
-int				btohex(unsigned char byte);
+int				update_pc(int old_pc, int i);
+void			print_usage(t_arena *arena);
 
 /*
 **champ.c		----------------------------------------------------------------
 */
 void			print_champ(t_champ *champ);
+t_champ			new_champ(t_arena *arena, unsigned char *buf);
 void			create_add_champ(char *filename, t_arena *arena, int id_champ);
+void			sort_champ(t_arena *arena);
+void			load_champ(t_arena *arena);
 
 /*
 **main.c		----------------------------------------------------------------
 */
-unsigned int	chen4(unsigned int little);
-unsigned char	*open_read(t_arena *arena, char *filename,
-		unsigned char *buffer);
+unsigned char	*open_read(t_arena *arena, char *file, unsigned char *buf);
+void			print_winner(t_arena *arena);
 int				check_argv(t_arena *arena, char **av, int ac);
-void			print_usage(t_arena *arena);
 
 /*
 ** arena.c		----------------------------------------------------------------
 */
-void			load_champ(t_arena *arena);
 void			print_arena(t_arena *arena);
+void			fill_color_value(unsigned char *carriage, int size, int p_nb);
+void			execution(t_arena *arena, t_process *process);
+void			check_process(t_arena *arena, t_process *process);
 void			launch_fight(t_arena *arena);
-int				update_pc(int old_pc, int i);
-void			process_champ(t_arena *arena);
 
 /*
 ** process.c	----------------------------------------------------------------
 */
+void			process_process(t_arena *arena);
+int				verif_process(t_arena *arena, t_process *head);
 void			init_process(t_process *process, int id_champ, int player_nb);
 void			add_process(t_arena *arena, int id_champ, int player_nb);
-void			print_process(t_process *process);
 void			del_process(t_arena *arena, t_process *todel, t_process *prev);
 
 /*
@@ -183,17 +187,14 @@ void			init_fct_instr_tab();
 /*
 ** operation.c	----------------------------------------------------------------
 */
+void			read_instr(t_arena *arena, t_process *process, char opcode);
 t_param			fill_param(t_arena *arena, t_op op, t_process *process,
-		int elem[3]);
-void			fill_elem(t_arena *arena, t_process *process, int nb_elem,
 		int elem[3]);
 void			read_ocp(t_param *param, int dir_size, char ocp,
 		int param_type[3]);
-void			read_instr(t_arena *arena, t_process *process, char opcode);
-void			execute_sti(t_process *process, t_arena *field);
 
 /*
-**live			----------------------------------------------------------------
+**live_aff		----------------------------------------------------------------
 */
 char			*check_valid_champ(int id, t_arena *arena);
 void			fc_live(t_op op, t_process *process, t_arena *arena);

@@ -6,7 +6,7 @@
 #    By: abinois <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 14:51:13 by abinois           #+#    #+#              #
-#    Updated: 2019/09/12 09:31:48 by abinois          ###   ########.fr        #
+#    Updated: 2019/09/13 08:28:38 by abinois          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC = $(addprefix ft_, $(addsuffix .c, \
 	  strsplit swap lstnew lstdelone lstdel lstadd lstiter lst_size lstmap \
 	  lst_rev po sqrt putstrclr get_next_line display_file putnstr fili sqrtup \
 	  llutoa lltoa octatoa hexatoa str_up strjoinfr str_add free_stropt bitoa \
-	  alloc_gc free_gc add_to_gc skip_char skip_nochar chen))
+	  alloc_gc free_gc add_to_gc skip_char skip_nochar chen strnchr))
 
 OBJ = $(SRC:.c=.o)
 

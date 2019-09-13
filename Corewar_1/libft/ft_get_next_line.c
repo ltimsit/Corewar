@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:06:58 by abinois           #+#    #+#             */
-/*   Updated: 2019/07/29 16:04:17 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/13 08:37:27 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int				ft_get_next_line(const int fd, char **line, int o)
 		return (-1);
 	r = 0;
 	b2 = NULL;
-	while (!o && !(ft_strchr(b[fd], '\n'))
+	while (!o && !(ft_strnchr(b[fd], '\n', r))
 		&& (r = read(fd, tmp, BUFF_SIZE_GNL)))
 	{
 		tmp[r] = '\0';
@@ -48,7 +48,7 @@ int				ft_get_next_line(const int fd, char **line, int o)
 		free(b[fd]);
 		b[fd] = b2;
 	}
-	if (!o && *b[fd] && (b2 = ft_strchr(b[fd], '\n')))
+	if (!o && *b[fd] && (b2 = ft_strnchr(b[fd], '\n', r)))
 		return (send_line(&(b[fd]), &b2, line));
 	else if (!o && *b[fd] && (b2 = ft_strchr(b[fd], '\0')))
 		return (send_line(&(b[fd]), &b2, line));

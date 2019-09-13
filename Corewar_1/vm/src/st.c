@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 16:58:41 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 18:36:33 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/13 08:49:25 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,4 @@ void	fc_sti(t_op op, t_process *process, t_arena *arena)
 void	execute_sti(t_process *process, t_arena *arena)
 {
 	put_param_in_field(A, process, 4);
-//	process->carry = !process->param.data ? 1 : 0;
 }

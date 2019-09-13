@@ -6,15 +6,18 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:35:33 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 11:10:59 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 09:07:34 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 /*
-** RG/ID/D4(source) RG/ID/D4(source) RG(dest)
+** Param 1: RG/ID/D4(source)
+** Param 2: RG/ID/D4(source)
+** Param 3: RG(dest)
 */
+
 void	fc_and(t_op op, t_process *process, t_arena *arena)
 {
 	t_param		param;

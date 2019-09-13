@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 12:09:38 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 09:50:12 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,31 +54,21 @@ void	read_ocp(t_param *param, int dir_size, char ocp, int param_type[3])
 	int	*val;
 	int	*type;
 
-	i = 2;
+	i = 0;
 	j = 2;
 	val = &param->size[2];
 	type = &param->type[2];
-	while (i < 8)
+	while ((i += 2) < 8)
 	{
 		cmp = ((ocp >> i) & 3);
 		if (param_type[j] && !(param_type[j] & cmp))
 			param->error = 1;
-		if (cmp == 1)
-		{
+		if (cmp == 1 && (*type = REG_CODE))
 			*val = 1;
-			*type = REG_CODE;
-		}
-		else if (cmp == 2)
-		{
+		else if (cmp == 2 && (*type = DIR_CODE))
 			*val = dir_size == 1 ? 2 : 4;
-			*type = DIR_CODE;
-		}
-		else if (cmp == 3)
-		{
+		else if (cmp == 3 && (*type = IND_CODE))
 			*val = 2;
-			*type = IND_CODE;
-		}
-		i += 2;
 		val--;
 		type--;
 		j--;

@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:30:58 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 12:11:45 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 08:58:32 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** D4 (id du joueur)
 */
+
 char	*check_valid_champ(int id, t_arena *arena)
 {
 	int		i;

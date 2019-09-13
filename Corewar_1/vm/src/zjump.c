@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 12:53:15 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 19:12:56 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/13 08:44:19 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	fc_zjump(t_op op, t_process *process, t_arena *arena)
 
 	(void)op;
 	stock_in_param(A, &param.value[0], 2, update_pc(process->pc, 1));
-//	ft_chen((char*)&param.value[0], 2);
-	param.data =(short) chen4(param.value[0]) % IDX_MOD;
+	param.data = (short)chen4(param.value[0]) % IDX_MOD;
 	if (param.data < 0)
 		param.data += MEM_SIZE;
 	process->pc_next = !process->carry ? 3 : param.data;

@@ -6,18 +6,46 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:40:52 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/12 10:20:51 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 09:25:12 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	print_process(t_process *process)
+void	process_process(t_arena *arena)
 {
-	ft_printf("\n {green}PC = %d{reset}", process->pc);
-	ft_printf("\n {blue}Carry = %d{reset}", process->carry);
-	ft_printf("\n {yellow}Nb_Live = %d{reset}", process->nb_live);
-	ft_printf("\n {red}id_champ =  %d{reset}\n", process->id_champ);
+	t_process *tmp;
+
+	tmp = A->p_head;
+	while (tmp)
+	{
+		check_process(A, tmp);
+		tmp = tmp->next;
+	}
+}
+
+int		verif_process(t_arena *arena, t_process *head)
+{
+	t_process	*tmp;
+	int			nb_live;
+	t_process	*prev;
+
+	prev = NULL;
+	tmp = head;
+	nb_live = 0;
+	while (tmp)
+	{
+		if (!tmp->nb_live)
+			del_process(A, tmp, prev);
+		else
+		{
+			nb_live += tmp->nb_live;
+			tmp->nb_live = 0;
+			prev = tmp;
+		}
+		tmp = tmp->next;
+	}
+	return (nb_live);
 }
 
 void	init_process(t_process *process, int id_champ, int player_nb)
