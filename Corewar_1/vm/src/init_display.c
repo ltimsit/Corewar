@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 17:51:44 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/13 11:43:46 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,7 @@ void	fill_img(char **d_img)
 		i_img = (int *)d_img[j];
 		i = -1;
 		while (++i < C_HGT * C_LEN)
-		{
 			i_img[i] = color_tab[j];
-		}
 	}
 }
 

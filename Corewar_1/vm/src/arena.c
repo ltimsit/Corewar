@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 10:16:08 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 11:56:00 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	check_process(t_arena *arena, t_process *process)
 
 void	launch_fight(t_arena *arena)
 {
+	if (A->total_cycle == A->dump_cycle)
+		exit_dump(A);
 	if (++(A->curr_cycle) < A->cycle_to_die)
 	{
 		A->total_cycle++;
