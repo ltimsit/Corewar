@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 17:36:21 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/13 19:09:22 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_param	fill_param(t_arena *arena, t_op op, t_process *process, int elem[3])
 	ft_bzero(&param, sizeof(t_param));
 	if (op.ocp)
 		read_ocp(&param, op.dir_size, A->field[update_pc(process->pc, 1)],
-				op.param_type);
+				op);
 	process->pc_next = param.size[0] + param.size[1] + param.size[2] + 1
 		+ (op.ocp ? 1 : 0);
 	i = -1;
@@ -57,7 +57,7 @@ int		is_valid_type(int param_type, int cmp)
 	return(0);
 }	
 
-void	read_ocp(t_param *param, int dir_size, char ocp, int param_type[3])
+void	read_ocp(t_param *param, int dir_size, char ocp, t_op op)
 {
 	int i;
 	int j;
@@ -72,13 +72,13 @@ void	read_ocp(t_param *param, int dir_size, char ocp, int param_type[3])
 	while ((i += 2) < 8)
 	{
 		cmp = ((ocp >> i) & 3);
-		if (param_type[j] && !is_valid_type(param_type[j],cmp ))
+		if (j <= op.nb_param - 1 && !is_valid_type(op.param_type[j],cmp ))
 			param->error = 1;
-		if (cmp == 1 && (*type = REG_CODE))
+		if (j <= op.nb_param - 1 && cmp == 1 && (*type = REG_CODE))
 			*val = 1;
-		else if (cmp == 2 && (*type = DIR_CODE))
+		else if (j <= op.nb_param - 1 && cmp == 2 && (*type = DIR_CODE))
 			*val = dir_size == 1 ? 2 : 4;
-		else if (cmp == 3 && (*type = IND_CODE))
+		else if (j <= op.nb_param - 1 && cmp == 3 && (*type = IND_CODE))
 			*val = 2;
 		val--;
 		type--;

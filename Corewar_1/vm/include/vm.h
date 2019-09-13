@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 11:34:57 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 19:09:26 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,8 +195,7 @@ void			init_fct_instr_tab();
 void			read_instr(t_arena *arena, t_process *process, char opcode);
 t_param			fill_param(t_arena *arena, t_op op, t_process *process,
 		int elem[3]);
-void			read_ocp(t_param *param, int dir_size, char ocp,
-		int param_type[3]);
+void			read_ocp(t_param *param, int dir_size, char ocp, t_op op);
 
 /*
 **live_aff		----------------------------------------------------------------
