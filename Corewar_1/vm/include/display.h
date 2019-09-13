@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:40:50 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 19:09:06 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/13 11:37:37 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,22 @@
 
 # include "mlx.h"
 # include "vm.h"
-# define BYTE_PER_COL 64
-# define W_LEN 2200
-# define W_HGT 1900
-# define C_LEN 20
-# define C_HGT 20
-# define P1_COLOR 1
-# define P2 2
-# define P3 4
-# define P4 8
-# define HEX_COLOR 0x8c8c8c
-# define X_OFFSET 40
-# define Y_OFFSET 40
-# define BORDER_COLOR 0x33cc99
-# define BACKGROUND_COLOR 0x123456
+
+# define BYTE_PER_COL		64
+# define W_LEN				2200
+# define W_HGT				1900
+# define C_LEN				20
+# define C_HGT				20
+# define X_OFFSET			40
+# define Y_OFFSET			40
+
+# define P1_COLOR			1
+# define P2					2
+# define P3					4
+# define P4					8
+# define HEX_COLOR			0x8c8c8c
+# define BORDER_COLOR		0x33cc99
+# define BACKGROUND_COLOR	0x123456
 
 typedef struct	s_display
 {
@@ -42,11 +44,4 @@ typedef struct	s_display
 	int			cpt_to_speed;
 }				t_display;
 
-/*
-int		display_all(t_display *dis);
-int		mouse_press(int button, int x, int y, t_display *dis);
-int		key_press(int keycode, t_display *dis);
-void	fill_img(char *d_img);
-char	*get_data_ptr(void *img_ptr);
-*/
 #endif

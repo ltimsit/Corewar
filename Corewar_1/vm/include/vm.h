@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 09:43:15 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 11:34:57 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,17 +113,22 @@ void	(*g_fct_exec[17])(t_process*, t_arena*);
 /*
 **init_display.c----------------------------------------------------------------
 */
-int				print_hexa_dis(t_arena *arena, t_display *dis, int index);
-int				display_all(t_display *dis);
-int				mouse_press(int button, int x, int y, t_display *dis);
-int				key_press(int keycode, t_arena *arena);
+void			fill_border(t_arena *arena);
+void			print_process_dis(t_arena *arena);
+void			print_map(t_arena *arena, int c_nb);
 void			fill_img(char **d_img);
 char			*get_data_ptr(void *img_ptr);
-int				loop_fight(t_arena *arena);
+int				print_hexa_dis(t_arena *arena, t_display *dis, int index);
+void			init_display(t_arena *arena);
+
+/*
+**hook.c		----------------------------------------------------------------
+*/
 int				print_nb(t_arena *arena, int nb, int x, int y);
 int				print_nb_dec(t_arena *arena, int nb, int x, int y);
-void			init_display(t_arena *arena);
-void			print_map(t_arena *arena, int c_nb);
+int				key_press(int keycode, t_arena *arena);
+int				mouse_press(int button, int x, int y, t_display *dis);
+int				loop_fight(t_arena *arena);
 
 /*
 **tools.c		----------------------------------------------------------------

@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 09:41:49 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 10:16:08 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ void	launch_fight(t_arena *arena)
 		}
 		A->curr_cycle = -1;
 	}
-	if (A->dump_cycle && A->total_cycle == A->dump_cycle)
+	if (A->total_cycle == A->dump_cycle)
 		exit_dump(A);
 }

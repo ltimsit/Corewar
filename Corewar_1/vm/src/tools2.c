@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 11:52:43 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/13 08:42:40 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 11:09:04 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,9 @@ int		update_pc(int old_pc, int i)
 void	print_usage(t_arena *arena)
 {
 	ft_printf("{yellow}");
-	ft_printf("Usage: ./corewar [-n N <champion1.cor>] [-dis (N) -dump N]\n");
-	ft_printf("{kaki}\t-dis N\t\t\t: Mlx output mode.\n");
-	ft_printf("\t\t\t\t  Will start at cycle zero if no N is specified.\n");
-	ft_printf("{kaki}");
+	ft_printf("Usage: ./corewar [-n N <champion1.cor>] [-dis N -dump N]\n");
+	ft_printf("{blue}\t-dis N\t\t\t: Mlx output mode start at cycle N\n");
 	ft_printf("\t-dump N\t\t\t: Dumps memory after N cycles then exits.\n");
-	ft_printf("{kaki}");
 	ft_printf("\t-n N <champ.cor>\t: Sets champion id to N.\n{reset}");
 	ft_free_gc(A->gc);
 	ft_memdel((void**)&(A->gc), 0);

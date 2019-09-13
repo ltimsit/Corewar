@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 09:28:27 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 11:28:08 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int				check_argv(t_arena *arena, char **av, int ac)
 		{
 			if (++i < ac)
 				A->cycle_before_dis = ft_atoi(av[i]);
-			if (A->cycle_before_dis < 0)
+			if (i == ac || A->cycle_before_dis < 0 || !ft_isdigit(av[i][0]))
 				print_usage(A);
 			else
 				A->display_on = 1;
@@ -70,7 +70,7 @@ int				check_argv(t_arena *arena, char **av, int ac)
 		{
 			if (++i < ac)
 				A->dump_cycle = ft_atoi(av[i]);
-			if (i == ac || A->dump_cycle < 0)
+			if (i == ac || A->dump_cycle < 0 || !ft_isdigit(av[i][0]))
 				print_usage(A);
 		}
 		else if (!ft_strcmp(av[i], "-n"))
@@ -94,7 +94,9 @@ int				check_argv(t_arena *arena, char **av, int ac)
 int				main(int ac, char **av)
 {
 	t_arena	arena;
+	int		cycle;
 
+	cycle = -1;
 	ft_bzero(&A, sizeof(t_arena));
 	if (!(A.gc = (t_gc*)malloc(sizeof(t_gc))))
 		ft_error(&A, "Malloc error\n");
@@ -108,13 +110,10 @@ int				main(int ac, char **av)
 		print_usage(&A);
 	sort_champ(&A);
 	load_champ(&A);
-	arena.curr_cycle = -1;
+	A.curr_cycle = -1;
 	if (A.display_on)
-		init_display(&A);
-	else if (A.cycle_before_dis)
 	{
-		ft_printf("test\n");
-		while (A.cycle_before_dis--)
+		while (++cycle < A.cycle_before_dis)
 			launch_fight(&A);
 		init_display(&A);
 	}
