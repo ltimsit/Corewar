@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 11:52:43 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/13 11:09:04 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 13:26:16 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ void	ft_error(t_arena *arena, char *message)
 
 int		update_pc(int old_pc, int i)
 {
-	return ((old_pc + i) % MEM_SIZE);
+	int res;
+
+	res = (old_pc + i) % MEM_SIZE;
+	return (res < 0 ? res + MEM_SIZE : res);
 }
 
 void	print_usage(t_arena *arena)

@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 17:22:14 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/13 08:59:06 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 13:32:54 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	execute_ldi(t_process *process, t_arena *arena)
 {
 	(void)A;
 	put_data_in_reg(process, process->param.data, process->param.dest_pc);
-	process->carry = !process->param.data ? 1 : 0;
 }
 
 void	fc_lldi(t_op op, t_process *process, t_arena *arena)

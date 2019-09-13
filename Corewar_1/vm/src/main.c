@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 12:41:26 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 16:44:18 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,9 @@ int				main(int ac, char **av)
 		print_usage(&A);
 	sort_champ(&A);
 	load_champ(&A);
-	A.curr_cycle = -1;
 	if (A.display_on)
 	{
-		while (A.cycle_before_dis--)
+		while (A.total_cycle != A.cycle_before_dis)
 			launch_fight(&A);
 		init_display(&A);
 	}

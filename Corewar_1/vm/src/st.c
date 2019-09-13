@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 16:58:41 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/13 08:49:25 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 13:31:21 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	execute_st(t_process *process, t_arena *arena)
 		put_data_in_reg(process, process->param.data, process->param.dest_pc);
 	else if (process->param.type[1] == IND_CODE)
 		put_param_in_field(A, process, 4);
-	process->carry = !process->param.data ? 1 : 0;
 }
 
 /*

@@ -6,11 +6,12 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:40:52 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 09:25:12 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 16:15:16 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include <stdlib.h>
 
 void	process_process(t_arena *arena)
 {
@@ -19,6 +20,10 @@ void	process_process(t_arena *arena)
 	tmp = A->p_head;
 	while (tmp)
 	{
+		if (A->total_cycle == 4550 && tmp->pc == 69 )
+		{
+			ft_printf(" add :%p carry : %d, pc->next : %d, done :%d\n", &tmp, tmp->carry, tmp->pc_next,tmp->c_done);
+		}
 		check_process(A, tmp);
 		tmp = tmp->next;
 	}

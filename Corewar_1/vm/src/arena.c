@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 12:42:37 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 16:44:34 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	print_arena(t_arena *arena)
 	i = -1;
 	while (++i < MEM_SIZE)
 	{
-		if (!(i % 32) && i != MEM_SIZE - 1)
-			ft_printf("{grey}%s%-.4p : {reset}", !i ? "" : "\n", i);
+		if (!(i % 64) && i != MEM_SIZE - 1)
+			ft_printf("%s%-.4p : ", !i ? "" : "\n", i);
 		ft_printf("%.2x", A->field[i]);
-		if (i % 32 != 31)
+		//if (i % 64 != 63)
 			ft_putchar(' ');
 	}
 }
@@ -87,8 +87,9 @@ void	launch_fight(t_arena *arena)
 {
 	if (!A->display_on && A->total_cycle == A->dump_cycle)
 		exit_dump(A);
-	if (++(A->curr_cycle) < A->cycle_to_die)
+	if (A->curr_cycle < A->cycle_to_die)
 	{
+		A->curr_cycle++;
 		A->total_cycle++;
 		process_process(A);
 		if (A->dis && (++(A->dis->cpt_to_speed) == A->dis->speed))
@@ -104,8 +105,6 @@ void	launch_fight(t_arena *arena)
 			A->cycle_to_die -= CYCLE_DELTA;
 			A->nb_check = 0;
 		}
-		A->curr_cycle = -1;
+		A->curr_cycle = 0;
 	}
-	if (!A->display_on && A->total_cycle == A->dump_cycle)
-		exit_dump(A);
 }

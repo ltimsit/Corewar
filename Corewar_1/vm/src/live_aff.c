@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:30:58 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 08:58:32 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 14:11:39 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	execute_live(t_process *process, t_arena *arena)
 	if (!(name = check_valid_champ(process->param.data, A)))
 		return ;
 	A->last_living_champ = process->param.data;
-	ft_printf("Un processus dit que le joueur %s est en vie.\n", name);
+	if (!A->dump_cycle)
+		ft_printf("Un processus dit que le joueur %s est en vie.\n", name);
 }
 
 void	fc_aff(t_op op, t_process *process, t_arena *arena)
@@ -75,5 +76,4 @@ void	execute_aff(t_process *process, t_arena *arena)
 	}
 	else
 		process->aff[process->aff_index++] = process->param.data;
-	process->carry = !process->param.data ? 1 : 0;
 }
