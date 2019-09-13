@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 16:43:19 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/13 17:36:21 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,17 @@ t_param	fill_param(t_arena *arena, t_op op, t_process *process, int elem[3])
 	return (param);
 }
 
+int		is_valid_type(int param_type, int cmp)
+{
+	if (cmp == 3 && param_type >= 4)
+		return (1);
+	if (cmp == 2 && param_type % 4 > 1)
+		return(1);
+	if (cmp == 1 && param_type % 2)
+		return (1);
+	return(0);
+}	
+
 void	read_ocp(t_param *param, int dir_size, char ocp, int param_type[3])
 {
 	int i;
@@ -61,7 +72,7 @@ void	read_ocp(t_param *param, int dir_size, char ocp, int param_type[3])
 	while ((i += 2) < 8)
 	{
 		cmp = ((ocp >> i) & 3);
-		if (param_type[j] && !(param_type[j] & cmp))
+		if (param_type[j] && !is_valid_type(param_type[j],cmp ))
 			param->error = 1;
 		if (cmp == 1 && (*type = REG_CODE))
 			*val = 1;
