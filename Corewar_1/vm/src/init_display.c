@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/13 11:43:46 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 12:47:40 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	print_process_dis(t_arena *arena)
 	}
 	mlx_string_put(A->dis->mlx, A->dis->win,
 			x - 90, y, HEX_COLOR, "process :");
-	print_nb(A, nb_process, x, y);
+	print_nb_dec(A, nb_process, x, y);
 }
 
 void	print_map(t_arena *arena, int c_nb)
@@ -79,10 +79,11 @@ void	print_map(t_arena *arena, int c_nb)
 	{
 		print_hexa_dis(A, A->dis, i);
 	}
+	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 0, HEX_COLOR, "total :");
 	print_nb_dec(A, A->total_cycle, 1910, 0);
+	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 20, HEX_COLOR, "cycle :");
 	print_nb_dec(A, c_nb + 1, 1910, 20);
-	mlx_string_put(A->dis->mlx, A->dis->win,
-			1820, 40, HEX_COLOR, "speed :");
+	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 40, HEX_COLOR, "speed :");
 	print_nb_dec(A, A->dis->speed, 1910, 40);
 	print_process_dis(A);
 }
@@ -202,6 +203,7 @@ void	init_display(t_arena *arena)
 	A->dis = &dis;
 	A->pause = 1;
 	fill_border(A);
+	print_map(A, A->curr_cycle);
 	mlx_hook(dis.win, 2, 0, key_press, A);
 	mlx_hook(dis.win, 4, 0, mouse_press, A);
 	mlx_loop_hook(dis.mlx, loop_fight, A);

@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 11:28:08 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/13 12:41:26 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,8 @@ int				check_argv(t_arena *arena, char **av, int ac)
 				print_usage(A);
 			else
 				A->display_on = 1;
-			A->dump_cycle = 0;
 		}
-		else if (!ft_strcmp(av[i], "-dump") && !A->display_on)
+		else if (!ft_strcmp(av[i], "-dump"))
 		{
 			if (++i < ac)
 				A->dump_cycle = ft_atoi(av[i]);
@@ -80,13 +79,8 @@ int				check_argv(t_arena *arena, char **av, int ac)
 			else
 				print_usage(A);
 		}
-		else if (av[i][0] != '-')
-			create_add_champ(av[i], A, id_champ++);
 		else
-		{
-			ft_printf("{red}unknown option \"%s\"\n{reset}", av[i]);
-			exit(0);
-		}
+			create_add_champ(av[i], A, id_champ++);
 	}
 	return (1);
 }
@@ -94,9 +88,7 @@ int				check_argv(t_arena *arena, char **av, int ac)
 int				main(int ac, char **av)
 {
 	t_arena	arena;
-	int		cycle;
 
-	cycle = -1;
 	ft_bzero(&A, sizeof(t_arena));
 	if (!(A.gc = (t_gc*)malloc(sizeof(t_gc))))
 		ft_error(&A, "Malloc error\n");
@@ -105,6 +97,7 @@ int				main(int ac, char **av)
 	init_fct_instr_tab();
 	init_fct_exec_tab();
 	set_op_table(&A);
+	A.dump_cycle = -1;
 	check_argv(&A, av, ac);
 	if (!A.nb_champ)
 		print_usage(&A);
@@ -113,7 +106,7 @@ int				main(int ac, char **av)
 	A.curr_cycle = -1;
 	if (A.display_on)
 	{
-		while (++cycle < A.cycle_before_dis)
+		while (A.cycle_before_dis--)
 			launch_fight(&A);
 		init_display(&A);
 	}
