@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 12:29:51 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 09:05:22 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/14 18:15:36 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	execute_fork(t_process *process, t_arena *arena)
 	ft_memcpy(new_process->reg, process->reg, sizeof(process->reg));
 	new_process->next = A->p_head;
 	A->p_head = new_process;
+	A->carriage[new_process->pc] |= 1 << 4;
+	A->nb_process++;
 }
 
 void	fc_lfork(t_op op, t_process *process, t_arena *arena)
@@ -70,4 +72,6 @@ void	execute_lfork(t_process *process, t_arena *arena)
 	ft_memcpy(new_process->reg, process->reg, sizeof(process->reg));
 	new_process->next = A->p_head;
 	A->p_head = new_process;
+	A->carriage[new_process->pc] |= 1 << 4;
+	A->nb_process++;
 }

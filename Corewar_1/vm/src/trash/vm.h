@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/14 18:15:38 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:18:39 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "op.h"
 # include "ft_printf.h"
 # include "../../libft/libft.h"
+# include <ncurses.h>
 # include "display.h"
 
 # define PLAYER_1	1
@@ -25,13 +26,11 @@
 # define CMENU		25
 # define AFF_SIZE	128
 
-# define A			arena
-
 typedef struct	s_param
 {
 	int			value[3];
 	int			size[3];
-	int			type[3];
+	int 		type[3];
 	int			data;
 	int			data_size;
 	int			dest_pc;
@@ -43,14 +42,14 @@ typedef struct	s_process
 	int					reg[REG_NUMBER];
 	int					id_champ;
 	int					player_nb;
-	short				pc;
+	int					pc;
 	char				aff[AFF_SIZE];
 	unsigned char		aff_index;
-	short				pc_next;
+	int 				pc_next;
 	char				carry;
 	char				opcode;
-	int					nb_live;
-	int					c_done;
+	int 				nb_live;
+	int 				c_done;
 	int					c_todo;
 	t_param				param;
 	struct s_process	*next;
@@ -59,9 +58,9 @@ typedef struct	s_process
 typedef struct	s_champ
 {
 	int			id;
-	int			pos;
+	int 		pos;
 	char		buff[CHAMP_MAX_SIZE];
-	t_header	h;
+	header_t	h;
 }				t_champ;
 
 typedef struct	s_op
@@ -82,21 +81,18 @@ typedef struct	s_arena
 	int				last_living_champ;
 	int				display_on;
 	int				total_cycle;
-	int				curr_cycle;
 	int				dump_cycle;
-	int				nb_check;
+	int 			nb_check;
 	int				nb_live;
 	int				cycle_to_die;
 	t_champ			champ[MAX_PLAYERS];
-	unsigned char	field[MEM_SIZE];
-	unsigned char	carriage[MEM_SIZE];
+	unsigned char 	field[MEM_SIZE];
+	unsigned char 	carriage[MEM_SIZE];
 	t_gc			*gc;
 	t_op			op[16];
-	t_process		*process;
-	t_process		*p_head;
-	int				nb_process;
+	t_process  		*process;
+	t_process 		*p_head;
 	t_display		*dis;
-	int				cycle_before_dis;
 	int				pause;
 }				t_arena;
 
@@ -111,161 +107,191 @@ typedef struct	s_ocp
 void	(*g_fct_instr[17])(t_op, t_process*, t_arena*);
 void	(*g_fct_exec[17])(t_process*, t_arena*);
 
-/*
-**init_display.c----------------------------------------------------------------
-*/
-void			fill_border(t_arena *arena);
-void			print_process_dis(t_arena *arena);
-void			print_map(t_arena *arena, int c_nb);
-void			fill_img(char **d_img);
-char			*get_data_ptr(void *img_ptr);
-int				print_hexa_dis(t_arena *arena, t_display *dis, int index);
-void			init_display(t_arena *arena);
-void			print_reg_dis(t_arena *arena, t_process *process);
+int		print_hexa_dis(t_arena *arena, t_display *dis, int index);
+int		display_all(t_display *dis);
+int		mouse_press(int button, int x, int y, t_display *dis);
+int		key_press(int keycode, t_arena *arena);
+void	fill_img(char **d_img);
+char	*get_data_ptr(void *img_ptr);
+int		loop_fight(t_arena *arena);
+int		print_nb(t_arena *arena, int nb, int x, int y);
+void	init_display(t_arena *arena);
+void	print_map(t_arena *arena, int c_nb);
 
 /*
-**hook.c		----------------------------------------------------------------
-*/
-int				print_nb(t_arena *arena, int nb, int x, int y);
-int				print_nb_dec(t_arena *arena, int nb, int x, int y);
-int				key_press(int keycode, t_arena *arena);
-int				mouse_press(int button, int x, int y, t_arena *arena);
-int				loop_fight(t_arena *arena);
+ ** utils.c
+ */
+void			ft_error(t_arena *arena, char *message);
+int				btohex(unsigned char byte);
 
 /*
-**tools.c		----------------------------------------------------------------
+**tools.c
 */
-unsigned int	chen4(unsigned int little);
+
 void			stock_in_param(t_arena *arena, int *param, int size, int pc);
-void			put_param_in_field(t_arena *ar, t_process *process, int size);
+void 			put_param_in_field(t_arena *arena, int param, int size, int pc);
 int				fill_index_content(t_arena *arena, t_process *process, int val);
-void			put_data_in_reg(t_process *process, int data, int reg_nb);
+void 			put_data_in_reg(t_process *process, int data,int reg_nb);
 
 /*
-**tools2.c		----------------------------------------------------------------
+**tools2.c
 */
+
 int				check_reg_num(t_param *param, int i);
 void			exit_dump(t_arena *arena);
-void			ft_error(t_arena *arena, char *message);
-int				update_pc(int old_pc, int i);
+
+/*
+**champ.c
+*/
+
+void			print_champ(t_champ *champ);
+void			create_add_champ(char *filename, t_arena *arena, int id_champ);
+
+/*
+**main.c
+*/
+unsigned int 	change_endian(unsigned int little);
+unsigned char	*open_read(t_arena *arena, char *filename,
+	   	unsigned char *buffer);
+int				check_argv(t_arena *arena, char **av, int ac);
 void			print_usage(t_arena *arena);
 
 /*
-**champ.c		----------------------------------------------------------------
-*/
-void			print_champ(t_champ *champ);
-t_champ			new_champ(t_arena *arena, unsigned char *buf);
-void			create_add_champ(char *filename, t_arena *arena, int id_champ);
-void			sort_champ(t_arena *arena);
+ ** arena.c
+ */
+
 void			load_champ(t_arena *arena);
-
-/*
-**main.c		----------------------------------------------------------------
-*/
-unsigned char	*open_read(t_arena *arena, char *file, unsigned char *buf);
-void			print_winner(t_arena *arena);
-int				check_argv(t_arena *arena, char **av, int ac);
-
-/*
-** arena.c		----------------------------------------------------------------
-*/
 void			print_arena(t_arena *arena);
-void			fill_color_value(unsigned char *carriage, int size, int p_nb);
-void			execution(t_arena *arena, t_process *process);
-void			check_process(t_arena *arena, t_process *process);
-void			launch_fight(t_arena *arena);
+void 			launch_fight(t_arena *arena);
+int				update_pc(int old_pc, int i);
+void    		process_champ(t_arena *arena);
 
 /*
-** process.c	----------------------------------------------------------------
-*/
-void			process_process(t_arena *arena);
-int				verif_process(t_arena *arena, t_process *head);
+ ** process.c
+ */
+
 void			init_process(t_process *process, int id_champ, int player_nb);
 void			add_process(t_arena *arena, int id_champ, int player_nb);
-void			del_process(t_arena *arena, t_process *todel, t_process *prev);
+void			print_process(t_process *process);
+void    		del_process(t_arena *arena, t_process *todel, t_process *prev);
 
 /*
-**fill_tab.c	----------------------------------------------------------------
+**op.c
 */
 void			set_op_table(t_arena *arena);
+
+/*
+ ** operation.c
+ */
+
 void			init_fct_exec_tab();
 void			init_fct_instr_tab();
+t_param			fill_param(t_arena *arena, t_op op, t_process *process, int elem[3]);
+void			fill_elem(t_arena *arena, t_process *process, int nb_elem, int elem[3]);
+void			read_ocp(t_param *param, int dir_size, char ocp, int param_type[3]);
+void			read_instruction(t_arena *arena, t_process *process, char opcode);
+void			execute_sti(t_process *process, t_arena *field);
 
 /*
-** operation.c	----------------------------------------------------------------
+**ncurses
 */
-void			read_instr(t_arena *arena, t_process *process, char opcode);
-t_param			fill_param(t_arena *arena, t_op op, t_process *process,
-		int elem[3]);
-void			read_ocp(t_param *param, int dir_size, char ocp, t_op op);
+
+void			init_ncurses(t_arena *arena);
+void 			nprint_arena(t_arena *arena);
+int				pc_to_line_col(int pc, int option);
+void			n_print_op_exec(int pc, int size, t_arena *arena);
+void			n_print_pc(int pc, t_arena *arena, int o);
+int				nbtohex(unsigned char byte, int line, int col);
+void			n_print_reg(t_process *process, t_arena *arena, int reg_nb);
 
 /*
-**live_aff		----------------------------------------------------------------
+**live
 */
-char			*check_valid_champ(int id, t_arena *arena);
+
 void			fc_live(t_op op, t_process *process, t_arena *arena);
 void			execute_live(t_process *process, t_arena *arena);
-void			fc_aff(t_op op, t_process *process, t_arena *arena);
-void			execute_aff(t_process *process, t_arena *arena);
 
 /*
-**and			----------------------------------------------------------------
+**and
 */
+
 void			fc_and(t_op op, t_process *process, t_arena *arena);
 void			execute_and(t_process *process, t_arena *arena);
 
 /*
-**zjump			----------------------------------------------------------------
+**zjump
 */
+
 void			fc_zjump(t_op op, t_process *process, t_arena *arena);
 void			execute_zjump(t_process *process, t_arena *arena);
 
 /*
-**orxor			----------------------------------------------------------------
+**or
 */
+
 void			fc_or(t_op op, t_process *process, t_arena *arena);
 void			execute_or(t_process *process, t_arena *arena);
+
+/*
+**xor
+*/
+
 void			fc_xor(t_op op, t_process *process, t_arena *arena);
 void			execute_xor(t_process *process, t_arena *arena);
 
 /*
-**addsub		----------------------------------------------------------------
+**add
 */
+
 void			fc_add(t_op op, t_process *process, t_arena *arena);
 void			execute_add(t_process *process, t_arena *arena);
+
+/*
+**sub
+*/
+
 void			fc_sub(t_op op, t_process *process, t_arena *arena);
 void			execute_sub(t_process *process, t_arena *arena);
 
 /*
-**st			----------------------------------------------------------------
+**st
 */
+
 void			fc_st(t_op op, t_process *process, t_arena *arena);
 void			execute_st(t_process *process, t_arena *arena);
 void			fc_sti(t_op op, t_process *process, t_arena *arena);
 void			execute_sti(t_process *process, t_arena *arena);
 
 /*
-**ld			----------------------------------------------------------------
+**ld
 */
+
 void			fc_ld(t_op op, t_process *process, t_arena *arena);
 void			execute_ld(t_process *process, t_arena *arena);
 void			fc_lld(t_op op, t_process *process, t_arena *arena);
 void			execute_lld(t_process *process, t_arena *arena);
 
 /*
-**ldi			----------------------------------------------------------------
+**ldi
 */
+
 void			fc_ldi(t_op op, t_process *process, t_arena *arena);
 void			execute_ldi(t_process *process, t_arena *arena);
 void			fc_lldi(t_op op, t_process *process, t_arena *arena);
 void			execute_lldi(t_process *process, t_arena *arena);
 
 /*
-**fork			----------------------------------------------------------------
+**fork
 */
 void			fc_fork(t_op op, t_process *process, t_arena *arena);
 void			execute_fork(t_process *process, t_arena *arena);
 void			fc_lfork(t_op op, t_process *process, t_arena *arena);
 void			execute_lfork(t_process *process, t_arena *arena);
 
+/*
+**aff
+*/
+
+void			fc_aff(t_op op, t_process *process, t_arena *arena);
+void			execute_aff(t_process *process, t_arena *arena);
 #endif

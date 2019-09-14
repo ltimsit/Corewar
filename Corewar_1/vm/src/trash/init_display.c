@@ -6,7 +6,8 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/14 18:15:39 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:22:15 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/08 15:35:36 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +19,7 @@ void	fill_border(t_arena *arena)
 	int		y;
 	int		*data;
 
-	data = (int *)A->dis->d_border_img;
+	data = (int *)arena->dis->d_border_img;
 	y = 25;
 	while (++y < 64 * 21)
 	{
@@ -33,79 +34,54 @@ void	fill_border(t_arena *arena)
 	}
 }
 
-void	print_reg_dis(t_arena *arena, t_process *process)
-{
-	int i;
-	int x;
-	int y;
-
-	x = 1910;
-	y = 120;
-	i = -1;
-	while (++i < 16)
-	{
-		mlx_string_put(A->dis->mlx, A->dis->win,
-				x - 90, y, HEX_COLOR, "reg[  ] = ");
-		print_nb_dec(A, i + 1, x - 50, y);
-		print_nb(A, process->reg[i], x + 10, y);
-		y += 20;
-	}
-}
-
 void	print_process_dis(t_arena *arena)
 {
 	t_process	*tmp;
 	int			i;
-	int			nb_process;
 	int			x;
 	int			y;
 
 	x = 1910;
-	y = 60;
-	nb_process = 0;
-	tmp = A->p_head;
-	while (tmp && ++nb_process)
+	y = 40;
+	tmp = arena->p_head;
+	while (tmp)
 	{
 		i = -1;
-/*
 		while (++i < 16)
 		{
-			mlx_string_put(A->dis->mlx, A->dis->win,
+
+	//		mlx_string_put(arena->dis->mlx, arena->dis->win, x - 90, y, HEX_COLOR, get_champ_name(tmp->id));
+			mlx_string_put(arena->dis->mlx, arena->dis->win, x - 90, y + 20, HEX_COLOR, "reg[  ] = ");
+			print_nb(arena, i + 1, x - 50, y + 20);
+			print_nb(arena, tmp->reg[i], x, y + 20);
+			mlx_string_put(arena->dis->mlx, arena->dis->win,
 					x - 90, y, HEX_COLOR, "reg[  ] = ");
-			print_nb(A, i + 1, x - 50, y);
-			print_nb(A, tmp->reg[i], x, y);
+			print_nb(arena, i + 1, x - 50, y);
+			print_nb(arena, tmp->reg[i], x, y);
 			y += 20;
 		}
-		*/
 		tmp = tmp->next;
 	}
-	mlx_string_put(A->dis->mlx, A->dis->win,
-			x - 90, y, HEX_COLOR, "process :");
-	print_nb_dec(A, nb_process, x, y);
-	print_nb_dec(A, A->nb_process, x + 60, y);
 }
 
 void	print_map(t_arena *arena, int c_nb)
 {
 	int i;
 
-	mlx_clear_window(A->dis->mlx, A->dis->win);
-	mlx_put_image_to_window(A->dis->mlx, A->dis->win,
-			A->dis->border_img, 0, 0);
-	mlx_string_put(A->dis->mlx, A->dis->win,
+	mlx_clear_window(arena->dis->mlx, arena->dis->win);
+	mlx_put_image_to_window(arena->dis->mlx, arena->dis->win,
+			arena->dis->border_img, 0, 0);
+	mlx_string_put(arena->dis->mlx, arena->dis->win,
 			W_LEN / 2 - 30, 3, HEX_COLOR, "COREWAR");
 	i = -1;
 	while (++i < MEM_SIZE)
 	{
-		print_hexa_dis(A, A->dis, i);
+		print_hexa_dis(arena, arena->dis, i);
 	}
-	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 0, HEX_COLOR, "total :");
-	print_nb_dec(A, A->total_cycle, 1910, 0);
-	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 20, HEX_COLOR, "cycle :");
-	print_nb_dec(A, c_nb + 1, 1910, 20);
-	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 40, HEX_COLOR, "speed :");
-	print_nb_dec(A, A->dis->speed, 1910, 40);
-	print_process_dis(A);
+	ft_printf("nb =%d\n", c_nb);
+	print_nb(arena, arena->total_cycle, 1910, 0);
+	print_nb(arena, c_nb + 1, 1910, 20);
+	print_process_dis(arena);
 }
 
 void	fill_img(char **d_img)
@@ -115,18 +91,20 @@ void	fill_img(char **d_img)
 	int *i_img;
 	int	color_tab[5];
 
-	color_tab[0] = 0x74fe704c;
-	color_tab[1] = 0x749159ad;
-	color_tab[2] = 0x7434c57f;
-	color_tab[3] = 0x74488ed4;
-	color_tab[4] = 0x74FFFFFF;
+	color_tab[0] = 0x44fe704c;
+	color_tab[1] = 0x449159ad;
+	color_tab[2] = 0x4434c57f;
+	color_tab[3] = 0x44488ed4;
+	color_tab[4] = 0x44FFFFFF;
 	j = -1;
 	while (++j < 5)
 	{
 		i_img = (int *)d_img[j];
 		i = -1;
 		while (++i < C_HGT * C_LEN)
+		{
 			i_img[i] = color_tab[j];
+		}
 	}
 }
 
@@ -143,8 +121,9 @@ char	*get_data_ptr(void *img_ptr)
 
 int		print_hexa_dis(t_arena *arena, t_display *dis, int index)
 {
-	int				color;
-	int				k;
+	int color;
+//	int j;
+	int k;
 	char			*base;
 	unsigned char	byte;
 	unsigned char	nb;
@@ -155,24 +134,23 @@ int		print_hexa_dis(t_arena *arena, t_display *dis, int index)
 
 	base = "0123456789abcdef";
 	size = 1;
-	nb = A->field[index];
-	byte = A->field[index];
+	nb = arena->field[index];
+	byte = arena->field[index];
 	line = (index / BYTE_PER_COL) * 20 + Y_OFFSET;
 	col = (index % BYTE_PER_COL) * 27 + X_OFFSET;
-	color = A->carriage[index] & 15;
-	if ((A->carriage[index] >> 4) & 1)
-		color = 0xffffff;
-	else if (color == 1)
-		color = 0xff704c;
+
+	color = arena->carriage[index] & 15;
+	if (color == 1)
+		color = 0xFF0000;
 	else if (color == 2)
-		color = 0x9159af;
+		color = 0x00FF00;
 	else if (color == 4)
-		color = 0x34cf7f;
+		color = 0x0000FF;
 	else if (color == 8)
-		color = 0x488edf;
+		color = 0xFFFFFF;
 	else
 		color = HEX_COLOR;
-	if (A->carriage[index] & 32)
+	if (arena->carriage[index] & 32)
 		color += 77;
 	while (nb / 16)
 	{
@@ -190,11 +168,11 @@ int		print_hexa_dis(t_arena *arena, t_display *dis, int index)
 		hex[size] = base[byte % 16];
 		byte /= 16;
 	}
-	if ((A->carriage[index] >> 4) & 1)
+	if ((arena->carriage[index] >> 4) & 1)
 	{
 		k = -1;
 		while (++k < 3)
-			if ((A->carriage[index] >> k) & 1)
+			if ((arena->carriage[index] >> k) & 1)
 			{
 				mlx_put_image_to_window(dis->mlx, dis->win, dis->img[k], col, line);
 				break ;
@@ -207,8 +185,8 @@ int		print_hexa_dis(t_arena *arena, t_display *dis, int index)
 
 void	init_display(t_arena *arena)
 {
-	t_display	dis;
-	int			i;
+	t_display dis;
+	int i;
 
 	dis.mlx = mlx_init();
 	dis.win = mlx_new_window(dis.mlx, W_LEN, W_HGT, "Corewar");
@@ -221,14 +199,11 @@ void	init_display(t_arena *arena)
 	dis.border_img = mlx_new_image(dis.mlx, W_LEN, W_HGT);
 	dis.d_border_img = get_data_ptr(dis.border_img);
 	fill_img(dis.d_img);
-	dis.speed = 1;
-	dis.curr_process_dis = A->p_head;
-	A->dis = &dis;
-	A->pause = 1;
-	fill_border(A);
-	print_map(A, A->curr_cycle);
-	mlx_hook(dis.win, 2, 0, key_press, A);
-	mlx_hook(dis.win, 4, 0, mouse_press, A);
-	mlx_loop_hook(dis.mlx, loop_fight, A);
+	arena->dis = &dis;
+	arena->pause = 1;
+	fill_border(arena);
+	mlx_hook(dis.win, 2, 0, key_press, arena);
+	mlx_hook(dis.win, 4, 0, mouse_press, arena);
+	mlx_loop_hook(dis.mlx, loop_fight, arena);
 	mlx_loop(dis.mlx);
 }

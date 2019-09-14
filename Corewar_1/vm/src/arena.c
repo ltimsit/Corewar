@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 16:44:34 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/14 16:44:42 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ void	print_arena(t_arena *arena)
 	}
 }
 
+void	manage_pc_carriage(t_arena *arena, t_process *process, int new_pc)
+{
+	if (!(A->carriage[process->pc] >> 5 & 1))
+			A->carriage[process->pc] ^= 1 << 4;
+	process->pc = update_pc(process->pc, new_pc);
+	A->carriage[process->pc] |= 1 << 4;
+	A->carriage[process->pc] |= 1 << 5;
+}
+
 void	fill_color_value(unsigned char *carriage, int size, int p_nb)
 {
 	int i;
@@ -50,9 +59,12 @@ void	execution(t_arena *arena, t_process *process)
 	read_instr(A, process, process->opcode);
 	if (!process->param.error)
 		g_fct_exec[(int)process->opcode](process, A);
+/*
 	A->carriage[process->pc] -= 16;
 	process->pc = (process->pc + process->pc_next) % MEM_SIZE;
 	A->carriage[process->pc] |= 1 << 4;
+	*/
+	manage_pc_carriage(arena, process, process->pc_next);
 	process->c_done = 0;
 	process->c_todo = 0;
 }
@@ -69,12 +81,16 @@ void	check_process(t_arena *arena, t_process *process)
 			process->opcode = opcode;
 			process->c_todo = A->op[(int)opcode - 1].time - 1;
 			process->c_done++;
+			A->carriage[process->pc] |= 1 << 5;
 		}
 		else
 		{
+/*
 			A->carriage[process->pc] ^= 1 << 4;
 			process->pc = update_pc(process->pc, 1);
 			A->carriage[process->pc] |= 1 << 4;
+			*/
+			manage_pc_carriage(A, process, 1);
 		}
 	}
 	else if (process->c_done < process->c_todo)
@@ -89,11 +105,11 @@ void	launch_fight(t_arena *arena)
 		exit_dump(A);
 	if (A->curr_cycle < A->cycle_to_die)
 	{
-		A->curr_cycle++;
 		A->total_cycle++;
 		process_process(A);
 		if (A->dis && (++(A->dis->cpt_to_speed) == A->dis->speed))
 			print_map(A, A->curr_cycle);
+		A->curr_cycle++;
 	}
 	else
 	{

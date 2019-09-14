@@ -6,12 +6,36 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:40:52 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 16:15:16 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/14 18:15:37 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <stdlib.h>
+
+void	clear_carriage_superpo(t_arena *arena)
+{
+	t_process	*tmp;
+	int			i;
+
+	tmp = A->p_head;
+	i = -1;
+	if (A->nb_process < 4096)
+	{
+		while (tmp)
+		{
+			if ((A->carriage[tmp->pc] >> 5) & 1)
+				A->carriage[tmp->pc] ^= 1 << 5;
+			tmp = tmp->next;
+		}
+	}
+	else
+		while (++i < MEM_SIZE)
+		{
+			if ((A->carriage[i] >> 5) & 1)
+				A->carriage[tmp->pc] ^= 1 << 5;
+		}
+}	
 
 void	process_process(t_arena *arena)
 {
@@ -27,6 +51,7 @@ void	process_process(t_arena *arena)
 		check_process(A, tmp);
 		tmp = tmp->next;
 	}
+	clear_carriage_superpo(arena);
 }
 
 int		verif_process(t_arena *arena, t_process *head)
@@ -77,6 +102,7 @@ void	add_process(t_arena *arena, int id_champ, int player_nb)
 		A->process->next = new_process;
 		A->process = new_process;
 	}
+	A->nb_process++;
 	init_process(A->process, id_champ, player_nb);
 }
 
@@ -86,4 +112,5 @@ void	del_process(t_arena *arena, t_process *todel, t_process *prev)
 		A->p_head = A->p_head->next;
 	else
 		prev->next = todel->next;
+	A->nb_process--;
 }

@@ -6,13 +6,40 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/13 13:53:12 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/14 16:08:46 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <stdlib.h>
 
+int		print_reg_click(t_arena *arena, int x, int y)
+{
+	int idx;
+	int idy;
+	int index;
+	t_process **p;
+
+	p = (t_process **)&(A->dis->curr_process_dis);
+	idx = (x - X_OFFSET) / 27;
+	idy = (y - Y_OFFSET) / 20;
+	index = idy * BYTE_PER_COL + idx;
+	print_map(arena, A->curr_cycle);
+	if (((A->carriage[index] >> 4) & 1) == 1)
+	{
+		while (*p || (*p = A->p_head))
+		{
+			if ((*p)->pc == index)
+			{
+				print_reg_dis(arena, *p);
+				*p = (*p)->next;
+				return (1);
+			}
+			*p = (*p)->next;
+		}
+	}
+	return (1);
+}
 int		print_nb(t_arena *arena, int nb, int x, int y)
 {
 	char	nb_tab[10];
@@ -87,12 +114,12 @@ int		key_press(int keycode, t_arena *arena)
 	return (0);
 }
 
-int		mouse_press(int button, int x, int y, t_display *dis)
+int		mouse_press(int button, int x, int y, t_arena *arena)
 {
-	(void)dis;
-	(void)button;
-	(void)x;
-	(void)y;
+	if (button == 1)
+	{
+		print_reg_click(arena, x, y);
+	}
 	return (0);
 }
 
