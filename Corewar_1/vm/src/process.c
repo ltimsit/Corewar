@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:40:52 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/14 18:15:37 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/15 15:40:37 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,9 @@ void	clear_carriage_superpo(t_arena *arena)
 	}
 	else
 		while (++i < MEM_SIZE)
-		{
 			if ((A->carriage[i] >> 5) & 1)
 				A->carriage[tmp->pc] ^= 1 << 5;
-		}
-}	
+}
 
 void	process_process(t_arena *arena)
 {
@@ -44,10 +42,6 @@ void	process_process(t_arena *arena)
 	tmp = A->p_head;
 	while (tmp)
 	{
-		if (A->total_cycle == 4550 && tmp->pc == 69 )
-		{
-			ft_printf(" add :%p carry : %d, pc->next : %d, done :%d\n", &tmp, tmp->carry, tmp->pc_next,tmp->c_done);
-		}
 		check_process(A, tmp);
 		tmp = tmp->next;
 	}
