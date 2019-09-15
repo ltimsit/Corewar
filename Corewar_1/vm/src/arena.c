@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/14 16:44:42 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/15 15:04:19 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	print_arena(t_arena *arena)
 	i = -1;
 	while (++i < MEM_SIZE)
 	{
-		if (!(i % 64) && i != MEM_SIZE - 1)
-			ft_printf("%s%-.4p : ", !i ? "" : "\n", i);
+		if (!(i % 32) && i != MEM_SIZE - 1)
+			ft_printf("%s{grey}%-.4p{reset} : ", !i ? "" : "\n", i);
 		ft_printf("%.2x", A->field[i]);
-		//if (i % 64 != 63)
+		if (i % 32 != 31)
 			ft_putchar(' ');
 	}
 }
@@ -59,11 +59,6 @@ void	execution(t_arena *arena, t_process *process)
 	read_instr(A, process, process->opcode);
 	if (!process->param.error)
 		g_fct_exec[(int)process->opcode](process, A);
-/*
-	A->carriage[process->pc] -= 16;
-	process->pc = (process->pc + process->pc_next) % MEM_SIZE;
-	A->carriage[process->pc] |= 1 << 4;
-	*/
 	manage_pc_carriage(arena, process, process->pc_next);
 	process->c_done = 0;
 	process->c_todo = 0;
@@ -84,14 +79,7 @@ void	check_process(t_arena *arena, t_process *process)
 			A->carriage[process->pc] |= 1 << 5;
 		}
 		else
-		{
-/*
-			A->carriage[process->pc] ^= 1 << 4;
-			process->pc = update_pc(process->pc, 1);
-			A->carriage[process->pc] |= 1 << 4;
-			*/
 			manage_pc_carriage(A, process, 1);
-		}
 	}
 	else if (process->c_done < process->c_todo)
 		process->c_done++;
