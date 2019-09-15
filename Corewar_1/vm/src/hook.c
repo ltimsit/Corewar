@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/14 16:08:46 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/15 14:40:23 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,17 @@ int		key_press(int keycode, t_arena *arena)
 	if (keycode == 53)
 		exit(0);
 	if (keycode == 49)
+	{
 		A->pause = A->pause ? 0 : 1;
+		if (A->pause == 1)
+			A->dis->curr_process_dis = A->p_head;
+	}
 	if (keycode == 82 && A->pause)
 	{
 		while (A->dis->cpt_to_speed < A->dis->speed)
 			launch_fight(A);
 		A->dis->cpt_to_speed = 0;
+		A->dis->curr_process_dis = A->p_head;
 	}
 	if (keycode == 126)
 	{
@@ -116,7 +121,7 @@ int		key_press(int keycode, t_arena *arena)
 
 int		mouse_press(int button, int x, int y, t_arena *arena)
 {
-	if (button == 1)
+	if (button == 1 && A->pause)
 	{
 		print_reg_click(arena, x, y);
 	}

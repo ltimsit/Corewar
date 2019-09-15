@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 12:29:51 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/14 18:15:36 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/15 14:40:22 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	execute_fork(t_process *process, t_arena *arena)
 	new_process->carry = process->carry;
 	new_process->nb_live = process->nb_live;
 	new_process->id_champ = process->id_champ;
+	new_process->player_nb = process->player_nb;
 	ft_memcpy(new_process->reg, process->reg, sizeof(process->reg));
 	new_process->next = A->p_head;
 	A->p_head = new_process;
@@ -69,6 +70,7 @@ void	execute_lfork(t_process *process, t_arena *arena)
 	new_process->carry = process->carry;
 	new_process->nb_live = process->nb_live;
 	new_process->id_champ = process->id_champ;
+	new_process->player_nb = process->player_nb;
 	ft_memcpy(new_process->reg, process->reg, sizeof(process->reg));
 	new_process->next = A->p_head;
 	A->p_head = new_process;
