@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/15 17:39:04 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/15 18:49:44 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,22 @@ void	print_champ_live(t_arena *arena)
 	int y;
 
 	x = 1910;
-	y = 100;
+	y = 120;
 	i = -1;
+	mlx_string_put(A->dis->mlx, A->dis->win,
+			x, y - 20, HEX_COLOR, "live");
 	while (++i < A->nb_champ)
 	{
-		print_nb_dec(A, i, x, y);
-		print_nb_dec(A, A->champ[i].nb_live, x + 20, y);
+		mlx_string_put(A->dis->mlx, A->dis->win,
+				x - 65, y, HEX_COLOR, "Joueur    =");
+		print_nb_dec(A, A->champ[i].id, x, y);
+		print_nb_dec(A, A->champ[i].nb_live, x + 60, y);
 		y += 20;
 	}
 }
 
 void	print_process_dis(t_arena *arena)
 {
-	t_process	*tmp;
-	int			i;
 	int			nb_process;
 	int			x;
 	int			y;
@@ -80,25 +82,8 @@ void	print_process_dis(t_arena *arena)
 	x = 1910;
 	y = 60;
 	nb_process = 0;
-	tmp = A->p_head;
-	while (tmp && ++nb_process)
-	{
-		i = -1;
-/*
-		while (++i < 16)
-		{
-			mlx_string_put(A->dis->mlx, A->dis->win,
-					x - 90, y, HEX_COLOR, "reg[  ] = ");
-			print_nb(A, i + 1, x - 50, y);
-			print_nb(A, tmp->reg[i], x, y);
-			y += 20;
-		}
-		*/
-		tmp = tmp->next;
-	}
 	mlx_string_put(A->dis->mlx, A->dis->win,
 			x - 90, y, HEX_COLOR, "process :");
-	print_nb_dec(A, nb_process, x, y);
 	print_nb_dec(A, A->nb_process, x + 60, y);
 	print_champ_live(arena);
 }
@@ -165,43 +150,45 @@ void	aff_winner(t_arena *arena, int color, char *name)
 	int j;
 	int x_name;
 
-	j = W_HGT / 2 - 50;
-	while (++j < W_HGT / 2 + 50)
+	j = (W_HGT / 2) - 31;
+	while (++j < (W_HGT / 2) + 70)
 	{
-		i = W_LEN / 2 - 100;
-		while (++i < W_LEN / 2 + 100)
-			mlx_pixel_put(A->mlx, A->win, i, j, color)
+		i = (W_LEN / 2) - 431;
+		while (++i < (W_LEN / 2) - 30)
+			mlx_pixel_put(A->dis->mlx, A->dis->win, i, j, 0x77000000);
+	}
+	j = (W_HGT / 2) - 51;
+	while (++j < (W_HGT / 2) + 50)
+	{
+		i = (W_LEN / 2) - 451;
+		while (++i < (W_LEN / 2) - 50)
+			mlx_pixel_put(A->dis->mlx, A->dis->win, i, j, color);
 	}
 	x_name = ft_strlen(name);
-	x_name = W_HGT / 2 - (x_name / 2 * 5);
-	mlx_string_put(dis->mlx, dis->win, H_LEN / 2 - 80, H_HGT / 2 - 20, HEX_COLOR, "Joueur gagnant :");
-	mlx_string_put(dis->mlx, dis->win, H_LEN / 2 - x_name, H_HGT / 2 + 20, HEX_COLOR, "Joueur gagnant :");
-	A->finish = 1;
+	x_name = W_LEN / 2 - (x_name * 5);
+	mlx_string_put(A->dis->mlx, A->dis->win, W_LEN / 2 - 80 - 250, W_HGT / 2 - 35,
+			0xFFFFFF, "Joueur gagnant :");
+	mlx_string_put(A->dis->mlx, A->dis->win, x_name - 250, W_HGT / 2 + 5,
+			0xFFFFFF, name);
 }
 
-void	print_winner(t_arena *arena, char *name)
+void	print_winner_dis(t_arena *arena, int i)
 {
-	int champ_nb;
-	int i;
+	char *name;
 
-	i = -1;
-	while (++i < A->nb_champ)
-		if (A->last_living_champ == A->champ[i].id)
-		{
-			champ_nb = A->champ[i].id;
-			break ;
-		}
-	if (i == 1)
+	A->finish = 1;
+	name = A->champ[i].h.prog_name;
+	if (i == 0)
 		i = 0xff704c;
-	else if (i == 2)
+	else if (i == 1)
 		i = 0x9159af;
-	else if (i == 4)
+	else if (i == 2)
 		i = 0x34cf7f;
-	else if (i == 8)
+	else if (i == 3)
 		i = 0x488edf;
 	else
 		i = HEX_COLOR;
-	print_color(A, i, name);
+	aff_winner(A, i, name);
 }
 
 int		print_hexa_dis(t_arena *arena, t_display *dis, int index)

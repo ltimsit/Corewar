@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/15 17:41:46 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/15 18:05:48 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct	s_champ
 {
 	int			id;
 	int			pos;
+	int			nb_live;
 	char		buff[CHAMP_MAX_SIZE];
 	t_header	h;
 }				t_champ;
@@ -123,6 +124,7 @@ char			*get_data_ptr(void *img_ptr);
 int				print_hexa_dis(t_arena *arena, t_display *dis, int index);
 void			init_display(t_arena *arena);
 void			print_reg_dis(t_arena *arena, t_process *process);
+void			print_winner_dis(t_arena *arena, int i);
 
 /*
 **init_display.c----------------------------------------------------------------
@@ -209,7 +211,7 @@ void			read_ocp(t_param *param, int dir_size, char ocp, t_op op);
 /*
 **live_aff		----------------------------------------------------------------
 */
-char			*check_valid_champ(int id, t_arena *arena);
+int				check_valid_champ(int id, t_arena *arena);
 void			fc_live(t_op op, t_process *process, t_arena *arena);
 void			execute_live(t_process *process, t_arena *arena);
 void			fc_aff(t_op op, t_process *process, t_arena *arena);

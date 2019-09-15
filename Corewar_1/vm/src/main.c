@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 16:44:18 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/15 18:13:39 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include "vm.h"
 #include <unistd.h>
 #include <stdlib.h>
+
+char *g_tab_color[4] = 
+{
+	"orange", "purple", "green", "blue"
+};
 
 unsigned char	*open_read(t_arena *arena, char *file, unsigned char *buf)
 {
@@ -29,9 +34,10 @@ unsigned char	*open_read(t_arena *arena, char *file, unsigned char *buf)
 
 void			print_winner(t_arena *arena)
 {
-	char	*winner;
+	int i;
 
-	if (!(winner = check_valid_champ(A->last_living_champ, A)))
+	A->finish = 1;
+	if ((i = check_valid_champ(A->last_living_champ, A)) == -1)
 	{
 		ft_printf("☠️  Personne n'est en vie ! ☠️ \n");
 		ft_free_gc(A->gc);
@@ -40,10 +46,16 @@ void			print_winner(t_arena *arena)
 	}
 	else
 	{
-		ft_printf("😎  Le joueur %s a gagné ! 😎 \n", winner);
-		ft_free_gc(A->gc);
-		ft_memdel((void**)&(A->gc), 0);
-		exit(1);
+		if (A->dis)
+			print_winner_dis(A, i);
+		else
+		{
+			ft_printf("😎  Le joueur {%s}%s{reset} a gagné ! 😎 \n",
+					g_tab_color[i], A->champ[i].h.prog_name);
+			ft_free_gc(A->gc);
+			ft_memdel((void**)&(A->gc), 0);
+			exit(1);
+		}
 	}
 }
 
@@ -109,8 +121,7 @@ int				main(int ac, char **av)
 			launch_fight(&A);
 		init_display(&A);
 	}
-	else
-		while (1)
-			launch_fight(&A);
+	while (1)
+		launch_fight(&A);
 	return (0);
 }

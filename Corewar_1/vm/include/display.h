@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:40:50 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/14 15:56:27 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/15 18:25:30 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,12 @@
 
 # define BYTE_PER_COL		64
 # define W_LEN				2200
-# define W_HGT				1900
+# define W_HGT				1375
 # define C_LEN				20
 # define C_HGT				20
 # define X_OFFSET			40
 # define Y_OFFSET			40
 
-# define P1_COLOR			1
-# define P2					2
-# define P3					4
-# define P4					8
 # define HEX_COLOR			0x8c8c8c
 # define BORDER_COLOR		0x33cc99
 # define BACKGROUND_COLOR	0x123456
