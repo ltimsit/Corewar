@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/15 14:06:03 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/15 17:39:04 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_reg_dis(t_arena *arena, t_process *process)
 	int y;
 
 	x = 1910;
-	y = 120;
+	y = 200;
 	i = -1;
 	while (++i < 16)
 	{
@@ -48,6 +48,23 @@ void	print_reg_dis(t_arena *arena, t_process *process)
 				x - 90, y, HEX_COLOR, "reg[  ] = ");
 		print_nb_dec(A, i + 1, x - 50, y);
 		print_nb(A, process->reg[i], x + 10, y);
+		y += 20;
+	}
+}
+
+void	print_champ_live(t_arena *arena)
+{
+	int i;
+	int x;
+	int y;
+
+	x = 1910;
+	y = 100;
+	i = -1;
+	while (++i < A->nb_champ)
+	{
+		print_nb_dec(A, i, x, y);
+		print_nb_dec(A, A->champ[i].nb_live, x + 20, y);
 		y += 20;
 	}
 }
@@ -83,6 +100,7 @@ void	print_process_dis(t_arena *arena)
 			x - 90, y, HEX_COLOR, "process :");
 	print_nb_dec(A, nb_process, x, y);
 	print_nb_dec(A, A->nb_process, x + 60, y);
+	print_champ_live(arena);
 }
 
 void	print_map(t_arena *arena, int c_nb)
@@ -139,6 +157,51 @@ char	*get_data_ptr(void *img_ptr)
 
 	data_ptr = mlx_get_data_addr(img_ptr, &bit_pp, &size_line, &endian);
 	return (data_ptr);
+}
+
+void	aff_winner(t_arena *arena, int color, char *name)
+{
+	int i;
+	int j;
+	int x_name;
+
+	j = W_HGT / 2 - 50;
+	while (++j < W_HGT / 2 + 50)
+	{
+		i = W_LEN / 2 - 100;
+		while (++i < W_LEN / 2 + 100)
+			mlx_pixel_put(A->mlx, A->win, i, j, color)
+	}
+	x_name = ft_strlen(name);
+	x_name = W_HGT / 2 - (x_name / 2 * 5);
+	mlx_string_put(dis->mlx, dis->win, H_LEN / 2 - 80, H_HGT / 2 - 20, HEX_COLOR, "Joueur gagnant :");
+	mlx_string_put(dis->mlx, dis->win, H_LEN / 2 - x_name, H_HGT / 2 + 20, HEX_COLOR, "Joueur gagnant :");
+	A->finish = 1;
+}
+
+void	print_winner(t_arena *arena, char *name)
+{
+	int champ_nb;
+	int i;
+
+	i = -1;
+	while (++i < A->nb_champ)
+		if (A->last_living_champ == A->champ[i].id)
+		{
+			champ_nb = A->champ[i].id;
+			break ;
+		}
+	if (i == 1)
+		i = 0xff704c;
+	else if (i == 2)
+		i = 0x9159af;
+	else if (i == 4)
+		i = 0x34cf7f;
+	else if (i == 8)
+		i = 0x488edf;
+	else
+		i = HEX_COLOR;
+	print_color(A, i, name);
 }
 
 int		print_hexa_dis(t_arena *arena, t_display *dis, int index)

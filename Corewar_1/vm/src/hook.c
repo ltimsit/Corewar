@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/15 17:25:23 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/15 17:42:20 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int		mouse_press(int button, int x, int y, t_arena *arena)
 
 int		loop_fight(t_arena *arena)
 {
-	if (!A->pause)
+	if (!A->pause && !A->finish)
 		launch_fight(A);
 	if (A->dis->cpt_to_speed == A->dis->speed)
 		A->dis->cpt_to_speed = 0;

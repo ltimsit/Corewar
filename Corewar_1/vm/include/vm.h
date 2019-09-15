@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/15 17:33:28 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/15 17:41:46 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct	s_arena
 	t_display		*dis;
 	int				cycle_before_dis;
 	int				pause;
+	int				finish;
 }				t_arena;
 
 typedef struct	s_ocp
