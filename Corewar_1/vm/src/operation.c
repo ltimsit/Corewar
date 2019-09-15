@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/13 19:09:22 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/15 15:37:02 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ int		is_valid_type(int param_type, int cmp)
 	if (cmp == 3 && param_type >= 4)
 		return (1);
 	if (cmp == 2 && param_type % 4 > 1)
-		return(1);
+		return (1);
 	if (cmp == 1 && param_type % 2)
 		return (1);
-	return(0);
-}	
+	return (0);
+}
 
 void	read_ocp(t_param *param, int dir_size, char ocp, t_op op)
 {
@@ -72,7 +72,7 @@ void	read_ocp(t_param *param, int dir_size, char ocp, t_op op)
 	while ((i += 2) < 8)
 	{
 		cmp = ((ocp >> i) & 3);
-		if (j <= op.nb_param - 1 && !is_valid_type(op.param_type[j],cmp ))
+		if (j <= op.nb_param - 1 && !is_valid_type(op.param_type[j], cmp))
 			param->error = 1;
 		if (j <= op.nb_param - 1 && cmp == 1 && (*type = REG_CODE))
 			*val = 1;
