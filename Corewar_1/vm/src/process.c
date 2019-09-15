@@ -6,34 +6,12 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:40:52 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/15 15:40:37 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/15 17:33:31 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <stdlib.h>
-
-void	clear_carriage_superpo(t_arena *arena)
-{
-	t_process	*tmp;
-	int			i;
-
-	tmp = A->p_head;
-	i = -1;
-	if (A->nb_process < 4096)
-	{
-		while (tmp)
-		{
-			if ((A->carriage[tmp->pc] >> 5) & 1)
-				A->carriage[tmp->pc] ^= 1 << 5;
-			tmp = tmp->next;
-		}
-	}
-	else
-		while (++i < MEM_SIZE)
-			if ((A->carriage[i] >> 5) & 1)
-				A->carriage[tmp->pc] ^= 1 << 5;
-}
 
 void	process_process(t_arena *arena)
 {

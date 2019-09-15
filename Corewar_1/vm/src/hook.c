@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/15 14:40:23 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/15 17:25:23 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 int		print_reg_click(t_arena *arena, int x, int y)
 {
-	int idx;
-	int idy;
-	int index;
-	t_process **p;
+	int			idx;
+	int			idy;
+	int			index;
+	t_process	**p;
 
 	p = (t_process **)&(A->dis->curr_process_dis);
 	idx = (x - X_OFFSET) / 27;
@@ -40,6 +40,7 @@ int		print_reg_click(t_arena *arena, int x, int y)
 	}
 	return (1);
 }
+
 int		print_nb(t_arena *arena, int nb, int x, int y)
 {
 	char	nb_tab[10];
@@ -122,9 +123,7 @@ int		key_press(int keycode, t_arena *arena)
 int		mouse_press(int button, int x, int y, t_arena *arena)
 {
 	if (button == 1 && A->pause)
-	{
 		print_reg_click(arena, x, y);
-	}
 	return (0);
 }
 

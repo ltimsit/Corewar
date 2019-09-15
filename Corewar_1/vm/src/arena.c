@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/15 15:04:19 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/15 17:28:03 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	print_arena(t_arena *arena)
 	while (++i < A->nb_champ)
 	{
 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
-		i + 1, A->champ[i].h.prog_size,
-		A->champ[i].h.prog_name, A->champ[i].h.comment);
+				i + 1, A->champ[i].h.prog_size,
+				A->champ[i].h.prog_name, A->champ[i].h.comment);
 	}
 	i = -1;
 	while (++i < MEM_SIZE)
@@ -39,19 +39,10 @@ void	print_arena(t_arena *arena)
 void	manage_pc_carriage(t_arena *arena, t_process *process, int new_pc)
 {
 	if (!(A->carriage[process->pc] >> 5 & 1))
-			A->carriage[process->pc] ^= 1 << 4;
+		A->carriage[process->pc] ^= 1 << 4;
 	process->pc = update_pc(process->pc, new_pc);
 	A->carriage[process->pc] |= 1 << 4;
 	A->carriage[process->pc] |= 1 << 5;
-}
-
-void	fill_color_value(unsigned char *carriage, int size, int p_nb)
-{
-	int i;
-
-	i = -1;
-	while (++i < size)
-		carriage[i] += (1 << p_nb);
 }
 
 void	execution(t_arena *arena, t_process *process)

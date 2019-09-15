@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/14 18:15:38 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/15 17:33:28 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,12 @@ void			init_display(t_arena *arena);
 void			print_reg_dis(t_arena *arena, t_process *process);
 
 /*
+**init_display.c----------------------------------------------------------------
+*/
+void			fill_color_value(unsigned char *carriage, int size, int p_nb);
+void			clear_carriage_superpo(t_arena *arena);
+
+/*
 **hook.c		----------------------------------------------------------------
 */
 int				print_nb(t_arena *arena, int nb, int x, int y);
@@ -170,7 +176,7 @@ int				check_argv(t_arena *arena, char **av, int ac);
 ** arena.c		----------------------------------------------------------------
 */
 void			print_arena(t_arena *arena);
-void			fill_color_value(unsigned char *carriage, int size, int p_nb);
+void			manage_pc_carriage(t_arena *ar, t_process *process, int new_pc);
 void			execution(t_arena *arena, t_process *process);
 void			check_process(t_arena *arena, t_process *process);
 void			launch_fight(t_arena *arena);
