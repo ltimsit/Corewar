@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 11:52:43 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/13 13:26:16 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/16 16:36:14 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	print_usage(t_arena *arena)
 	ft_printf("Usage: ./corewar [-n N <champion1.cor>] [-dis N -dump N]\n");
 	ft_printf("{blue}\t-dis N\t\t\t: Mlx output mode start at cycle N\n");
 	ft_printf("\t-dump N\t\t\t: Dumps memory after N cycles then exits.\n");
-	ft_printf("\t-n N <champ.cor>\t: Sets champion id to N.\n{reset}");
+	ft_printf("\t-n N <champ.cor>\t: Sets champion id to N[-1K:1K].\n{reset}");
 	ft_free_gc(A->gc);
 	ft_memdel((void**)&(A->gc), 0);
 	exit(EXIT_FAILURE);
