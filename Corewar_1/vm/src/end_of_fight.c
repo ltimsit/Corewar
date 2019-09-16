@@ -6,14 +6,14 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 09:27:01 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/16 09:52:19 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 14:21:19 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <stdlib.h>
 
-char	*g_tab_color[4] =
+static char	*g_tab_color[4] =
 {
 	"orange", "purple", "green", "blue"
 };

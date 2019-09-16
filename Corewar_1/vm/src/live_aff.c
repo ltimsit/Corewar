@@ -6,11 +6,16 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:30:58 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/16 10:39:33 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 14:31:54 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+static char	*g_tab_color[4] =
+{
+	"orange", "purple", "green", "blue"
+};
 
 /*
 ** D4 (id du joueur)
@@ -53,8 +58,8 @@ void	execute_live(t_process *process, t_arena *arena)
 		return ;
 	A->last_living_champ = process->param.data;
 	if (A->dump_cycle == -1)
-		ft_printf("Un processus dit que le joueur %s est en vie.\n",
-				A->champ[i].h.prog_name);
+		ft_printf("Un processus dit que le joueur {%s}%s{reset} est en vie.\n",
+				g_tab_color[i], A->champ[i].h.prog_name);
 }
 
 void	fc_aff(t_op op, t_process *process, t_arena *arena)
@@ -64,17 +69,19 @@ void	fc_aff(t_op op, t_process *process, t_arena *arena)
 
 	process->pc_next = 3;
 	param = fill_param(A, op, process, elem);
-	param.data = process->reg[chen4(elem[0]) - 1] % 256;
+	param.data = chen4(elem[0]) % 256;
 	process->param = param;
 }
 
 void	execute_aff(t_process *process, t_arena *arena)
 {
+	int	i;
+
+	i = check_valid_champ(process->id_champ, A);
 	(void)A;
-	(void)process;
 	if (process->aff_index == AFF_SIZE || !process->param.data)
 	{
-		ft_printf("{purple}%s\n{reset}", process->aff);
+		ft_printf("{%s}%s\n{reset}", g_tab_color[i], process->aff);
 		process->aff_index = 0;
 		ft_bzero(process->aff, AFF_SIZE);
 	}

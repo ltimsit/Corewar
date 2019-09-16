@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:29:19 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/16 09:43:32 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 14:40:05 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void		create_add_champ(char *filename, t_arena *arena, int id_champ)
 	A->champ[pos] = new_champ(A, buffer);
 	A->champ[pos].id = id_champ;
 	pos++;
+	A->nb_champ++;
 }
 
 void		sort_champ(t_arena *arena)

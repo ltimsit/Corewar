@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/16 13:05:52 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 14:40:24 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int				get_arg(int i, char **av, int ac, int *argument)
 {
 	if (i < ac)
 		*argument = ft_atoi(av[i]);
-	if (i== ac
+	if (i == ac
 		|| (ft_strcmp(av[i - 1], "-n") && *argument < 0)
 		|| !ft_str_is_digit(av[i]))
 		return (0);
@@ -65,7 +65,7 @@ void			check_argv(t_arena *arena, char **av, int ac)
 			if (!get_arg(++i, av, ac, &id_champ))
 				print_usage(A);
 		}
-		else if (++(A->nb_champ) <= MAX_PLAYERS)
+		else if (A->nb_champ < MAX_PLAYERS)
 			create_add_champ(av[i], A, id_champ++);
 	}
 }
