@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:40:52 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/16 16:50:53 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/16 16:54:13 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int		verif_process(t_arena *arena, t_process *head)
 		if (!tmp->nb_live)
 		{
 			todel = tmp;
-			tmp = tmp->next;		
-			del_process(A, todel, prev);	
+			tmp = tmp->next;
+			del_process(A, todel, prev);
 		}
 		else
 		{

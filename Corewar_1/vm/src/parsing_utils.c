@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 16:06:18 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/16 16:38:13 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/16 16:54:59 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ int			check_id(t_arena *arena, char *str)
 		}
 		return (1);
 	}
-	return (0);	
+	return (0);
 }
 
-int	is_integer(char *str)
+int			is_integer(char *str)
 {
 	int		len;
 	char	signe;
