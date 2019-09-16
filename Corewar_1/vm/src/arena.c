@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/15 17:28:03 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 15:10:49 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ void	launch_fight(t_arena *arena)
 	if (A->curr_cycle < A->cycle_to_die)
 	{
 		A->total_cycle++;
+		A->curr_cycle++;
 		process_process(A);
 		if (A->dis && (++(A->dis->cpt_to_speed) == A->dis->speed))
 			print_map(A, A->curr_cycle);
-		A->curr_cycle++;
 	}
 	else
 	{

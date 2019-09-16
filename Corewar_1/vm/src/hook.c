@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/16 13:50:48 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 15:43:08 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,27 @@ char	*get_data_ptr(void *img_ptr)
 
 int		print_nb_dec(t_arena *arena, int nb, int x, int y)
 {
-	char	nb_tab[10];
+	char	nb_tab[12];
 	int		size;
 	int		i;
+	int		sign;
 
 	i = 10;
 	size = 0;
+	sign = 1;
+	if (nb < 0)
+	{
+		nb_tab[0] = '-';
+		size++;
+		nb *= -1;
+		sign = -1;
+	}
 	while (++size && nb / i)
 		i *= 10;
 	nb_tab[size] = '\0';
-	while (size)
+	while (size--)
 	{
-		nb_tab[--size] = nb % 10 + '0';
+		nb_tab[size] = (!size && sign == -1) ? '-' : (nb % 10 + '0');
 		nb /= 10;
 	}
 	mlx_string_put(A->dis->mlx, A->dis->win, x, y, HEX_COLOR, nb_tab);
@@ -64,9 +73,9 @@ int		key_press(int keycode, t_arena *arena)
 		A->dis->cpt_to_speed = 0;
 		A->dis->curr_process_dis = A->p_head;
 	}
-	if (keycode == 126)
+	if (keycode == 126 && A->dis->speed < 100)
 	{
-		A->dis->speed += A->dis->speed < 100 ? 1 : 0;
+		A->dis->speed++;
 		A->dis->cpt_to_speed = 0;
 		if (A->pause)
 			print_map(arena, A->curr_cycle);

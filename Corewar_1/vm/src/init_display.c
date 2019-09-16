@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/16 09:45:36 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 15:51:11 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	print_champ_live(t_arena *arena)
 	while (++i < A->nb_champ)
 	{
 		mlx_string_put(A->dis->mlx, A->dis->win,
-				x - 65, y, HEX_COLOR, "Joueur    =");
-		print_nb_dec(A, A->champ[i].id, x, y);
+				x - 100, y, HEX_COLOR, "Joueur        =");
+		print_nb_dec(A, A->champ[i].id, x - 30, y);
 		print_nb_dec(A, A->champ[i].nb_live, x + 60, y);
 		y += 20;
 	}
@@ -86,7 +86,7 @@ void	print_map(t_arena *arena, int c_nb)
 	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 0, HEX_COLOR, "total :");
 	print_nb_dec(A, A->total_cycle, 1910, 0);
 	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 20, HEX_COLOR, "cycle :");
-	print_nb_dec(A, c_nb + 1, 1910, 20);
+	print_nb_dec(A, c_nb, 1910, 20);
 	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 40, HEX_COLOR, "speed :");
 	print_nb_dec(A, A->dis->speed, 1910, 40);
 	print_process_dis(A);
