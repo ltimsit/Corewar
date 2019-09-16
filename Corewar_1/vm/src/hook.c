@@ -6,61 +6,22 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/15 17:42:20 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/16 09:31:26 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <stdlib.h>
 
-int		print_reg_click(t_arena *arena, int x, int y)
+char	*get_data_ptr(void *img_ptr)
 {
-	int			idx;
-	int			idy;
-	int			index;
-	t_process	**p;
+	char	*data_ptr;
+	int		bit_pp;
+	int		size_line;
+	int		endian;
 
-	p = (t_process **)&(A->dis->curr_process_dis);
-	idx = (x - X_OFFSET) / 27;
-	idy = (y - Y_OFFSET) / 20;
-	index = idy * BYTE_PER_COL + idx;
-	print_map(arena, A->curr_cycle);
-	if (((A->carriage[index] >> 4) & 1) == 1)
-	{
-		while (*p || (*p = A->p_head))
-		{
-			if ((*p)->pc == index)
-			{
-				print_reg_dis(arena, *p);
-				*p = (*p)->next;
-				return (1);
-			}
-			*p = (*p)->next;
-		}
-	}
-	return (1);
-}
-
-int		print_nb(t_arena *arena, int nb, int x, int y)
-{
-	char	nb_tab[10];
-	char	*base;
-	int		size;
-	int		i;
-
-	base = "0123456789abcdef";
-	i = 16;
-	size = 0;
-	while (++size && nb / i)
-		i *= 16;
-	nb_tab[size] = '\0';
-	while (size)
-	{
-		nb_tab[--size] = base[nb % 16];
-		nb /= 16;
-	}
-	mlx_string_put(A->dis->mlx, A->dis->win, x, y, HEX_COLOR, nb_tab);
-	return (0);
+	data_ptr = mlx_get_data_addr(img_ptr, &bit_pp, &size_line, &endian);
+	return (data_ptr);
 }
 
 int		print_nb_dec(t_arena *arena, int nb, int x, int y)
@@ -89,7 +50,7 @@ int		key_press(int keycode, t_arena *arena)
 
 	i = -1;
 	if (keycode == 53)
-		exit(0);
+		exit_fight(A);
 	if (keycode == 49)
 	{
 		A->pause = A->pause ? 0 : 1;
@@ -120,18 +81,18 @@ int		key_press(int keycode, t_arena *arena)
 	return (0);
 }
 
-int		mouse_press(int button, int x, int y, t_arena *arena)
-{
-	if (button == 1 && A->pause)
-		print_reg_click(arena, x, y);
-	return (0);
-}
-
 int		loop_fight(t_arena *arena)
 {
 	if (!A->pause && !A->finish)
 		launch_fight(A);
 	if (A->dis->cpt_to_speed == A->dis->speed)
 		A->dis->cpt_to_speed = 0;
+	return (0);
+}
+
+int		mouse_press(int button, int x, int y, t_arena *arena)
+{
+	if (button == 1 && A->pause)
+		print_reg_click(arena, x, y);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:30:58 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/15 18:43:42 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/16 10:26:35 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,15 @@ void	execute_live(t_process *process, t_arena *arena)
 
 void	fc_aff(t_op op, t_process *process, t_arena *arena)
 {
-	t_param param;
-	int elem[3];
+	t_param	param;
+	int		elem[3];
+
 	process->pc_next = 3;
 	param = fill_param(A, op, process, elem);
 	param.data = process->reg[chen4(param.value[0]) - 1] % 256;
 	process->param = param;
 }
+
 void	execute_aff(t_process *process, t_arena *arena)
 {
 	(void)A;

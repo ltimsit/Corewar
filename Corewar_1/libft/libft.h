@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:24:14 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/13 08:38:28 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 09:11:06 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@
 # define BUFF_SIZE_GNL 1024
 # define ULL	unsigned long long
 
-typedef struct		s_gcl
+typedef struct	s_gcl
 {
 	void			*ptr;
 	struct s_gcl	*next;
-}					t_gcl;
+}				t_gcl;
 
-typedef struct		s_gc
+typedef struct	s_gc
 {
 	t_gcl			*list;
 	t_gcl			*head;
 	int				size;
-}					t_gc;
+}				t_gc;
 
 typedef struct	s_list
 {

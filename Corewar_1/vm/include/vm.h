@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/15 18:05:48 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/16 10:14:38 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,28 +114,37 @@ void	(*g_fct_instr[17])(t_op, t_process*, t_arena*);
 void	(*g_fct_exec[17])(t_process*, t_arena*);
 
 /*
-**init_display.c----------------------------------------------------------------
+**end_of_fight.c----------------------------------------------------------------
 */
-void			fill_border(t_arena *arena);
-void			print_process_dis(t_arena *arena);
-void			print_map(t_arena *arena, int c_nb);
-void			fill_img(char **d_img);
-char			*get_data_ptr(void *img_ptr);
-int				print_hexa_dis(t_arena *arena, t_display *dis, int index);
-void			init_display(t_arena *arena);
-void			print_reg_dis(t_arena *arena, t_process *process);
+void			exit_fight(t_arena *arena);
+void			aff_winner(t_arena *arena, int color, char *name);
 void			print_winner_dis(t_arena *arena, int i);
+void			print_winner(t_arena *arena);
 
 /*
 **init_display.c----------------------------------------------------------------
 */
+void			fill_border(t_arena *arena);
+void			print_champ_live(t_arena *arena);
+void			print_process_dis(t_arena *arena);
+void			print_map(t_arena *arena, int c_nb);
+void			fill_img(char **d_img);
+int				print_hexa_dis(t_arena *arena, t_display *dis, int index);
+void			init_display(t_arena *arena);
+
+/*
+**display_tools.c---------------------------------------------------------------
+*/
 void			fill_color_value(unsigned char *carriage, int size, int p_nb);
 void			clear_carriage_superpo(t_arena *arena);
+void			print_reg_dis(t_arena *arena, t_process *process);
+int				print_reg_click(t_arena *arena, int x, int y);
+int				print_nb(t_arena *arena, int nb, int x, int y);
 
 /*
 **hook.c		----------------------------------------------------------------
 */
-int				print_nb(t_arena *arena, int nb, int x, int y);
+char			*get_data_ptr(void *img_ptr);
 int				print_nb_dec(t_arena *arena, int nb, int x, int y);
 int				key_press(int keycode, t_arena *arena);
 int				mouse_press(int button, int x, int y, t_arena *arena);
@@ -172,8 +181,9 @@ void			load_champ(t_arena *arena);
 **main.c		----------------------------------------------------------------
 */
 unsigned char	*open_read(t_arena *arena, char *file, unsigned char *buf);
-void			print_winner(t_arena *arena);
-int				check_argv(t_arena *arena, char **av, int ac);
+int				get_arg(int i, char **av, int ac, int *argument);
+void			check_argv(t_arena *arena, char **av, int ac);
+void			init_corewar(t_arena *arena);
 
 /*
 ** arena.c		----------------------------------------------------------------

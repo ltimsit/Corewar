@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/15 18:49:44 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/16 09:45:36 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,6 @@ void	fill_border(t_arena *arena)
 			else
 				data[y * W_LEN + x] = BACKGROUND_COLOR;
 		}
-	}
-}
-
-void	print_reg_dis(t_arena *arena, t_process *process)
-{
-	int i;
-	int x;
-	int y;
-
-	x = 1910;
-	y = 200;
-	i = -1;
-	while (++i < 16)
-	{
-		mlx_string_put(A->dis->mlx, A->dis->win,
-				x - 90, y, HEX_COLOR, "reg[  ] = ");
-		print_nb_dec(A, i + 1, x - 50, y);
-		print_nb(A, process->reg[i], x + 10, y);
-		y += 20;
 	}
 }
 
@@ -131,64 +112,6 @@ void	fill_img(char **d_img)
 		while (++i < C_HGT * C_LEN)
 			i_img[i] = color_tab[j];
 	}
-}
-
-char	*get_data_ptr(void *img_ptr)
-{
-	char	*data_ptr;
-	int		bit_pp;
-	int		size_line;
-	int		endian;
-
-	data_ptr = mlx_get_data_addr(img_ptr, &bit_pp, &size_line, &endian);
-	return (data_ptr);
-}
-
-void	aff_winner(t_arena *arena, int color, char *name)
-{
-	int i;
-	int j;
-	int x_name;
-
-	j = (W_HGT / 2) - 31;
-	while (++j < (W_HGT / 2) + 70)
-	{
-		i = (W_LEN / 2) - 431;
-		while (++i < (W_LEN / 2) - 30)
-			mlx_pixel_put(A->dis->mlx, A->dis->win, i, j, 0x77000000);
-	}
-	j = (W_HGT / 2) - 51;
-	while (++j < (W_HGT / 2) + 50)
-	{
-		i = (W_LEN / 2) - 451;
-		while (++i < (W_LEN / 2) - 50)
-			mlx_pixel_put(A->dis->mlx, A->dis->win, i, j, color);
-	}
-	x_name = ft_strlen(name);
-	x_name = W_LEN / 2 - (x_name * 5);
-	mlx_string_put(A->dis->mlx, A->dis->win, W_LEN / 2 - 80 - 250, W_HGT / 2 - 35,
-			0xFFFFFF, "Joueur gagnant :");
-	mlx_string_put(A->dis->mlx, A->dis->win, x_name - 250, W_HGT / 2 + 5,
-			0xFFFFFF, name);
-}
-
-void	print_winner_dis(t_arena *arena, int i)
-{
-	char *name;
-
-	A->finish = 1;
-	name = A->champ[i].h.prog_name;
-	if (i == 0)
-		i = 0xff704c;
-	else if (i == 1)
-		i = 0x9159af;
-	else if (i == 2)
-		i = 0x34cf7f;
-	else if (i == 3)
-		i = 0x488edf;
-	else
-		i = HEX_COLOR;
-	aff_winner(A, i, name);
 }
 
 int		print_hexa_dis(t_arena *arena, t_display *dis, int index)
