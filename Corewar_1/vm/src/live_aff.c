@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:30:58 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/16 10:26:35 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 10:39:33 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	fc_aff(t_op op, t_process *process, t_arena *arena)
 
 	process->pc_next = 3;
 	param = fill_param(A, op, process, elem);
-	param.data = process->reg[chen4(param.value[0]) - 1] % 256;
+	param.data = process->reg[chen4(elem[0]) - 1] % 256;
 	process->param = param;
 }
 

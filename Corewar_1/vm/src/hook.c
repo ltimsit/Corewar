@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/16 09:31:26 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 10:34:00 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		key_press(int keycode, t_arena *arena)
 	}
 	if (keycode == 126)
 	{
-		A->dis->speed++;
+		A->dis->speed += A->dis->speed < 100 ? 1 : 0;
 		A->dis->cpt_to_speed = 0;
 		if (A->pause)
 			print_map(arena, A->curr_cycle);

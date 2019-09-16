@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/16 10:27:05 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 10:57:42 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ unsigned char	*open_read(t_arena *arena, char *file, unsigned char *buf)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		ft_error(A, "Open failed\n");
-	ret = read(fd, buf, CHAMP_MAX_SIZE + sizeof(t_header));
+	if ((ret = read(fd, buf, CHAMP_MAX_SIZE + sizeof(t_header))) == -1)
+		ft_error(A, "Read failed\n");
+	if ((ret = close(fd)) == -1)
+		ft_error(A, "Close failed\n");
 	return (buf);
 }
 
@@ -31,7 +34,8 @@ int				get_arg(int i, char **av, int ac, int *argument)
 {
 	if (i < ac)
 		*argument = ft_atoi(av[i]);
-	if (i == ac || *argument < 0 || !ft_isdigit(av[i][0]))
+	if (i == ac || (ft_strcmp(av[i - 1]) && *argument < 0)
+		|| !ft_isdigit(av[i][0]))
 		return (0);
 	return (1);
 }
