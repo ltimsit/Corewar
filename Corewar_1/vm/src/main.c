@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/16 10:57:42 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 11:16:18 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ int				get_arg(int i, char **av, int ac, int *argument)
 {
 	if (i < ac)
 		*argument = ft_atoi(av[i]);
-	if (i == ac || (ft_strcmp(av[i - 1]) && *argument < 0)
-		|| !ft_isdigit(av[i][0]))
+	if (i == ac
+		|| (ft_strcmp(av[i - 1], "-n") && *argument < 0)
+		|| !ft_str_is_digit(av[i]))
 		return (0);
 	return (1);
 }
