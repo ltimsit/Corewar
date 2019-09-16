@@ -39,7 +39,7 @@ int				ft_get_next_line(const int fd, char **line, int o)
 		return (-1);
 	r = 0;
 	b2 = NULL;
-	while (!o && !(ft_strnchr(b[fd], '\n', r))
+	while (!o && !(ft_strchr(b[fd], '\n'))
 		&& (r = read(fd, tmp, BUFF_SIZE_GNL)))
 	{
 		tmp[r] = '\0';
@@ -50,7 +50,7 @@ int				ft_get_next_line(const int fd, char **line, int o)
 	}
 	if (!o && *b[fd] && (b2 = ft_strnchr(b[fd], '\n', r)))
 		return (send_line(&(b[fd]), &b2, line));
-	else if (!o && *b[fd] && (b2 = ft_strchr(b[fd], '\0')))
+	else if (!o && *b[fd] && (b2 = ft_strnchr(b[fd], '\0', r)))
 		return (send_line(&(b[fd]), &b2, line));
 	ft_memdel((void**)&(b[fd]), 0);
 	return (0);
