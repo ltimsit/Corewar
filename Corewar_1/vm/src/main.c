@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/16 11:16:18 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 13:05:52 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int				get_arg(int i, char **av, int ac, int *argument)
 {
 	if (i < ac)
 		*argument = ft_atoi(av[i]);
-	if (i == ac
+	if (i== ac
 		|| (ft_strcmp(av[i - 1], "-n") && *argument < 0)
 		|| !ft_str_is_digit(av[i]))
 		return (0);
@@ -50,18 +50,21 @@ void			check_argv(t_arena *arena, char **av, int ac)
 	id_champ = 1;
 	while (++i < ac)
 	{
-		if (!ft_strcmp(av[i], "-dis"))
+		if (!ft_strcmp(av[i], "-dis") && (A->display_on = 1))
 		{
 			if (!(get_arg(++i, av, ac, &A->cycle_before_dis)))
 				print_usage(A);
-			A->display_on = 1;
 		}
-		else if (!ft_strcmp(av[i], "-dump")
-			&& !get_arg(++i, av, ac, &A->dump_cycle))
-			print_usage(A);
-		else if (!ft_strcmp(av[i], "-n")
-			&& !get_arg(++i, av, ac, &id_champ))
-			print_usage(A);
+		else if (!ft_strcmp(av[i], "-dump"))
+		{
+			if (!get_arg(++i, av, ac, &A->dump_cycle))
+				print_usage(A);
+		}
+		else if (!ft_strcmp(av[i], "-n"))
+		{
+			if (!get_arg(++i, av, ac, &id_champ))
+				print_usage(A);
+		}
 		else if (++(A->nb_champ) <= MAX_PLAYERS)
 			create_add_champ(av[i], A, id_champ++);
 	}

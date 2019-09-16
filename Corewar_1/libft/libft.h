@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:24:14 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/16 09:11:06 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 11:55:08 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char			*ft_strstr(const char *str, const char *tofind);
 char			*ft_strnstr(const char *str, const char *tofind, size_t len);
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
+int				ft_str_is_digit(char *s);
 
 int				ft_atoi(const char *str);
 int				ft_isalpha(int c);

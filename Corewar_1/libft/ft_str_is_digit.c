@@ -6,21 +6,21 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 11:05:44 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/16 11:16:57 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 12:36:40 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int		ft_str_is_digit(char *s)
 {
 	int		i;
 
-	i = -1;
-	if (!s)
+	i = 0;
+	if (!s || (*s != '-' && *s != '+' && (*s < '0' || *s > '9')))
 		return (0);
 	while (s[++i])
-		if (!i && (*s != '-' || *s != '+' || *s < '0' || *s < '9'))
-			return (0);
-		else if (i && (s[i] < '0' || s[i] > '9'))
+		if (s[i] < '0' || s[i] > '9')
 			return (0);
 	return (1);
 }
