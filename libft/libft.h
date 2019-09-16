@@ -111,7 +111,7 @@ t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 size_t			ft_lst_size(t_list *alst);
 t_list			**ft_lst_rev(t_list **alst);
 
-ULL				ft_po(ULL nb, int po);
+int				ft_po(int nb, int po);
 int				ft_sqrt(int nb);
 int				ft_sqrtup(int nb);
 int				ft_abs(int n);

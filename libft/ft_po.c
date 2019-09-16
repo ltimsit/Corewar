@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-unsigned long long	ft_po(unsigned long long nb, int po)
+int	ft_po(int nb, int po)
 {
-	unsigned long long	res;
+	int	res;
 
 	res = 1;
 	if (!po)
