@@ -1,3 +1,4 @@
+
 NAME = corewar
 
 SRCS = $(addprefix $(SRCDIR)/, $(addsuffix .c, \
@@ -16,8 +17,8 @@ LIBMLX = display/libmlx.a
 FRAMEWORK = -framework OpenGL -framework AppKit
 INC = -I include -I ../libft
 
-FLAGS = -Wall -Wextra -Werror -g 
-CC = gcc $(INC) $(FLAGS) -c
+FLAGS = -Wall -Wextra -Werror
+CC = gcc $(INC) $(FLAGS)
 
 BLACK = \033[30m
 RED = \033[31m
@@ -59,7 +60,7 @@ clean :
 	@echo "$(MAGENTA)SUPPR  $(YELLOW)OBJ $(MAGENTA): $(GREEN) OK !$(NOCOLOR)"
 	@rm -f $(DEP)
 	@echo "$(MAGENTA)SUPPR  $(YELLOW)DEP $(MAGENTA): $(GREEN) OK !$(NOCOLOR)"
-	@echo "$(GREEN)LEMIN CLEAN : 👌 $(NOCOLOR)"
+	@echo "$(GREEN)COREWAR CLEAN : 👌 $(NOCOLOR)"
 
 fclean : clean
 	@make fclean -C ../libft
