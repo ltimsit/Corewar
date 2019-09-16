@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/16 15:51:09 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 16:12:25 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,22 @@ int				get_arg(int i, char **av, int ac, int *argument)
 		return (0);
 	return (1);
 }
+/*
+int			check_id(t_arena *arena, char *str)
+{
+	int i;
+
+	i = 0;
+	if (ft_str_is_digit(str) && is_integer(str))
+	{
+		if (ft_atoi(str) > 1000 || ft_atoi(str) < 1000)
+			{
+				while (i < nb_champ)
+				
+			}
+	}
+}
+*/
 
 void			check_argv(t_arena *arena, char **av, int ac)
 {
@@ -62,7 +78,7 @@ void			check_argv(t_arena *arena, char **av, int ac)
 		}
 		else if (!ft_strcmp(av[i], "-n"))
 		{
-			if (!get_arg(++i, av, ac, &id_champ))
+			if (!get_arg(++i, av, ac, &id_champ) || !check_id(A, ))
 				print_usage(A);
 		}
 		else if (A->nb_champ < MAX_PLAYERS)

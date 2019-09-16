@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/16 14:19:27 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 16:11:22 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,9 @@ typedef struct	s_ocp
 
 void	(*g_fct_instr[17])(t_op, t_process*, t_arena*);
 void	(*g_fct_exec[17])(t_process*, t_arena*);
+
+
+int				is_integer(char *str);
 /*
 **end_of_fight.c----------------------------------------------------------------
 */
