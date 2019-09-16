@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:40:52 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/16 13:55:51 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/16 16:50:53 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		verif_process(t_arena *arena, t_process *head)
 	t_process	*tmp;
 	int			nb_live;
 	t_process	*prev;
+	t_process	*todel;
 
 	prev = NULL;
 	tmp = head;
@@ -38,14 +39,18 @@ int		verif_process(t_arena *arena, t_process *head)
 	while (tmp)
 	{
 		if (!tmp->nb_live)
-			del_process(A, tmp, prev);
+		{
+			todel = tmp;
+			tmp = tmp->next;		
+			del_process(A, todel, prev);	
+		}
 		else
 		{
 			nb_live += tmp->nb_live;
 			tmp->nb_live = 0;
 			prev = tmp;
+			tmp = tmp->next;
 		}
-		tmp = tmp->next;
 	}
 	return (nb_live);
 }
