@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:01:14 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/15 18:17:13 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/17 10:34:21 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ void			put_param_in_field(t_arena *arena, t_process *process, int size)
 	char	*param_c;
 	int		pc;
 
-	pc = (process->pc + chen4(process->param.dest_pc)) % 4096;
-	param_c = (char *)&process->param.data;
+	pc = (PRO->pc + chen4(PRO->param.dest_pc)) % 4096;
+	param_c = (char *)&PRO->param.data;
 	id_start = 4 - size;
 	while (id_start < 4)
 	{
 		A->field[pc] = param_c[id_start++];
 		A->carriage[pc] -= A->carriage[pc] % 16;
-		A->carriage[pc++] |= 1 << process->player_nb;
+		A->carriage[pc++] |= 1 << PRO->player_nb;
 		pc %= MEM_SIZE;
 	}
 }
@@ -75,7 +75,7 @@ int				fill_index_content(t_arena *arena, t_process *process, int val)
 	int j;
 
 	j = -1;
-	index = update_pc(process->pc, val);
+	index = update_pc(PRO->pc, val);
 	while (++j < 4)
 	{
 		((char *)&elem)[j] = A->field[index++];
@@ -95,5 +95,5 @@ void			put_data_in_reg(t_process *process, int data, int reg_nb)
 	reg_nb = chen4(reg_nb);
 	reg_nb -= 1;
 	if (reg_nb > -1 && reg_nb < 16)
-		process->reg[reg_nb] = data;
+		PRO->reg[reg_nb] = data;
 }

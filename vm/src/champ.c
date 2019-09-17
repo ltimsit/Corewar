@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:29:19 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/16 14:40:05 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 10:28:17 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ void		load_champ(t_arena *arena)
 		fill_color_value(A->carriage + (i * space),
 				A->champ[i].h.prog_size, i);
 		add_process(A, A->champ[i].id, i);
-		A->process->pc = i * space;
+		A->PRO->pc = i * space;
 	}
 }

@@ -1,10 +1,21 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: abinois <marvin@42.fr>                     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/09/17 09:35:38 by abinois           #+#    #+#              #
+#    Updated: 2019/09/17 10:21:56 by abinois          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 NAME = corewar
 
 SRCS = $(addprefix $(SRCDIR)/, $(addsuffix .c, \
 	   arena main operation process tools tools2 fill_tab champ \
-	   addsub orxor st ld ldi zjump fork and live_aff \
-	   init_display hook display_tools end_of_fight parsing_utils))
+	   addsub orxor st ld ldi and_zjump fork live_aff end_of_fight\
+	   init_display hook display_tools display_tools2))
 
 OBJ = $(SRCS:.c=.o)
 DEP = $(SRCS:.c=.d)
@@ -13,7 +24,7 @@ SRCDIR = src
 LIBFT = ../libft/libft.a
 LIBNCURSES = -lncurses
 LIBFTPRINTF = ../libftprintf.a
-LIBMLX = display/libmlx.a
+LIBMLX = ../libmlx.a
 FRAMEWORK = -framework OpenGL -framework AppKit
 INC = -I include -I ../libft
 
@@ -60,7 +71,6 @@ clean :
 	@echo "$(MAGENTA)SUPPR  $(YELLOW)OBJ $(MAGENTA): $(GREEN) OK !$(NOCOLOR)"
 	@rm -f $(DEP)
 	@echo "$(MAGENTA)SUPPR  $(YELLOW)DEP $(MAGENTA): $(GREEN) OK !$(NOCOLOR)"
-	@echo "$(GREEN)COREWAR CLEAN : 👌 $(NOCOLOR)"
 
 fclean : clean
 	@make fclean -C ../libft

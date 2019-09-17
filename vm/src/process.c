@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:40:52 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/16 16:54:13 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/17 10:33:32 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int		verif_process(t_arena *arena, t_process *head)
 
 void	init_process(t_process *process, int id_champ, int player_nb)
 {
-	process->reg[0] = id_champ;
-	process->id_champ = id_champ;
-	process->player_nb = player_nb;
+	PRO->reg[0] = id_champ;
+	PRO->id_champ = id_champ;
+	PRO->player_nb = player_nb;
 }
 
 void	add_process(t_arena *arena, int id_champ, int player_nb)
@@ -71,15 +71,15 @@ void	add_process(t_arena *arena, int id_champ, int player_nb)
 	if (!(A->p_head))
 	{
 		A->p_head = new_process;
-		A->process = new_process;
+		A->PRO = new_process;
 	}
 	else
 	{
-		A->process->next = new_process;
-		A->process = new_process;
+		A->PRO->next = new_process;
+		A->PRO = new_process;
 	}
 	A->nb_process++;
-	init_process(A->process, id_champ, player_nb);
+	init_process(A->PRO, id_champ, player_nb);
 }
 
 void	del_process(t_arena *arena, t_process *todel, t_process *prev)

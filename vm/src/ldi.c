@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 17:22:14 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/13 13:32:54 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/17 10:31:31 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,21 @@ void	fc_ldi(t_op op, t_process *process, t_arena *arena)
 	int		tmp;
 
 	ft_bzero(&param, sizeof(param));
-	param = fill_param(A, op, process, elem);
-	elem[0] = param.type[0] == IND_CODE ? fill_index_content(A, process,
+	param = fill_param(A, op, PRO, elem);
+	elem[0] = param.type[0] == IND_CODE ? fill_index_content(A, PRO,
 			(short)chen4(param.value[0]) % IDX_MOD) : elem[0];
-	elem[1] = param.type[1] == IND_CODE ? fill_index_content(A, process,
+	elem[1] = param.type[1] == IND_CODE ? fill_index_content(A, PRO,
 			(short)chen4(param.value[1]) % IDX_MOD) : elem[1];
 	tmp = ((short)chen4(elem[0]) + (short)chen4(elem[1])) % IDX_MOD;
-	param.data = fill_index_content(A, process, tmp);
+	param.data = fill_index_content(A, PRO, tmp);
 	param.dest_pc = param.value[2];
-	process->param = param;
+	PRO->param = param;
 }
 
 void	execute_ldi(t_process *process, t_arena *arena)
 {
 	(void)A;
-	put_data_in_reg(process, process->param.data, process->param.dest_pc);
+	put_data_in_reg(PRO, PRO->param.data, PRO->param.dest_pc);
 }
 
 void	fc_lldi(t_op op, t_process *process, t_arena *arena)
@@ -48,19 +48,19 @@ void	fc_lldi(t_op op, t_process *process, t_arena *arena)
 	int		elem[3];
 
 	ft_bzero(&param, sizeof(param));
-	param = fill_param(A, op, process, elem);
-	elem[0] = param.type[0] == IND_CODE ? fill_index_content(A, process,
+	param = fill_param(A, op, PRO, elem);
+	elem[0] = param.type[0] == IND_CODE ? fill_index_content(A, PRO,
 			(short)chen4(param.value[0]) % IDX_MOD) : elem[0];
-	elem[1] = param.type[1] == IND_CODE ? fill_index_content(A, process,
+	elem[1] = param.type[1] == IND_CODE ? fill_index_content(A, PRO,
 			(short)chen4(param.value[1]) % IDX_MOD) : elem[1];
-	param.data = fill_index_content(A, process, chen4(elem[0] + elem[1]));
+	param.data = fill_index_content(A, PRO, chen4(elem[0] + elem[1]));
 	param.dest_pc = param.value[2];
-	process->param = param;
+	PRO->param = param;
 }
 
 void	execute_lldi(t_process *process, t_arena *arena)
 {
 	(void)A;
-	put_data_in_reg(process, process->param.data, process->param.dest_pc);
-	process->carry = !process->param.data ? 1 : 0;
+	put_data_in_reg(PRO, PRO->param.data, PRO->param.dest_pc);
+	PRO->carry = !PRO->param.data ? 1 : 0;
 }

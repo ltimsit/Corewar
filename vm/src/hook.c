@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/16 15:43:08 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 09:56:44 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,40 +24,19 @@ char	*get_data_ptr(void *img_ptr)
 	return (data_ptr);
 }
 
-int		print_nb_dec(t_arena *arena, int nb, int x, int y)
+void	speed_tool(t_arena *arena, char option)
 {
-	char	nb_tab[12];
-	int		size;
-	int		i;
-	int		sign;
-
-	i = 10;
-	size = 0;
-	sign = 1;
-	if (nb < 0)
-	{
-		nb_tab[0] = '-';
-		size++;
-		nb *= -1;
-		sign = -1;
-	}
-	while (++size && nb / i)
-		i *= 10;
-	nb_tab[size] = '\0';
-	while (size--)
-	{
-		nb_tab[size] = (!size && sign == -1) ? '-' : (nb % 10 + '0');
-		nb /= 10;
-	}
-	mlx_string_put(A->dis->mlx, A->dis->win, x, y, HEX_COLOR, nb_tab);
-	return (0);
+	if (option == '-')
+		A->dis->speed--;
+	else if (option == '+')
+		A->dis->speed++;
+	A->dis->cpt_to_speed = 0;
+	if (A->pause)
+		print_map(A, A->curr_cycle);
 }
 
 int		key_press(int keycode, t_arena *arena)
 {
-	int		i;
-
-	i = -1;
 	if (keycode == 53)
 		exit_fight(A);
 	if (keycode == 49)
@@ -74,19 +53,9 @@ int		key_press(int keycode, t_arena *arena)
 		A->dis->curr_process_dis = A->p_head;
 	}
 	if (keycode == 126 && A->dis->speed < 100)
-	{
-		A->dis->speed++;
-		A->dis->cpt_to_speed = 0;
-		if (A->pause)
-			print_map(arena, A->curr_cycle);
-	}
+		speed_tool(A, '+');
 	if (keycode == 125 && A->dis->speed > 1)
-	{
-		A->dis->speed--;
-		A->dis->cpt_to_speed = 0;
-		if (A->pause)
-			print_map(arena, A->curr_cycle);
-	}
+		speed_tool(A, '-');
 	return (0);
 }
 

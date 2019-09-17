@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/16 15:10:49 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 10:35:11 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,44 +38,44 @@ void	print_arena(t_arena *arena)
 
 void	manage_pc_carriage(t_arena *arena, t_process *process, int new_pc)
 {
-	if (!(A->carriage[process->pc] >> 5 & 1))
-		A->carriage[process->pc] ^= 1 << 4;
-	process->pc = update_pc(process->pc, new_pc);
-	A->carriage[process->pc] |= 1 << 4;
-	A->carriage[process->pc] |= 1 << 5;
+	if (!(A->carriage[PRO->pc] >> 5 & 1))
+		A->carriage[PRO->pc] ^= 1 << 4;
+	PRO->pc = update_pc(PRO->pc, new_pc);
+	A->carriage[PRO->pc] |= 1 << 4;
+	A->carriage[PRO->pc] |= 1 << 5;
 }
 
 void	execution(t_arena *arena, t_process *process)
 {
-	read_instr(A, process, process->opcode);
-	if (!process->param.error)
-		g_fct_exec[(int)process->opcode](process, A);
-	manage_pc_carriage(arena, process, process->pc_next);
-	process->c_done = 0;
-	process->c_todo = 0;
+	g_fct_instr[(int)(PRO->opcode)](A->op[(int)(PRO->opcode) - 1], PRO, A);
+	if (!PRO->param.error)
+		g_fct_exec[(int)PRO->opcode](PRO, A);
+	manage_pc_carriage(arena, PRO, PRO->pc_next);
+	PRO->c_done = 0;
+	PRO->c_todo = 0;
 }
 
 void	check_process(t_arena *arena, t_process *process)
 {
 	char	opcode;
 
-	A->carriage[process->pc] |= 1 << 4;
-	if (!process->c_todo)
+	A->carriage[PRO->pc] |= 1 << 4;
+	if (!PRO->c_todo)
 	{
-		if ((opcode = A->field[process->pc]) > 0 && opcode < 17)
+		if ((opcode = A->field[PRO->pc]) > 0 && opcode < 17)
 		{
-			process->opcode = opcode;
-			process->c_todo = A->op[(int)opcode - 1].time - 1;
-			process->c_done++;
-			A->carriage[process->pc] |= 1 << 5;
+			PRO->opcode = opcode;
+			PRO->c_todo = A->op[(int)opcode - 1].time - 1;
+			PRO->c_done++;
+			A->carriage[PRO->pc] |= 1 << 5;
 		}
 		else
-			manage_pc_carriage(A, process, 1);
+			manage_pc_carriage(A, PRO, 1);
 	}
-	else if (process->c_done < process->c_todo)
-		process->c_done++;
+	else if (PRO->c_done < PRO->c_todo)
+		PRO->c_done++;
 	else
-		execution(A, process);
+		execution(A, PRO);
 }
 
 void	launch_fight(t_arena *arena)
