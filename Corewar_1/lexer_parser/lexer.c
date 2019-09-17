@@ -63,6 +63,16 @@ int get_new_read(t_data *data)
     return (ret);
 }
 
+int get_new_line(t_data *data)
+{
+	int ret;
+
+	ret = 0;
+	if (!data->r_data)
+		ret = get_next_line(data->fd, &(data->r_data), 1);
+	return (ret);
+}
+
 int go_to_next(t_data *data)
 {
     int i;
@@ -85,6 +95,18 @@ int go_to_next(t_data *data)
     return (1);
 }
 
+int get_elem(t_data *data)
+{
+	int i;
+	char elem[1024];
+	int type;
+	t_elem *lp;
+	
+	elem = add_to_lexer();
+	if (data->r_curr == "\"" || data->r_curr == "#")
+		get_comment_quote(data, elem, )
+
+}
 int get_elem(t_data *data)
 {
     int i;
