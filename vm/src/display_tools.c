@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 17:26:32 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/17 16:05:35 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/17 16:51:20 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,24 +85,23 @@ void	print_reg_dis(t_arena *arena, t_process *process)
 		mlx_string_put(A->dis->mlx, A->dis->win,
 				x - 90, y, HEX_COLOR, "reg[  ] = ");
 		print_nb_dec(A, i + 1, x - 50, y);
-		print_nb(A, PRO->reg[i], x + 10, y);
+		print_nb(A, (unsigned int)(PRO->reg[i]), x + 10, y);
 		y += 20;
 	}
 }
 
-int		print_nb(t_arena *arena, int nb, int x, int y)
+int		print_nb(t_arena *arena, unsigned int nb, int x, int y)
 {
-	char	nb_tab[10];
-	char	*base;
-	int		size;
-	int		i;
+	char				nb_tab[10];
+	char				*base;
+	int					size;
+	unsigned int		nb_tmp;
 
-	nb = (unsigned int)nb;
 	base = "0123456789abcdef";
-	i = 16;
 	size = 0;
-	while (++size && nb / i)
-		i *= 16;
+	nb_tmp = nb;
+	while (++size && (nb_tmp / 16))
+		nb_tmp /= 16;
 	nb_tab[size] = '\0';
 	while (size)
 	{

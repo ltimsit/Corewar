@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/17 16:15:15 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/17 16:49:47 by ltimsit-         ###   ########.fr       */
 /*   Updated: 2019/09/17 15:21:21 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -143,7 +143,7 @@ void			fill_color_value(unsigned char *carriage, int size, int p_nb);
 void			clear_carriage_superpo(t_arena *arena);
 void			print_reg_dis(t_arena *arena, t_process *process);
 int				print_reg_click(t_arena *arena, int x, int y);
-int				print_nb(t_arena *arena, int nb, int x, int y);
+int				print_nb(t_arena *arena, unsigned int nb, int x, int y);
 
 /*
 **display_tools2----------------------------------------------------------------
