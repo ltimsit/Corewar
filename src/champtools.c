@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 10:55:17 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/17 16:23:14 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 17:14:23 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int			mem_stock(t_data *data, char *content, int content_size)
 	return (1);
 }
 
-int			fc_namecom(t_data *data, char *namecom, int size, int i)
+void		fc_namecom(t_data *data, char *namecom, int size, int i)
 {
 	go_to_next_elem(D, &D->curr_line, &D->curr_index, 0);
 	if (*(D->line) != '"')
@@ -73,7 +73,8 @@ int			fc_namecom(t_data *data, char *namecom, int size, int i)
 		else
 			namecom[i++] = '\0';
 	}
+	if (*(D->line) != '"')
+		get_error(D, dquote, NULL);
 	namecom[i] = '\0';
 	D->line++;
-	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 16:38:19 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 17:14:45 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void			get_error_label(t_data *data, t_label_instr *label, char *name);
 */
 
 int				get_new_read(t_data *data);
-int				fc_namecom(t_data *data, char *namecom, int size, int i);
+void			fc_namecom(t_data *data, char *namecom, int size, int i);
 int				mem_stock(t_data *data, char *content, int content_size);
 
 /*

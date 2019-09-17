@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/17 11:57:29 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 17:03:02 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,12 @@ int			get_header(t_data *data)
 		if (!ft_strcmp(cmd, NAME_CMD_STRING) && (D->name_set = true))
 		{
 			D->curr_index += i;
-			fc_namecom(D, D->header.prog_name, sizeof(D->header.prog_name), 0);
+			fc_namecom(D, D->header.prog_name, PROG_NAME_LENGTH, 0);
 		}
 		else if (!ft_strcmp(cmd, COMMENT_CMD_STRING) && (D->comment_set = true))
 		{
 			D->curr_index += i;
-			fc_namecom(D, D->header.comment, sizeof(D->header.comment), 0);
+			fc_namecom(D, D->header.comment, COMMENT_LENGTH, 0);
 		}
 		else
 			get_error(D, syntax, cmd);
