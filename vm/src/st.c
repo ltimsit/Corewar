@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 16:58:41 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 10:33:57 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 14:12:42 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	fc_st(t_op op, t_process *process, t_arena *arena)
 	t_param	param;
 	int		elem[3];
 
+	ft_bzero(elem, sizeof(elem));
 	param = fill_param(A, op, PRO, elem);
 	param.data = elem[0];
 	param.dest_pc = param.type[1] == IND_CODE ?
@@ -48,10 +49,9 @@ void	fc_sti(t_op op, t_process *process, t_arena *arena)
 {
 	t_param	param;
 	int		elem[3];
-	int		i;
 	int		tmp;
 
-	i = -1;
+	ft_bzero(elem, sizeof(elem));
 	ft_bzero(&param, sizeof(param));
 	param = fill_param(A, op, PRO, elem);
 	param.data = elem[0];

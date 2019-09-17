@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 17:16:32 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 10:25:28 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 13:49:52 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ void	fc_add(t_op op, t_process *process, t_arena *arena)
 {
 	t_param	param;
 	int		elem[3];
-	int		i;
 
-	i = -1;
+	ft_bzero(elem, sizeof(elem));
 	ft_bzero(&param, sizeof(param));
 	param = fill_param(A, op, PRO, elem);
 	param.data = elem[0] + elem[1];
@@ -45,9 +44,8 @@ void	fc_sub(t_op op, t_process *process, t_arena *arena)
 {
 	t_param	param;
 	int		elem[3];
-	int		i;
 
-	i = -1;
+	ft_bzero(elem, sizeof(elem));
 	ft_bzero(&param, sizeof(param));
 	param = fill_param(A, op, PRO, elem);
 	param.data = elem[0] - elem[1];

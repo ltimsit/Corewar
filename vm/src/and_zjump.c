@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 12:53:15 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 10:26:31 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 14:10:57 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@ void	fc_and(t_op op, t_process *process, t_arena *arena)
 {
 	t_param		param;
 	int			elem[3];
-	int			i;
 
-	i = 0;
+	ft_bzero(elem, sizeof(elem));
 	param = fill_param(A, op, PRO, elem);
 	elem[0] = param.type[0] == IND_CODE ? fill_index_content(A, PRO,
 			(short)chen4(param.value[0]) % IDX_MOD) : elem[0];
