@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/17 13:53:15 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/17 16:05:37 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,11 @@ void			fill_img(char **d_img);
 void			fill_border(t_arena *arena);
 void			print_champ_live(t_arena *arena);
 void			print_process_dis(t_arena *arena);
+/*
+**display_tools3----------------------------------------------------------------
+*/
+int				get_color_hex(t_arena *arena, int index);
+void			put_carriage(t_arena *arena, int col, int line, int index);
 
 /*
 **hook			----------------------------------------------------------------

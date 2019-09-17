@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:40:50 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/15 18:25:30 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/17 14:03:49 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@
 # define HEX_COLOR			0x8c8c8c
 # define BORDER_COLOR		0x33cc99
 # define BACKGROUND_COLOR	0x123456
+# define WHITE				0xffffff
+# define ORDER				0xff704c
+# define ASSEMBLY			0x9159af
+# define ALLIANCE			0x34cf7f
+# define FEDERATION			0x488edf
+
 
 typedef struct	s_display
 {

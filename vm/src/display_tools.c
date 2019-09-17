@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 17:26:32 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/17 10:28:41 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 16:05:35 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int		print_nb(t_arena *arena, int nb, int x, int y)
 	int		size;
 	int		i;
 
+	nb = (unsigned int)nb;
 	base = "0123456789abcdef";
 	i = 16;
 	size = 0;
