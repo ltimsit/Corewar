@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 14:16:38 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/10 15:58:38 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 12:30:41 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,29 @@ int		skip_nosp(char *line, int i)
 	return (i);
 }
 
-int		get_error(t_data *data, int err_type, char *elem)
+void	get_error(t_data *data, int err_type, char *elem)
 {
 	D->err = err_type;
 	print_error(data, elem);
 	if (D->gc)
 	{
 		ft_free_gc(D->gc);
-		free(D->gc);
+		ft_memdel((void**)D->gc, 0);
 	}
-	exit(0);
-	return (0);
+	exit(EXIT_FAILURE);
 }
 
 void	fill_op_and_err_tab(void)
 {
-	g_err_tab[0] = "lexical error";
-	g_err_tab[1] = "syntax error";
-	g_err_tab[2] = "read error !";
-	g_err_tab[3] = "param error";
-	g_err_tab[4] = "missing coma";
-	g_err_tab[5] = "malloc error !";
-	g_err_tab[6] = "file error !";
-	g_err_tab[7] = "not enough data at EOF !";
+	g_err_tab[0] = "Lexical error";
+	g_err_tab[1] = "Syntax error";
+	g_err_tab[2] = "Read error !";
+	g_err_tab[3] = "Param error";
+	g_err_tab[4] = "Missing coma";
+	g_err_tab[5] = "Malloc error !";
+	g_err_tab[6] = "File error !";
+	g_err_tab[7] = "Not enough data at EOF !";
+	g_err_tab[8] = "Missing dquote";
 }
 
 int		get_new_read(t_data *data)

@@ -6,12 +6,18 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 12:07:16 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/11 15:05:29 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 11:46:57 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
+
+int		print_usage(void)
+{
+	ft_printf("{rev}{orange}Usage:{reset}{orange} ./asm <champ.s>\n{reset}");
+	return (0);
+}
 
 int			skip_comment_block(t_data *data)
 {

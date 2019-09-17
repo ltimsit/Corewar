@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/12 09:37:46 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 12:15:09 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,11 @@ enum			e_error
 	coma,
 	malloc_err,
 	file_err,
-	data_err
+	data_err,
+	dquote
 };
 
-char			*g_err_tab[8];
+char			*g_err_tab[9];
 
 /*
 ** corewar.c    ----------------------------------------------------------------
@@ -145,6 +146,7 @@ int				get_fd_file(char *filename);
 ** tools2.c     ----------------------------------------------------------------
 */
 
+int				print_usage(void);
 int				skip_comment_block(t_data *data);
 int				check_in_label_char(t_data *data, char *elem);
 int				check_label(t_data *data, char *elem);
@@ -156,7 +158,7 @@ int				get_elem(t_data *data, char *tab, int tab_size, char sep_char);
 
 int				skip_sp(char *line, int i);
 int				skip_nosp(char *line, int i);
-int				get_error(t_data *data, int err_type, char *elem);
+void			get_error(t_data *data, int err_type, char *elem);
 void			fill_op_and_err_tab();
 int				get_new_read(t_data *data);
 
