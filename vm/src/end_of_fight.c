@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 09:27:01 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/16 14:21:19 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 13:53:14 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,6 @@ static char	*g_tab_color[4] =
 {
 	"orange", "purple", "green", "blue"
 };
-
-void	exit_fight(t_arena *arena)
-{
-	ft_free_gc(A->gc);
-	ft_memdel((void**)A->gc, 0);
-	exit(EXIT_SUCCESS);
-}
 
 void	aff_winner(t_arena *arena, int color, char *name)
 {

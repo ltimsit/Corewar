@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 11:05:43 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 13:53:13 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,36 @@ int		print_hexa_dis(t_arena *arena, t_display *dis, int index)
 	return (1);
 }
 
+int		get_image_data(t_arena *arena, t_display *dis)
+{
+	int i;
+
+	i = -1;
+	while (++i < 5)
+		if (!(dis->img[i] = mlx_new_image(dis->mlx, C_LEN, C_HGT))
+				|| !ft_add_to_gc(dis->img[i], A->gc))
+			return (0);
+	i = -1;
+	while (++i < 5)
+		dis->d_img[i] = get_data_ptr(dis->img[i]);
+	if (!(dis->border_img = mlx_new_image(dis->mlx, W_LEN, W_HGT))
+			|| !ft_add_to_gc(dis->border_img, A->gc))
+		return (0);
+	dis->d_border_img = get_data_ptr(dis->border_img);
+	fill_img(dis->d_img);
+	return (1);
+}
+
 void	init_display(t_arena *arena)
 {
 	t_display	dis;
-	int			i;
+//	int			i;
 
 	dis.mlx = mlx_init();
 	dis.win = mlx_new_window(dis.mlx, W_LEN, W_HGT, "Corewar");
+	if (!(get_image_data(A, &dis)))
+		exit_dis(A);
+/*
 	i = -1;
 	while (++i < 5)
 		dis.img[i] = mlx_new_image(dis.mlx, C_LEN, C_HGT);
@@ -113,6 +136,7 @@ void	init_display(t_arena *arena)
 	dis.border_img = mlx_new_image(dis.mlx, W_LEN, W_HGT);
 	dis.d_border_img = get_data_ptr(dis.border_img);
 	fill_img(dis.d_img);
+	*/
 	dis.speed = 1;
 	dis.curr_process_dis = A->p_head;
 	A->dis = &dis;

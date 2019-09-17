@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:40:52 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/17 10:33:32 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 13:50:06 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ void	add_process(t_arena *arena, int id_champ, int player_nb)
 	t_process *new_process;
 
 	if (!(new_process = ft_memalloc(sizeof(t_process))))
+	{
+		free_l_process(A);
 		ft_error(A, "Malloc error\n");
+	}
 	if (!(A->p_head))
 	{
 		A->p_head = new_process;

@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/17 10:24:17 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 13:53:15 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,16 @@ void	(*g_fct_exec[17])(t_process*, t_arena*);
 /*
 **end_of_fight  ----------------------------------------------------------------
 */
-void			exit_fight(t_arena *arena);
 void			aff_winner(t_arena *arena, int color, char *name);
 void			print_winner_dis(t_arena *arena, int i);
 void			print_winner(t_arena *arena);
+
+/*
+**init_display  ----------------------------------------------------------------
+*/
+void			exit_dis(t_arena *arena);
+void			free_l_process(t_arena *arena);
+void			exit_fight(t_arena *arena);
 
 /*
 **init_display  ----------------------------------------------------------------
