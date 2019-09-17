@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 17:17:35 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/17 20:42:51 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,23 @@ void	print_map(t_arena *arena, int c_nb)
 	mlx_clear_window(A->dis->mlx, A->dis->win);
 	mlx_put_image_to_window(A->dis->mlx, A->dis->win,
 			A->dis->border_img, 13, 20);
-	mlx_string_put(A->dis->mlx, A->dis->win,
-			W_LEN / 2 - 30, 3, HEX_COLOR, "COREWAR");
+	mlx_put_image_to_window(A->dis->mlx, A->dis->win,
+			A->dis->panel_img, 1790, 20);
 	i = -1;
 	while (++i < MEM_SIZE)
 		print_hexa_dis(A, A->dis, i);
-	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 20, HEX_COLOR, "total :");
-	print_nb_dec(A, A->total_cycle, 1910, 20);
-	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 40, HEX_COLOR, "cycle :");
-	print_nb_dec(A, c_nb, 1910, 40);
-	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 60, HEX_COLOR, "speed :");
-	print_nb_dec(A, A->dis->speed, 1910, 60);
+	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 60, HEX_COLOR, "total   :");
+	print_nb_dec(A, A->total_cycle, 1925, 60);
+	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 80, HEX_COLOR, "cycle   :");
+	print_nb_dec(A, c_nb, 1925, 80);
+	mlx_string_put(A->dis->mlx, A->dis->win, 2000, 80, HEX_COLOR, "/");
+	print_nb_dec(A, A->cycle_to_die, 2010, 80);
+	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 100, HEX_COLOR, "speed   :");
+	print_nb_dec(A, A->dis->speed, 1925, 100);
+	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 140, HEX_COLOR, "check   :");
+	print_nb_dec(A, A->nb_check, 1925, 140);
+	mlx_string_put(A->dis->mlx, A->dis->win, 2000, 140, HEX_COLOR, "/");
+	print_nb_dec(A, MAX_CHECKS, 2010, 140);
 	print_process_dis(A);
 }
 
@@ -71,9 +77,12 @@ int		get_image_data(t_arena *arena, t_display *dis)
 	while (++i < 5)
 		dis->d_img[i] = get_data_ptr(dis->img[i]);
 	if (!(dis->border_img = mlx_new_image(dis->mlx, BORDER_LEN, BORDER_HGT))
-			|| !ft_add_to_gc(dis->border_img, A->gc))
+			|| !ft_add_to_gc(dis->border_img, A->gc)
+			|| !(dis->panel_img = mlx_new_image(dis->mlx, P_LEN, P_HGT))
+			|| !ft_add_to_gc(dis->panel_img, A->gc))
 		return (0);
 	dis->d_border_img = get_data_ptr(dis->border_img);
+	dis->d_panel_img = get_data_ptr(dis->panel_img);
 	fill_img(dis->d_img);
 	return (1);
 }
@@ -91,7 +100,9 @@ void	init_display(t_arena *arena)
 	A->dis = &dis;
 	A->pause = 1;
 	fill_border(A);
+	fill_panel(A);
 	print_map(A, A->curr_cycle);
+	mlx_hook(dis.win, 17, 0, exit_dis, A);
 	mlx_hook(dis.win, 2, 0, key_press, A);
 	mlx_hook(dis.win, 4, 0, mouse_press, A);
 	mlx_loop_hook(dis.mlx, loop_fight, A);

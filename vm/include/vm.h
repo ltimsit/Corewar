@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/17 16:49:47 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/17 19:57:05 by ltimsit-         ###   ########.fr       */
 /*   Updated: 2019/09/17 15:21:21 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -125,7 +125,7 @@ void			print_winner(t_arena *arena);
 /*
 **exit_fcts 	 ---------------------------------------------------------------
 */
-void			exit_dis(t_arena *arena);
+int				exit_dis(t_arena *arena);
 void			free_l_process(t_arena *arena);
 void			exit_fight(t_arena *arena);
 
@@ -158,6 +158,7 @@ void			print_process_dis(t_arena *arena);
 */
 int				get_color_hex(t_arena *arena, int index);
 void			put_carriage(t_arena *arena, int col, int line, int index);
+void			fill_panel(t_arena *arena);
 
 /*
 **hook			----------------------------------------------------------------
@@ -167,6 +168,11 @@ void			speed_tool(t_arena *arena, char option);
 int				key_press(int keycode, t_arena *arena);
 int				mouse_press(int button, int x, int y, t_arena *arena);
 int				loop_fight(t_arena *arena);
+
+/*
+**hook			----------------------------------------------------------------
+*/
+//int		x_button_press(t_arena *arena)
 
 /*
 **tools			----------------------------------------------------------------

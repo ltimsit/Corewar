@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 16:05:34 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/17 20:42:39 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	speed_tool(t_arena *arena, char option)
 int		key_press(int keycode, t_arena *arena)
 {
 	if (keycode == 53)
-		exit_fight(A);
+		exit_dis(A);
 	if (keycode == 49)
 	{
 		A->pause = A->pause ? 0 : 1;
@@ -47,7 +47,7 @@ int		key_press(int keycode, t_arena *arena)
 	}
 	if (keycode == 82 && A->pause)
 	{
-		while (A->dis->cpt_to_speed < A->dis->speed)
+		while (A->dis->cpt_to_speed < A->dis->speed && !A->finish)
 			launch_fight(A);
 		A->dis->cpt_to_speed = 0;
 		A->dis->curr_process_dis = A->p_head;

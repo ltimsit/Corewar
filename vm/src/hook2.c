@@ -1,40 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_fcts.c                                        :+:      :+:    :+:   */
+/*   hook2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/17 13:48:57 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 20:02:16 by ltimsit-         ###   ########.fr       */
+/*   Created: 2019/09/17 19:53:19 by ltimsit-          #+#    #+#             */
+/*   Updated: 2019/09/17 19:55:13 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-#include "stdlib.h"
 
-int		exit_dis(t_arena *arena)
+int		x_button_press(t_arena *arena)
 {
-	free_l_process(A);
-	exit_fight(A);
+	exit_dis(A);
 	return (0);
-}
-
-void	free_l_process(t_arena *arena)
-{
-	t_process *tmp;
-
-	while (A->p_head)
-	{
-		tmp = A->p_head;
-		A->p_head = A->p_head->next;
-		ft_memdel((void**)&tmp, 0);
-	}
-}
-
-void	exit_fight(t_arena *arena)
-{
-	ft_free_gc(A->gc);
-	ft_memdel((void**)&(A->gc), 0);
-	exit(EXIT_SUCCESS);
 }

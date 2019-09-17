@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:40:50 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 17:17:34 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/17 19:42:22 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,13 @@
 
 # define BORDER_LEN			1775
 # define BORDER_HGT			1325
+# define P_LEN				400
+# define P_HGT				1325
 # define HEX_COLOR			0x8c8c8c
 # define BORDER_COLOR		0x33cc99
 # define BACKGROUND_COLOR	0x123456
+# define P_BORDER_COLOR		0x444444
+# define P_BACKGROUND_COLOR	0x222222
 # define WHITE				0xffffff
 # define ORDER				0xff704c
 # define ASSEMBLY			0x9159af
@@ -43,6 +47,9 @@ typedef struct	s_display
 	void		*border_img;
 	char		*d_img[5];
 	char		*d_border_img;
+	void		*panel_img;
+	void		*xpm_img;
+	char		*d_panel_img;
 	int			speed;
 	int			cpt_to_speed;
 	void		*curr_process_dis;

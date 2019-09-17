@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/17 13:54:12 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/17 20:15:37 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	launch_fight(t_arena *arena)
 		if ((A->nb_live >= NBR_LIVE) || (++A->nb_check >= MAX_CHECKS))
 		{
 			A->cycle_to_die -= CYCLE_DELTA;
+			A->cycle_to_die = A->cycle_to_die < 0 ? 0 : A->cycle_to_die;
 			A->nb_check = 0;
 		}
 		A->curr_cycle = 0;

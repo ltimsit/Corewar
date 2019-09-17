@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 09:27:01 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/17 16:05:37 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/17 20:09:27 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	aff_winner(t_arena *arena, int color, char *name)
 	int j;
 	int x_name;
 
+	print_map(A, A->curr_cycle);
 	j = (W_HGT / 2) - 31;
 	while (++j < (W_HGT / 2) + 70)
 	{
