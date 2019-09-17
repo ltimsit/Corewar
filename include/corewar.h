@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 16:34:23 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 16:38:19 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int				check_label(t_data *data, char *elem);
 int				get_elem(t_data *data, char *tab, int tab_size, char sep_char);
 
 /*
-** errors.c      ----------------------------------------------------------------
+** errors.c      ---------------------------------------------------------------
 */
 
 int				check_in_label_char(t_data *data, char *elem);
