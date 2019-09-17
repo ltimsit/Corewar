@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/17 13:53:15 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/17 15:21:21 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 # define CMENU		25
 # define AFF_SIZE	128
 
-# define A			arena
+#====== define A			arena
 # define PRO		process
 
-typedef struct	s_param
+typedef struct	s_param======
 {
 	int			value[3];
 	int			size[3];
@@ -37,10 +37,10 @@ typedef struct	s_param
 	int			data_size;
 	int			dest_pc;
 	int			error;
-}				t_param;
+}========================				t_param;
 
 typedef struct	s_process
-{
+{=================
 	int					reg[REG_NUMBER];
 	int					id_champ;
 	int					player_nb;
@@ -122,7 +122,7 @@ void			print_winner_dis(t_arena *arena, int i);
 void			print_winner(t_arena *arena);
 
 /*
-**init_display  ----------------------------------------------------------------
+**exit_fcts 	 ---------------------------------------------------------------
 */
 void			exit_dis(t_arena *arena);
 void			free_l_process(t_arena *arena);

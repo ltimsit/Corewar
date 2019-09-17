@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 13:48:57 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 15:18:47 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 15:21:45 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_l_process(t_arena *arena)
 	{
 		tmp = A->p_head;
 		A->p_head = A->p_head->next;
-		free(tmp);
+		ft_memdel((void**)tmp, 0);
 	}
 }
 
