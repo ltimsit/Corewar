@@ -6,7 +6,7 @@
 #    By: abinois <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/17 09:33:50 by abinois           #+#    #+#              #
-#    Updated: 2019/09/17 09:34:00 by abinois          ###   ########.fr        #
+#    Updated: 2019/09/17 16:36:32 by abinois          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = asm
 
 SRCS = $(addprefix $(SRCDIR)/, $(addsuffix .c, \
 	   corewar champtools header param label \
-	   tools tools2 param_tools))
+	   tools errors param_tools))
 
 OBJ = $(SRCS:.c=.o)
 DEP = $(SRCS:.c=.d)
@@ -49,7 +49,7 @@ all : $(NAME)
 
 $(NAME) : $(LIBFT) $(OBJ)
 	@gcc $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(LIBFTPRINTF)
-	@echo "\n                               $(BLINK)👌  $(NOCOLOR)$(GREEN)A L L   G O O D $(NOCOLOR)$(BLINK)👌 $(NOCOLOR)"
+	@echo "\n             $(BLINK)👌  $(NOCOLOR)$(GREEN)A L L   G O O D $(NOCOLOR)$(BLINK)👌 $(NOCOLOR)"
 
 -include $(DEP)
 

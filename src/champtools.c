@@ -6,14 +6,14 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 10:55:17 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/17 16:11:12 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 16:23:14 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include <unistd.h>
 
-int		get_new_read(t_data *data)
+int			get_new_read(t_data *data)
 {
 	int		ret;
 

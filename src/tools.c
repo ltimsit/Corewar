@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/21 14:16:38 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 16:13:49 by abinois          ###   ########.fr       */
+/*   Created: 2019/08/29 12:07:16 by abinois           #+#    #+#             */
+/*   Updated: 2019/09/17 16:34:30 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include <stdlib.h>
+#include "libft.h"
 
 int		skip_sp(char *line, int i)
 {
@@ -27,40 +27,58 @@ int		skip_nosp(char *line, int i)
 	return (i);
 }
 
-void	get_error(t_data *data, int err_type, char *elem)
+int		skip_comment_block(t_data *data)
 {
-	D->err = err_type;
-	print_error(data, elem);
-	if (D->gc)
+	int		i;
+
+	while ((i = ft_skip_nochar(D->line, '\n', 0)) != -1)
 	{
-		ft_free_gc(D->gc);
-		ft_memdel((void**)D->gc, 0);
+		D->line += i;
+		D->curr_index += i;
+		if (*D->line == '\n')
+			return (1);
+		else if (!(*D->line))
+			if (!(get_new_read(D)))
+				return (0);
 	}
-	exit(EXIT_FAILURE);
+	return (1);
 }
 
-void	fill_op_and_err_tab(void)
+int		check_label(t_data *data, char *elem)
 {
-	g_err_tab[0] = "Lexical error";
-	g_err_tab[1] = "Syntax error";
-	g_err_tab[2] = "Read error !";
-	g_err_tab[3] = "Param error";
-	g_err_tab[4] = "Missing coma";
-	g_err_tab[5] = "Malloc error !";
-	g_err_tab[6] = "File error !";
-	g_err_tab[7] = "Not enough data at EOF !";
-	g_err_tab[8] = "Missing dquote";
+	t_label_add *tmp;
+
+	tmp = D->label->head_add;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->name, elem))
+			return (calc_val_from_pc(D->pc, tmp->pc));
+		tmp = tmp->next;
+	}
+	return (-1);
 }
 
-void	get_error_label(t_data *data, t_label_instr *label, char *name)
+int		get_elem(t_data *data, char *tab, int tab_size, char sep_char)
 {
-	ft_printf("{red}No such label{reset} : ");
-	ft_printf("[%.3d:%.3d] -> {blink}\"%s\"{reset}\n", 
-			label->line, label->col, name);
-	if (D->gc)
+	int i;
+
+	i = 0;
+	while (i < tab_size && *D->line != ' ' && *D->line != '\t'
+			&& *D->line != '\n')
 	{
-		ft_free_gc(D->gc);
-		ft_memdel((void**)D->gc, 0);
+		if (!*D->line)
+		{
+			if (!(get_new_read(data)))
+			{
+				tab[i] = '\0';
+				return (0);
+			}
+			continue ;
+		}
+		if (sep_char && *D->line == sep_char)
+			break ;
+		tab[i++] = *(D->line)++;
 	}
-	exit(EXIT_FAILURE);
+	tab[i] = '\0';
+	return (i);
 }
