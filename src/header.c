@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/17 17:03:02 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/17 18:29:38 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			go_to_next_elem(t_data *data, int *line_id, int *col_id, int i)
 		if (!(*D->line))
 			if (!(get_new_read(D)))
 				return (0);
-		if (*(D->line) == '#')
+		if (*(D->line) == '#' || *(D->line) == ';')
 			if (!(skip_comment_block(D)))
 				return (0);
 		if (*(D->line) == '\n')
