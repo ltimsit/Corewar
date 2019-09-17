@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 11:52:43 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/16 16:36:14 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/17 11:11:51 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,13 @@ int		update_pc(int old_pc, int i)
 
 void	print_usage(t_arena *arena)
 {
-	ft_printf("{yellow}");
-	ft_printf("Usage: ./corewar [-n N <champion1.cor>] [-dis N -dump N]\n");
-	ft_printf("{blue}\t-dis N\t\t\t: Mlx output mode start at cycle N\n");
+	ft_printf("{orange}{rev}");
+	ft_printf("Usage:{%s}{%s} ./corewar [-n N <champ1.cor>] [-dis N -dump N]\n",
+		"reset", "orange");
+	ft_printf("{blue}\t-dis N\t\t\t: Mlx output mode start at cycle N.\n");
 	ft_printf("\t-dump N\t\t\t: Dumps memory after N cycles then exits.\n");
-	ft_printf("\t-n N <champ.cor>\t: Sets champion id to N[-1K:1K].\n{reset}");
+	ft_printf("\t-n N <champ.cor>\t: Sets champion id to N [-1K < N > 1K].\n");
+	ft_printf("{reset}");
 	ft_free_gc(A->gc);
 	ft_memdel((void**)&(A->gc), 0);
 	exit(EXIT_FAILURE);

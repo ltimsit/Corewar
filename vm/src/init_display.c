@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 10:05:54 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 11:05:43 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ void	print_map(t_arena *arena, int c_nb)
 			W_LEN / 2 - 30, 3, HEX_COLOR, "COREWAR");
 	i = -1;
 	while (++i < MEM_SIZE)
-	{
 		print_hexa_dis(A, A->dis, i);
-	}
 	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 0, HEX_COLOR, "total :");
 	print_nb_dec(A, A->total_cycle, 1910, 0);
 	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 20, HEX_COLOR, "cycle :");
