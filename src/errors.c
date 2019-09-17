@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 14:16:38 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 16:34:27 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 19:07:47 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,11 @@ void	fill_op_and_err_tab(void)
 	g_err_tab[3] = "Param error";
 	g_err_tab[4] = "Missing coma";
 	g_err_tab[5] = "Malloc error !";
-	g_err_tab[6] = "File error !";
+	g_err_tab[6] = "File name too long or no extension !";
 	g_err_tab[7] = "Not enough data at EOF !";
 	g_err_tab[8] = "Missing dquote";
+	g_err_tab[9] = "Open error !";
+	g_err_tab[10] = "Close error !";
 }
 
 void	get_error_label(t_data *data, t_label_instr *label, char *name)

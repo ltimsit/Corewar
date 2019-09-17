@@ -2,6 +2,6 @@
 .name "ghj
        k l"
 .comment "hjfghjkl"
-labe:
+label:
 sti r1 ,        %6, %:label
 live %32

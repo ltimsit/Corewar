@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:37:22 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 16:22:37 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 19:07:44 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,23 @@ void	write_in_file(t_data *data, char *output, char *filename)
 {
 	int		fd;
 	char	file[128];
-	char	*ext;
+	char	*dot;
 	int		i;
 
-	ext = ".cor";
-	i = -1;
-	while (i < 128 - 4 && filename[++i] && filename[i] != '.')
-		file[i] = filename[i];
-	file[i] = '\0';
-	if (i == 128 - 4 || !filename[i])
+	dot = ft_strrchr(filename, '.');
+	if (!dot || dot - filename >= 128 - 4)
 		get_error(D, file_err, NULL);
-	ft_strcat(file, ext);
-	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0666);
+	file[dot - filename] = '\0';
+	i = -1;
+	while (++i < dot - filename)
+		file[i] = filename[i];
+	ft_strcat(file, ".cor");
+	if ((fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0666)) == -1)
+		get_error(D, open_err, NULL);
 	ft_printf("{cyan}Writing output program to \"%s\"{reset}\n", file);
 	write(fd, output, D->size_mem_tot);
+	if ((i = close(fd)) == -1)
+		get_error(D, close_err, NULL);
 }
 
 int		main(int ac, char **av)
