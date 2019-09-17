@@ -6,12 +6,11 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 14:16:38 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 12:30:41 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 16:13:49 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include <unistd.h>
 #include <stdlib.h>
 
 int		skip_sp(char *line, int i)
@@ -53,17 +52,15 @@ void	fill_op_and_err_tab(void)
 	g_err_tab[8] = "Missing dquote";
 }
 
-int		get_new_read(t_data *data)
+void	get_error_label(t_data *data, t_label_instr *label, char *name)
 {
-	int		ret;
-
-	ret = 0;
-	if (!D->start
-			&& !(D->start = ft_alloc_gc(READSIZE + 1, sizeof(char), D->gc)))
-		get_error(D, malloc_err, NULL);
-	if ((ret = read(D->fd, D->start, READSIZE)) == -1)
-		get_error(D, read_error, NULL);
-	D->start[ret] = '\0';
-	D->line = D->start;
-	return (ret ? 1 : 0);
+	ft_printf("{red}No such label{reset} : ");
+	ft_printf("[%.3d:%.3d] -> {blink}\"%s\"{reset}\n", 
+			label->line, label->col, name);
+	if (D->gc)
+	{
+		ft_free_gc(D->gc);
+		ft_memdel((void**)D->gc, 0);
+	}
+	exit(EXIT_FAILURE);
 }

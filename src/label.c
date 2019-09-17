@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:16:33 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/11 14:12:44 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 16:04:37 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ int		add_to_label_instr(t_data *data, char *elem, int mem_index)
 
 	if (!(label_new = ft_alloc_gc(1, sizeof(t_label_instr), D->gc)))
 		get_error(D, malloc_err, NULL);
+	ft_bzero(label_new, sizeof(t_label_instr));
 	if (!(ft_add_to_gc((label_new->name = ft_strdup(elem)), D->gc)))
 		get_error(D, malloc_err, NULL);
-	label_new->next = NULL;
 	label_new->mem_index = mem_index;
 	label_new->pc = D->pc;
+	label_new->line = D->curr_line;
+	label_new->col = D->curr_index;
 	if (!(D->label->lst_instr))
 	{
 		D->label->lst_instr = label_new;
@@ -43,9 +45,9 @@ int		add_to_label_list(t_data *data, char *elem, int pc)
 
 	if (!(label_new = ft_alloc_gc(1, sizeof(t_label_add), D->gc)))
 		return (0);
+	ft_bzero(label_new, sizeof(t_label_add));
 	if (!(ft_add_to_gc((label_new->name = ft_strdup(elem)), D->gc)))
 		return (0);
-	label_new->next = NULL;
 	label_new->pc = pc;
 	if (!(D->label->lst_add))
 	{
@@ -97,7 +99,7 @@ int		fill_missing_label(t_data *data)
 			tmp2 = tmp2->next;
 		}
 		if (!i)
-			get_error(D, syntax, tmp->name);
+			get_error_label(D, tmp, tmp->name);
 		tmp = tmp->next;
 	}
 	return (1);

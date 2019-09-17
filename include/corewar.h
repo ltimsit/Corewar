@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 12:15:09 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 16:13:04 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct	s_label_instr
 	char					*name;
 	int						mem_index;
 	int						pc;
+	int						line;
+	int						col;
 	struct s_label_instr	*next;
 }				t_label_instr;
 
@@ -129,7 +131,7 @@ enum			e_error
 	malloc_err,
 	file_err,
 	data_err,
-	dquote
+	dquote,
 };
 
 char			*g_err_tab[9];
@@ -141,6 +143,7 @@ char			*g_err_tab[9];
 int				init_data(t_data *data);
 void			print_error(t_data *data, char *elem);
 int				get_fd_file(char *filename);
+void			write_in_file(t_data *data, char *output, char *filename);
 
 /*
 ** tools2.c     ----------------------------------------------------------------
@@ -160,12 +163,13 @@ int				skip_sp(char *line, int i);
 int				skip_nosp(char *line, int i);
 void			get_error(t_data *data, int err_type, char *elem);
 void			fill_op_and_err_tab();
-int				get_new_read(t_data *data);
+void			get_error_label(t_data *data, t_label_instr *label, char *name);
 
 /*
 ** champtools.c ----------------------------------------------------------------
 */
 
+int				get_new_read(t_data *data);
 int				fc_namecom(t_data *data, char *namecom, int size, int i);
 int				mem_stock(t_data *data, char *content, int content_size);
 
