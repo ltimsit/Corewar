@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:37:22 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/10 15:57:21 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 12:49:03 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	print_error(t_data *data, char *elem)
 {
 	if (D->err)
 	{
-		if (!elem)
+		if (D->err == 8)
+			ft_printf("{red}%s{reset} : [%.3d:%.3d]\n", g_err_tab[D->err],
+					D->curr_line, D->curr_index);
+		else if (!elem)
 			ft_printf("{red}%s\n{reset}", g_err_tab[D->err]);
 		else
-			ft_printf("{red}%s{reset} : [%d,%d] -> \"%s\"\n",
-					g_err_tab[D->err],
-					D->curr_line,
-					D->curr_index,
-					elem);
+			ft_printf("{red}%s{reset} : [%.3d:%.3d] -> \"%s\"\n",
+					g_err_tab[D->err], D->curr_line, D->curr_index,	elem);
 	}
 }
 
@@ -56,8 +56,9 @@ int		get_fd_file(char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_printf("read error or file \"%s\" does not exist\n", filename);
-		exit(0);
+		ft_printf("{red}Read error or File \"%s\" does not exist\n{reset}",
+				filename);
+		exit(EXIT_FAILURE);
 	}
 	return (fd);
 }
@@ -78,7 +79,7 @@ void	write_in_file(t_data *data, char *output, char *filename)
 		get_error(D, file_err, NULL);
 	ft_strcat(file, ext);
 	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0666);
-	ft_printf("{under}{cyan}Writing output file in \"%s\"{reset}\n", file);
+	ft_printf("{cyan}Writing output program to \"%s\"{reset}\n", file);
 	write(fd, output, D->size_mem_tot);
 }
 
@@ -87,17 +88,13 @@ int		main(int ac, char **av)
 	t_data		data;
 
 	if (ac != 2)
-		return (0);
-	if (!(init_data(&D)))
-		return (0);
-	if ((D.fd = get_fd_file(av[1])) == -1)
-		return (0);
+		return (print_usage());
+	init_data(&D);
+	D.fd = get_fd_file(av[1]);
 	if (!(get_header(&D)))
 		return (0);
 	else
-	{
 		write_in_file(&D, D.mem_stock, av[1]);
-	}
 	ft_free_gc(D.gc);
 	free(D.gc);
 	return (0);
