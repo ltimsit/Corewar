@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 16:16:14 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/17 17:17:35 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@ void	print_map(t_arena *arena, int c_nb)
 
 	mlx_clear_window(A->dis->mlx, A->dis->win);
 	mlx_put_image_to_window(A->dis->mlx, A->dis->win,
-			A->dis->border_img, 0, 0);
+			A->dis->border_img, 13, 20);
 	mlx_string_put(A->dis->mlx, A->dis->win,
 			W_LEN / 2 - 30, 3, HEX_COLOR, "COREWAR");
 	i = -1;
 	while (++i < MEM_SIZE)
 		print_hexa_dis(A, A->dis, i);
-	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 0, HEX_COLOR, "total :");
-	print_nb_dec(A, A->total_cycle, 1910, 0);
-	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 20, HEX_COLOR, "cycle :");
-	print_nb_dec(A, c_nb, 1910, 20);
-	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 40, HEX_COLOR, "speed :");
-	print_nb_dec(A, A->dis->speed, 1910, 40);
+	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 20, HEX_COLOR, "total :");
+	print_nb_dec(A, A->total_cycle, 1910, 20);
+	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 40, HEX_COLOR, "cycle :");
+	print_nb_dec(A, c_nb, 1910, 40);
+	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 60, HEX_COLOR, "speed :");
+	print_nb_dec(A, A->dis->speed, 1910, 60);
 	print_process_dis(A);
 }
 
@@ -70,7 +70,7 @@ int		get_image_data(t_arena *arena, t_display *dis)
 	i = -1;
 	while (++i < 5)
 		dis->d_img[i] = get_data_ptr(dis->img[i]);
-	if (!(dis->border_img = mlx_new_image(dis->mlx, W_LEN, W_HGT))
+	if (!(dis->border_img = mlx_new_image(dis->mlx, BORDER_LEN, BORDER_HGT))
 			|| !ft_add_to_gc(dis->border_img, A->gc))
 		return (0);
 	dis->d_border_img = get_data_ptr(dis->border_img);
@@ -81,23 +81,11 @@ int		get_image_data(t_arena *arena, t_display *dis)
 void	init_display(t_arena *arena)
 {
 	t_display	dis;
-//	int			i;
 
 	dis.mlx = mlx_init();
 	dis.win = mlx_new_window(dis.mlx, W_LEN, W_HGT, "Corewar");
 	if (!(get_image_data(A, &dis)))
 		exit_dis(A);
-/*
-	i = -1;
-	while (++i < 5)
-		dis.img[i] = mlx_new_image(dis.mlx, C_LEN, C_HGT);
-	i = -1;
-	while (++i < 5)
-		dis.d_img[i] = get_data_ptr(dis.img[i]);
-	dis.border_img = mlx_new_image(dis.mlx, W_LEN, W_HGT);
-	dis.d_border_img = get_data_ptr(dis.border_img);
-	fill_img(dis.d_img);
-	*/
 	dis.speed = 1;
 	dis.curr_process_dis = A->p_head;
 	A->dis = &dis;

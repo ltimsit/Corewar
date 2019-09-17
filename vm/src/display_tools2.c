@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:53:57 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/17 16:49:45 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/17 17:17:36 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,17 @@ void	fill_border(t_arena *arena)
 	int		*data;
 
 	data = (int *)A->dis->d_border_img;
-	y = 25;
-	while (++y < 64 * 21)
+	y = -1;
+	while (++y < BORDER_HGT)
 	{
-		x = 13;
-		while (++x < 64 * 28)
+		x = -1;
+		while (++x < BORDER_LEN)
 		{
-			if ((y < 35 || y > 64 * 21 - 10) || (x < 23 || x > 64 * 28 - 10))
-				data[y * W_LEN + x] = BORDER_COLOR;
+			if ((y < 10 || y > BORDER_HGT - 10)
+					|| (x < 10 || x > BORDER_LEN - 10))
+				data[y * BORDER_LEN + x] = BORDER_COLOR;
 			else
-				data[y * W_LEN + x] = BACKGROUND_COLOR;
+				data[y * BORDER_LEN + x] = BACKGROUND_COLOR;
 		}
 	}
 }
@@ -91,14 +92,14 @@ void	print_champ_live(t_arena *arena)
 	int y;
 
 	x = 1910;
-	y = 120;
+	y = 140;
 	i = -1;
 	mlx_string_put(A->dis->mlx, A->dis->win,
 			x, y - 20, HEX_COLOR, "live");
 	while (++i < A->nb_champ)
 	{
 		mlx_string_put(A->dis->mlx, A->dis->win,
-				x - 100, y, HEX_COLOR, "Joueur        =");
+				x - 100, y, HEX_COLOR, "Joueur      =");
 		print_nb_dec(A, A->champ[i].id, x - 30, y);
 		print_nb_dec(A, A->champ[i].nb_live, x + 60, y);
 		y += 20;
@@ -112,7 +113,7 @@ void	print_process_dis(t_arena *arena)
 	int			y;
 
 	x = 1910;
-	y = 60;
+	y = 80;
 	nb_process = 0;
 	mlx_string_put(A->dis->mlx, A->dis->win,
 			x - 90, y, HEX_COLOR, "process :");
