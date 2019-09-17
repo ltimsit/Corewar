@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 17:22:14 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 10:31:31 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/17 14:11:38 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	fc_ldi(t_op op, t_process *process, t_arena *arena)
 	int		elem[3];
 	int		tmp;
 
+	ft_bzero(elem, sizeof(elem));
 	ft_bzero(&param, sizeof(param));
 	param = fill_param(A, op, PRO, elem);
 	elem[0] = param.type[0] == IND_CODE ? fill_index_content(A, PRO,
@@ -47,6 +48,7 @@ void	fc_lldi(t_op op, t_process *process, t_arena *arena)
 	t_param	param;
 	int		elem[3];
 
+	ft_bzero(elem, sizeof(elem));
 	ft_bzero(&param, sizeof(param));
 	param = fill_param(A, op, PRO, elem);
 	elem[0] = param.type[0] == IND_CODE ? fill_index_content(A, PRO,
