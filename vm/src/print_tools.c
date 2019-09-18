@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 17:26:32 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/18 12:26:54 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 16:30:36 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,21 @@
 
 int		print_reg_click(t_arena *arena, int x, int y)
 {
-	int			idx;
-	int			idy;
 	int			index;
+	int			i;
 	t_process	**p;
 
 	p = (t_process **)&(A->dis->curr_process_dis);
-	idx = (x - X_OFFSET) / 27;
-	idy = (y - Y_OFFSET) / 20;
-	index = idy * BYTE_PER_COL + idx;
+	i = -1;
+	index = (y - Y_OFFSET) / 20 * BYTE_PER_COL + (x - X_OFFSET) / 27;
 	print_map(arena, A->curr_cycle);
 	if (((A->carriage[index] >> 4) & 1) == 1)
 	{
-		while (*p || (*p = A->p_head))
+		while ((*p || (*p = A->p_head)) && ++i < A->nb_process)
 		{
 			if ((*p)->pc == index)
 			{
+				ft_printf("index = %d todo = %d done = %d\n", index, (*p)->c_todo, (*p)->c_done);
 				print_reg_dis(arena, *p);
 				*p = (*p)->next;
 				return (1);

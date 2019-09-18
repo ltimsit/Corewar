@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 15:26:45 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/18 09:22:19 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 16:13:58 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,9 @@ void	put_carriage(t_arena *arena, int col, int line, int index)
 	if ((A->carriage[index] >> 4) & 1)
 	{
 		k = -1;
-		while (++k < 3)
+		while (++k < 4)
 			if ((A->carriage[index] >> k) & 1)
-			{
-				mlx_put_image_to_window(A->dis->mlx, A->dis->win,
-						A->dis->img[k], col, line);
 				break ;
-			}
 		mlx_put_image_to_window(A->dis->mlx, A->dis->win,
 				A->dis->img[k], col, line);
 	}
