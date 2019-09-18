@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:40:52 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/17 20:42:52 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:03:47 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ void	del_process(t_arena *arena, t_process *todel, t_process *prev)
 		A->p_head = A->p_head->next;
 	else
 		prev->next = todel->next;
+	if ((A->carriage[todel->pc] >> 4) & 1)
+		A->carriage[todel->pc] ^= 1 << 4;
 	ft_memdel((void **)&todel, 0);
 	A->nb_process--;
 }
