@@ -6,7 +6,7 @@
 #    By: abinois <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/17 09:35:38 by abinois           #+#    #+#              #
-#    Updated: 2019/09/18 09:24:46 by abinois          ###   ########.fr        #
+#    Updated: 2019/09/18 11:50:32 by abinois          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = corewar
 
 SRCS = $(addprefix $(SRCDIR)/, $(addsuffix .c, \
 	   arena main operation process manage_params errors fill_tab champ \
-	   addsub orxor st ld ldi and_zjump fork live_aff end_of_fight\
+	   addsub orxor st ld ldi and_zjump fork live_aff end_of_fight image\
 	   init_display hook print_tools color_tools carriage_and_arena exit_fcts))
 
 OBJ = $(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 17:26:32 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/18 09:10:37 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 12:26:54 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	print_reg_dis(t_arena *arena, t_process *process)
 	int y;
 
 	x = 1910;
-	y = 280;
+	y = 400;
 	i = -1;
 	while (++i < 16)
 	{
@@ -117,7 +117,7 @@ void	print_process_dis(t_arena *arena)
 	int			y;
 
 	x = 1910;
-	y = 120;
+	y = 220;
 	nb_process = 0;
 	mlx_string_put(A->dis->mlx, A->dis->win,
 			x - 90, y, HEX_COLOR, "process :");

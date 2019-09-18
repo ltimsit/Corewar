@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:53:57 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/18 09:20:28 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 12:35:34 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	print_champ_live(t_arena *arena)
 	int y;
 
 	x = 1950;
-	y = 180;
+	y = 290;
 	i = -1;
 	mlx_string_put(A->dis->mlx, A->dis->win,
 			x, y - 20, HEX_COLOR, "live");

@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 20:42:51 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/18 12:35:35 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,19 @@ void	print_map(t_arena *arena, int c_nb)
 	i = -1;
 	while (++i < MEM_SIZE)
 		print_hexa_dis(A, A->dis, i);
-	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 60, HEX_COLOR, "total   :");
-	print_nb_dec(A, A->total_cycle, 1925, 60);
-	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 80, HEX_COLOR, "cycle   :");
-	print_nb_dec(A, c_nb, 1925, 80);
-	mlx_string_put(A->dis->mlx, A->dis->win, 2000, 80, HEX_COLOR, "/");
-	print_nb_dec(A, A->cycle_to_die, 2010, 80);
-	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 100, HEX_COLOR, "speed   :");
-	print_nb_dec(A, A->dis->speed, 1925, 100);
-	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 140, HEX_COLOR, "check   :");
-	print_nb_dec(A, A->nb_check, 1925, 140);
-	mlx_string_put(A->dis->mlx, A->dis->win, 2000, 140, HEX_COLOR, "/");
-	print_nb_dec(A, MAX_CHECKS, 2010, 140);
+	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 160, HEX_COLOR, "total   :");
+	print_nb_dec(A, A->total_cycle, 1925, 160);
+	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 180, HEX_COLOR, "cycle   :");
+	print_nb_dec(A, c_nb, 1925, 180);
+	mlx_string_put(A->dis->mlx, A->dis->win, 2000, 180, HEX_COLOR, "/");
+	print_nb_dec(A, A->cycle_to_die, 2010, 180);
+	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 200, HEX_COLOR, "speed   :");
+	print_nb_dec(A, A->dis->speed, 1925, 200);
+	mlx_string_put(A->dis->mlx, A->dis->win, 1820, 240, HEX_COLOR, "check   :");
+	print_nb_dec(A, A->nb_check, 1925, 240);
+	mlx_string_put(A->dis->mlx, A->dis->win, 2000, 240, HEX_COLOR, "/");
+	print_nb_dec(A, MAX_CHECKS, 2010, 240);
+	put_image(A->dis->mlx, A->dis->win);
 	print_process_dis(A);
 }
 
