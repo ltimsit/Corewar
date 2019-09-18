@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 12:07:16 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/18 17:12:47 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:49:10 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		skip_comment_block(t_data *data)
 		D->curr_index += i;
 		if (*D->line == '\n')
 			return (1);
-		else if (!(*D->line))
+		else if (!*D->line)
 			if (!(get_new_read(D)))
 				return (0);
 	}

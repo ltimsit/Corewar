@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/18 17:11:02 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:49:17 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int			go_to_next_elem(t_data *data, int *line_id, int *col_id, int i)
 	while ((i = skip_sp(D->line, 0)) != -1)
 	{
 		D->line += i;
-		if (!(*D->line))
+		if (!*D->line)
 		{
 			if (!(get_new_read(D)))
 				return (0);

@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 14:16:38 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/18 16:27:43 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:58:29 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	fill_op_and_err_tab(void)
 	g_err_tab[8] = "Missing dquote";
 	g_err_tab[9] = "Open error !";
 	g_err_tab[10] = "Close error !";
-	g_err_tab[11] = "/dev/zero pour les nazis !";
 }
 
 void	get_error_label(t_data *data, t_label_instr *label, char *name)
@@ -82,12 +81,8 @@ int		check_in_label_char(t_data *data, char *elem)
 			}
 		}
 		if (!label_chars[i])
-		{
-			ft_printf("errors 1");
 			get_error(D, syntax, elem);
-		}
 	}
-	ft_printf("errors 2");
 	get_error(D, syntax, elem);
 	return (0);
 }

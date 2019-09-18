@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/18 17:17:54 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:57:30 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,11 +135,10 @@ enum			e_error
 	data_err,
 	dquote,
 	open_err,
-	close_err,
-	full_zero
+	close_err
 };
 
-char			*g_err_tab[12];
+char			*g_err_tab[11];
 
 /*
 ** corewar.c    ----------------------------------------------------------------
