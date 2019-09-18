@@ -6,8 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/17 19:57:05 by ltimsit-         ###   ########.fr       */
-/*   Updated: 2019/09/17 15:21:21 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 09:28:51 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,81 +115,27 @@ void	(*g_fct_instr[17])(t_op, t_process*, t_arena*);
 void	(*g_fct_exec[17])(t_process*, t_arena*);
 
 /*
-**end_of_fight  ----------------------------------------------------------------
+**------------------------------------------------------------------------------
+**------------------------------ C O R E W A R ---------------------------------
+**------------------------------------------------------------------------------
 */
-void			aff_winner(t_arena *arena, int color, char *name);
-void			print_winner_dis(t_arena *arena, int i);
-void			print_winner(t_arena *arena);
 
 /*
-**exit_fcts 	 ---------------------------------------------------------------
+**main			----------------------------------------------------------------
 */
-int				exit_dis(t_arena *arena);
-void			free_l_process(t_arena *arena);
-void			exit_fight(t_arena *arena);
+unsigned char	*open_read(t_arena *arena, char *file, unsigned char *buf);
+int				get_arg(int i, char **av, int ac, int *argument);
+void			check_argv(t_arena *arena, char **av, int ac);
+void			init_corewar(t_arena *arena);
 
 /*
-**init_display  ----------------------------------------------------------------
-*/
-void			print_map(t_arena *arena, int c_nb);
-int				print_hexa_dis(t_arena *arena, t_display *dis, int index);
-void			init_display(t_arena *arena);
-
-/*
-**display_tools ----------------------------------------------------------------
-*/
-void			fill_color_value(unsigned char *carriage, int size, int p_nb);
-void			clear_carriage_superpo(t_arena *arena);
-void			print_reg_dis(t_arena *arena, t_process *process);
-int				print_reg_click(t_arena *arena, int x, int y);
-int				print_nb(t_arena *arena, unsigned int nb, int x, int y);
-
-/*
-**display_tools2----------------------------------------------------------------
-*/
-int				print_nb_dec(t_arena *arena, int nb, int x, int y);
-void			fill_img(char **d_img);
-void			fill_border(t_arena *arena);
-void			print_champ_live(t_arena *arena);
-void			print_process_dis(t_arena *arena);
-/*
-**display_tools3----------------------------------------------------------------
-*/
-int				get_color_hex(t_arena *arena, int index);
-void			put_carriage(t_arena *arena, int col, int line, int index);
-void			fill_panel(t_arena *arena);
-
-/*
-**hook			----------------------------------------------------------------
-*/
-char			*get_data_ptr(void *img_ptr);
-void			speed_tool(t_arena *arena, char option);
-int				key_press(int keycode, t_arena *arena);
-int				mouse_press(int button, int x, int y, t_arena *arena);
-int				loop_fight(t_arena *arena);
-
-/*
-**hook			----------------------------------------------------------------
-*/
-//int		x_button_press(t_arena *arena)
-
-/*
-**tools			----------------------------------------------------------------
+**manage_params	----------------------------------------------------------------
 */
 unsigned int	chen4(unsigned int little);
 void			stock_in_param(t_arena *arena, int *param, int size, int pc);
 void			put_param_in_field(t_arena *ar, t_process *process, int size);
 int				fill_index_content(t_arena *arena, t_process *process, int val);
 void			put_data_in_reg(t_process *process, int data, int reg_nb);
-
-/*
-**tools2		----------------------------------------------------------------
-*/
-int				check_reg_num(t_param *param, int i);
-void			exit_dump(t_arena *arena);
-void			ft_error(t_arena *arena, char *message);
-int				update_pc(int old_pc, int i);
-void			print_usage(t_arena *arena);
 
 /*
 **champ			----------------------------------------------------------------
@@ -200,14 +145,6 @@ t_champ			new_champ(t_arena *arena, unsigned char *buf);
 void			create_add_champ(char *filename, t_arena *arena, int id_champ);
 void			sort_champ(t_arena *arena);
 void			load_champ(t_arena *arena);
-
-/*
-**main			----------------------------------------------------------------
-*/
-unsigned char	*open_read(t_arena *arena, char *file, unsigned char *buf);
-int				get_arg(int i, char **av, int ac, int *argument);
-void			check_argv(t_arena *arena, char **av, int ac);
-void			init_corewar(t_arena *arena);
 
 /*
 **arena			----------------------------------------------------------------
@@ -237,12 +174,89 @@ void			init_fct_instr_tab();
 /*
 **operation		----------------------------------------------------------------
 */
-t_param			fill_param(t_arena *arena, t_op op, t_process *process,
-		int elem[3]);
+int				update_pc(int old_pc, int i);
+t_param			fill_param(t_arena *ar, t_op op, t_process *pro, int elem[3]);
 int				is_valid_type(int param_type, int cmp);
 int				is_integer(char *str);
-int				check_id(t_arena *arena, char *str);
 void			read_ocp(t_param *param, int dir_size, char ocp, t_op op);
+
+
+/*
+**end_of_fight  ----------------------------------------------------------------
+*/
+void			aff_winner(t_arena *arena, int color, char *name);
+void			print_winner_dis(t_arena *arena, int i);
+void			print_winner(t_arena *arena);
+
+/*
+**exit_fcts 	 ---------------------------------------------------------------
+*/
+int				exit_dis(t_arena *arena);
+void			free_l_process(t_arena *arena);
+void			exit_fight(t_arena *arena);
+
+/*
+**errors		----------------------------------------------------------------
+*/
+int				check_reg_num(t_param *param, int i);
+void			exit_dump(t_arena *arena);
+void			ft_error(t_arena *arena, char *message);
+int				check_id(t_arena *arena, char *str);
+void			print_usage(t_arena *arena);
+
+/*
+**------------------------------------------------------------------------------
+**------------------------------ D I S P L A Y ---------------------------------
+**------------------------------------------------------------------------------
+*/
+
+/*
+**init_display  ----------------------------------------------------------------
+*/
+void			print_map(t_arena *arena, int c_nb);
+int				print_hexa_dis(t_arena *arena, t_display *dis, int index);
+int				get_image_data(t_arena *arena, t_display *dis);
+void			init_display(t_arena *arena);
+
+/*
+**print_tools 	----------------------------------------------------------------
+*/
+void			print_reg_dis(t_arena *arena, t_process *process);
+int				print_reg_click(t_arena *arena, int x, int y);
+int				print_nb(t_arena *arena, unsigned int nb, int x, int y);
+int				print_nb_dec(t_arena *arena, int nb, int x, int y);
+void			print_process_dis(t_arena *arena);
+
+/*
+**color_tools	----------------------------------------------------------------
+*/
+void			fill_img(char **d_img);
+void			print_champ_live(t_arena *arena);
+int				get_color_hex(t_arena *arena, int index);
+void			fill_color_value(unsigned char *carriage, int size, int p_nb);
+
+/*
+**carriage_and_arena------------------------------------------------------------
+*/
+void			put_carriage(t_arena *arena, int col, int line, int index);
+void			clear_carriage_superpo(t_arena *arena);
+void			fill_panel(t_arena *arena);
+void			fill_border(t_arena *arena);
+
+/*
+**hook			----------------------------------------------------------------
+*/
+char			*get_data_ptr(void *img_ptr);
+void			speed_tool(t_arena *arena, char option);
+int				key_press(int keycode, t_arena *arena);
+int				mouse_press(int button, int x, int y, t_arena *arena);
+int				loop_fight(t_arena *arena);
+
+/*
+**------------------------------------------------------------------------------
+**-------------------------- I N S T R U C T I O N S ---------------------------
+**------------------------------------------------------------------------------
+*/
 
 /*
 **live_aff		----------------------------------------------------------------
@@ -252,7 +266,6 @@ void			fc_live(t_op op, t_process *process, t_arena *arena);
 void			execute_live(t_process *process, t_arena *arena);
 void			fc_aff(t_op op, t_process *process, t_arena *arena);
 void			execute_aff(t_process *process, t_arena *arena);
-
 /*
 **and_zjump		----------------------------------------------------------------
 */
@@ -260,7 +273,6 @@ void			fc_zjump(t_op op, t_process *process, t_arena *arena);
 void			execute_zjump(t_process *process, t_arena *arena);
 void			fc_and(t_op op, t_process *process, t_arena *arena);
 void			execute_and(t_process *process, t_arena *arena);
-
 /*
 **orxor			----------------------------------------------------------------
 */
@@ -268,7 +280,6 @@ void			fc_or(t_op op, t_process *process, t_arena *arena);
 void			execute_or(t_process *process, t_arena *arena);
 void			fc_xor(t_op op, t_process *process, t_arena *arena);
 void			execute_xor(t_process *process, t_arena *arena);
-
 /*
 **addsub		----------------------------------------------------------------
 */
@@ -276,7 +287,6 @@ void			fc_add(t_op op, t_process *process, t_arena *arena);
 void			execute_add(t_process *process, t_arena *arena);
 void			fc_sub(t_op op, t_process *process, t_arena *arena);
 void			execute_sub(t_process *process, t_arena *arena);
-
 /*
 **st			----------------------------------------------------------------
 */
@@ -284,7 +294,6 @@ void			fc_st(t_op op, t_process *process, t_arena *arena);
 void			execute_st(t_process *process, t_arena *arena);
 void			fc_sti(t_op op, t_process *process, t_arena *arena);
 void			execute_sti(t_process *process, t_arena *arena);
-
 /*
 **ld			----------------------------------------------------------------
 */
@@ -292,7 +301,6 @@ void			fc_ld(t_op op, t_process *process, t_arena *arena);
 void			execute_ld(t_process *process, t_arena *arena);
 void			fc_lld(t_op op, t_process *process, t_arena *arena);
 void			execute_lld(t_process *process, t_arena *arena);
-
 /*
 **ldi			----------------------------------------------------------------
 */
@@ -300,7 +308,6 @@ void			fc_ldi(t_op op, t_process *process, t_arena *arena);
 void			execute_ldi(t_process *process, t_arena *arena);
 void			fc_lldi(t_op op, t_process *process, t_arena *arena);
 void			execute_lldi(t_process *process, t_arena *arena);
-
 /*
 **fork			----------------------------------------------------------------
 */

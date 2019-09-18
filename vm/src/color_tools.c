@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_tools2.c                                   :+:      :+:    :+:   */
+/*   color_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:53:57 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/17 20:42:38 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/18 09:20:28 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,55 +17,13 @@ static int	g_tab_color[5] =
 	ORDER, ASSEMBLY, ALLIANCE, FEDERATION, WHITE
 };
 
-int		print_nb_dec(t_arena *arena, int nb, int x, int y)
+void	fill_color_value(unsigned char *carriage, int size, int p_nb)
 {
-	char	nb_tab[12];
-	int		size;
-	int		i;
-	int		sign;
+	int i;
 
-	i = 10;
-	size = 0;
-	sign = 1;
-	if (nb < 0)
-	{
-		nb_tab[0] = '-';
-		size++;
-		nb *= -1;
-		sign = -1;
-	}
-	while (++size && nb / i)
-		i *= 10;
-	nb_tab[size] = '\0';
-	while (size--)
-	{
-		nb_tab[size] = (!size && sign == -1) ? '-' : (nb % 10 + '0');
-		nb /= 10;
-	}
-	mlx_string_put(A->dis->mlx, A->dis->win, x, y, HEX_COLOR, nb_tab);
-	return (0);
-}
-
-void	fill_border(t_arena *arena)
-{
-	int		x;
-	int		y;
-	int		*data;
-
-	data = (int *)A->dis->d_border_img;
-	y = -1;
-	while (++y < BORDER_HGT)
-	{
-		x = -1;
-		while (++x < BORDER_LEN)
-		{
-			if ((y < 8 || y > BORDER_HGT - 10)
-					|| (x < 10 || x > BORDER_LEN - 10))
-				data[y * BORDER_LEN + x] = BORDER_COLOR;
-			else
-				data[y * BORDER_LEN + x] = BACKGROUND_COLOR;
-		}
-	}
+	i = -1;
+	while (++i < size)
+		carriage[i] += (1 << p_nb);
 }
 
 void	fill_img(char **d_img)
@@ -73,6 +31,7 @@ void	fill_img(char **d_img)
 	int i;
 	int j;
 	int *i_img;
+
 	j = -1;
 	while (++j < 5)
 	{
@@ -104,17 +63,22 @@ void	print_champ_live(t_arena *arena)
 	}
 }
 
-void	print_process_dis(t_arena *arena)
+int		get_color_hex(t_arena *arena, int index)
 {
-	int			nb_process;
-	int			x;
-	int			y;
+	int color;
 
-	x = 1910;
-	y = 120;
-	nb_process = 0;
-	mlx_string_put(A->dis->mlx, A->dis->win,
-			x - 90, y, HEX_COLOR, "process :");
-	print_nb_dec(A, A->nb_process, x + 15, y);
-	print_champ_live(arena);
+	color = A->carriage[index] & 15;
+	if ((A->carriage[index] >> 4) & 1)
+		color = WHITE;
+	else if (color == 1)
+		color = ORDER;
+	else if (color == 2)
+		color = ASSEMBLY;
+	else if (color == 4)
+		color = ALLIANCE;
+	else if (color == 8)
+		color = FEDERATION;
+	else
+		color = HEX_COLOR;
+	return (color);
 }

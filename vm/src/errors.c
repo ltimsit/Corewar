@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools2.c                                           :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 11:52:43 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/17 11:11:51 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 08:58:05 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,29 @@ void	ft_error(t_arena *arena, char *message)
 	exit(EXIT_FAILURE);
 }
 
-int		update_pc(int old_pc, int i)
+int		check_id(t_arena *arena, char *str)
 {
-	int res;
+	int i;
+	int nb;
 
-	res = (old_pc + i) % MEM_SIZE;
-	return (res < 0 ? res + MEM_SIZE : res);
+	i = -1;
+	if (ft_str_is_digit(str) && is_integer(str))
+	{
+		nb = ft_atoi(str);
+		if (nb > 1000 || nb < -1000)
+			return (0);
+		else
+		{
+			while (++i < A->nb_champ)
+				if (A->champ[i].id == nb)
+				{
+					ft_error(A, "2 champs with same id");
+					return (0);
+				}
+		}
+		return (1);
+	}
+	return (0);
 }
 
 void	print_usage(t_arena *arena)

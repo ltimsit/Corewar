@@ -1,47 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_tools.c                                    :+:      :+:    :+:   */
+/*   print_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 17:26:32 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/17 18:19:38 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/18 09:10:37 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-void	fill_color_value(unsigned char *carriage, int size, int p_nb)
-{
-	int i;
-
-	i = -1;
-	while (++i < size)
-		carriage[i] += (1 << p_nb);
-}
-
-void	clear_carriage_superpo(t_arena *arena)
-{
-	t_process	*tmp;
-	int			i;
-
-	tmp = A->p_head;
-	i = -1;
-	if (A->nb_process < 4096)
-	{
-		while (tmp)
-		{
-			if ((A->carriage[tmp->pc] >> 5) & 1)
-				A->carriage[tmp->pc] ^= 1 << 5;
-			tmp = tmp->next;
-		}
-	}
-	else
-		while (++i < MEM_SIZE)
-			if ((A->carriage[i] >> 5) & 1)
-				A->carriage[tmp->pc] ^= 1 << 5;
-}
 
 int		print_reg_click(t_arena *arena, int x, int y)
 {
@@ -110,4 +79,48 @@ int		print_nb(t_arena *arena, unsigned int nb, int x, int y)
 	}
 	mlx_string_put(A->dis->mlx, A->dis->win, x, y, HEX_COLOR, nb_tab);
 	return (0);
+}
+
+int		print_nb_dec(t_arena *arena, int nb, int x, int y)
+{
+	char	nb_tab[12];
+	int		size;
+	int		i;
+	int		sign;
+
+	i = 10;
+	size = 0;
+	sign = 1;
+	if (nb < 0)
+	{
+		nb_tab[0] = '-';
+		size++;
+		nb *= -1;
+		sign = -1;
+	}
+	while (++size && nb / i)
+		i *= 10;
+	nb_tab[size] = '\0';
+	while (size--)
+	{
+		nb_tab[size] = (!size && sign == -1) ? '-' : (nb % 10 + '0');
+		nb /= 10;
+	}
+	mlx_string_put(A->dis->mlx, A->dis->win, x, y, HEX_COLOR, nb_tab);
+	return (0);
+}
+
+void	print_process_dis(t_arena *arena)
+{
+	int			nb_process;
+	int			x;
+	int			y;
+
+	x = 1910;
+	y = 120;
+	nb_process = 0;
+	mlx_string_put(A->dis->mlx, A->dis->win,
+			x - 90, y, HEX_COLOR, "process :");
+	print_nb_dec(A, A->nb_process, x + 15, y);
+	print_champ_live(arena);
 }

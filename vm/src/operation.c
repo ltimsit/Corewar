@@ -6,11 +6,19 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 16:03:02 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/17 10:32:19 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 09:04:27 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+int		update_pc(int old_pc, int i)
+{
+	int res;
+
+	res = (old_pc + i) % MEM_SIZE;
+	return (res < 0 ? res + MEM_SIZE : res);
+}
 
 t_param	fill_param(t_arena *arena, t_op op, t_process *process, int elem[3])
 {
@@ -77,31 +85,6 @@ int		is_integer(char *str)
 		else
 			return (1);
 	}
-}
-
-int		check_id(t_arena *arena, char *str)
-{
-	int i;
-	int nb;
-
-	i = -1;
-	if (ft_str_is_digit(str) && is_integer(str))
-	{
-		nb = ft_atoi(str);
-		if (nb > 1000 || nb < -1000)
-			return (0);
-		else
-		{
-			while (++i < A->nb_champ)
-				if (A->champ[i].id == nb)
-				{
-					ft_error(A, "2 champs with same id");
-					return (0);
-				}
-		}
-		return (1);
-	}
-	return (0);
 }
 
 void	read_ocp(t_param *param, int dir_size, char ocp, t_op op)
