@@ -6,14 +6,14 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:16:33 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 16:04:37 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 14:23:25 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include <stdlib.h>
 
-int		add_to_label_instr(t_data *data, char *elem, int mem_index)
+int		add_to_label_instr(t_data *data, char *elem, int mem_index, int size)
 {
 	t_label_instr *label_new;
 
@@ -24,6 +24,7 @@ int		add_to_label_instr(t_data *data, char *elem, int mem_index)
 		get_error(D, malloc_err, NULL);
 	label_new->mem_index = mem_index;
 	label_new->pc = D->pc;
+	label_new->size = size == 0 ? 4 : 2;
 	label_new->line = D->curr_line;
 	label_new->col = D->curr_index;
 	if (!(D->label->lst_instr))
@@ -67,16 +68,27 @@ int		calc_val_from_pc(int curr_pc, int label_pc)
 	short val;
 
 	if (label_pc >= curr_pc)
-		val = 0x0000 + ((short)label_pc - (short)curr_pc);
+		val = 0xFFFF + label_pc - curr_pc + 1;
 	else
 		val = 0xFFFF + (label_pc - curr_pc + 1);
+
 	return ((int)val);
 }
 
-int		put_add_in_mem_stock(t_data *data, int mem_index, int add)
+int		put_add_in_mem_stock(t_data *data, int mem_index, int add, int size)
 {
-	D->mem_stock[mem_index] = ((char *)&add)[1];
-	D->mem_stock[mem_index + 1] = ((char *)&add)[0];
+	if (size == 4)
+	{
+		D->mem_stock[mem_index] = ((char *)&add)[3];
+		D->mem_stock[mem_index + 1] = ((char *)&add)[2];
+		D->mem_stock[mem_index + 2] = ((char *)&add)[1];
+		D->mem_stock[mem_index + 3] = ((char *)&add)[0];
+	}
+	else
+	{
+		D->mem_stock[mem_index] = ((char *)&add)[1];
+		D->mem_stock[mem_index + 1] = ((char *)&add)[0];
+	}
 	return (1);
 }
 
@@ -95,7 +107,7 @@ int		fill_missing_label(t_data *data)
 		{
 			if (!ft_strcmp(tmp->name, tmp2->name))
 				i = put_add_in_mem_stock(D, tmp->mem_index,
-						calc_val_from_pc(tmp->pc, tmp2->pc));
+						(short)calc_val_from_pc(tmp->pc, tmp2->pc), tmp->size);
 			tmp2 = tmp2->next;
 		}
 		if (!i)

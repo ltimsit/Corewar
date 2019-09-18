@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 18:43:05 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 14:24:33 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_param
 	int		size_para[3];
 	char	ocp;
 	char	cmd[PARAM_SIZE];
+	int 	dir_size;
 }				t_param;
 
 typedef struct	s_label_add
@@ -44,6 +45,7 @@ typedef struct	s_label_instr
 {
 	char					*name;
 	int						mem_index;
+	int						size;
 	int						pc;
 	int						line;
 	int						col;
@@ -200,16 +202,16 @@ int				fc_cmd(t_data *data, t_op op);
 int				check_separator_char(t_data *data, char *cmd);
 int				check_param(t_data *data, int type, int cmd_param, char *cmd);
 int				param_type_tool(char *cmd, int *val);
-int				get_param_type(t_data *data, char *cmd, int *val, int pc_cpt);
+int				get_param_type(t_data *data, t_param *p, int *val, int pc_cpt);
 
 /*
 ** label.c      ----------------------------------------------------------------
 */
 
-int				add_to_label_instr(t_data *data, char *elem, int mem_index);
+int				add_to_label_instr(t_data *data, char *elem, int mem_index, int size);
 int				add_to_label_list(t_data *data, char *elem, int pc);
 int				calc_val_from_pc(int curr_pc, int label_pc);
-int				put_add_in_mem_stock(t_data *data, int mem_index, int add);
+int				put_add_in_mem_stock(t_data *data, int mem_index, int add, int size);
 int				fill_missing_label(t_data *data);
 
 #endif
