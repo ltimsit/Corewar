@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 12:07:16 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/18 19:10:51 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 19:39:57 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int		get_elem(t_data *data, char *tab, int tab_size, char sep_char)
 		if (sep_char && *D->line == sep_char)
 			break ;
 		tab[i++] = *(D->line)++;
-//		D->curr_index++;
 	}
 	if (sep_char == LABEL_CHAR && *D->line == LABEL_CHAR)
 		tab[i++] = *(D->line)++;

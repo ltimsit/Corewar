@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 13:30:25 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/18 19:33:06 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 19:37:46 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		check_param(t_data *data, int type, int cmd_param, char *cmd)
 {
 	if (type == 3 && cmd_param >= 4)
 		return (1);
-	else if (type == 2 && cmd_param  % 4 > 1)
+	else if (type == 2 && cmd_param % 4 > 1)
 		return (1);
 	else if (type == 1 && cmd_param % 2)
 		return (1);
