@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:40:50 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/18 12:59:42 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/18 19:37:56 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define C_HGT				20
 # define X_OFFSET			40
 # define Y_OFFSET			40
+# define AFF_SIZE			128
 
 # define BORDER_LEN			1775
 # define BORDER_HGT			1325
@@ -52,9 +53,12 @@ typedef struct	s_display
 	char		*d_panel_img;
 	void		*corewar_xpm_img;
 	void		*zaz_xpm_img;
+	void		*bulle_xpm_img;
 	int			speed;
 	int			cpt_to_speed;
 	void		*curr_process_dis;
+	char		aff[AFF_SIZE];
+	int			aff_color;
 }				t_display;
 
 #endif

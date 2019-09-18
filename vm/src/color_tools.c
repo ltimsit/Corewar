@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:53:57 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/18 12:35:34 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 19:33:53 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,23 @@ void	fill_color_value(unsigned char *carriage, int size, int p_nb)
 	i = -1;
 	while (++i < size)
 		carriage[i] += (1 << p_nb);
+}
+
+
+void	print_aff(t_arena *arena)
+{
+	int i;
+	int x;
+
+	if ((A->dis->aff)[0])
+	{
+		i = ft_strlen(A->dis->aff);
+		x = 1980 - 5 * i;
+		mlx_put_image_to_window(A->dis->mlx, A->dis->win,
+				A->dis->bulle_xpm_img, 1830, 800);
+		mlx_string_put(A->dis->mlx, A->dis->win, x, 900,
+				g_tab_color[A->dis->aff_color], A->dis->aff);
+	}
 }
 
 void	fill_img(char **d_img)

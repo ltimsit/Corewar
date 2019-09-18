@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:30:58 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/17 17:16:04 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/18 19:33:56 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,17 @@ void	execute_aff(t_process *process, t_arena *arena)
 	(void)A;
 	if (PRO->aff_index == AFF_SIZE || !PRO->param.data)
 	{
-		ft_printf("{%s}%s\n{reset}", g_tab_color[i], PRO->aff);
-		PRO->aff_index = 0;
-		ft_bzero(PRO->aff, AFF_SIZE);
+		if (*(PRO->aff))
+		{
+			ft_printf("{%s}%s\n{reset}", g_tab_color[i], PRO->aff);
+			if (A->dis)
+			{
+				ft_strncpy(A->dis->aff, PRO->aff, AFF_SIZE);
+				A->dis->aff_color = i;
+			}
+			PRO->aff_index = 0;
+			ft_bzero(PRO->aff, AFF_SIZE);
+		}
 	}
 	else
 		PRO->aff[PRO->aff_index++] = PRO->param.data;

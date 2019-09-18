@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 11:08:44 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/18 14:17:22 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/18 19:33:54 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ int		init_xpm(t_arena *arena)
 			|| !ft_add_to_gc(A->dis->zaz_xpm_img, A->gc)
 			|| !(A->dis->corewar_xpm_img = mlx_xpm_file_to_image(A->dis->mlx,
 					get_path(A, path, "/img/corewar1.xpm"), &l, &h))
-			|| !ft_add_to_gc(A->dis->corewar_xpm_img, A->gc))
+			|| !ft_add_to_gc(A->dis->corewar_xpm_img, A->gc)
+			|| !(A->dis->bulle_xpm_img = mlx_xpm_file_to_image(A->dis->mlx,
+					get_path(A, path, "/img/bulle2.xpm"), &l, &h))
+			|| !ft_add_to_gc(A->dis->bulle_xpm_img, A->gc))
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/18 14:17:23 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/18 18:22:18 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	print_map(t_arena *arena, int c_nb)
 	mlx_string_put(A->dis->mlx, A->dis->win, 2000, 240, HEX_COLOR, "/");
 	print_nb_dec(A, MAX_CHECKS, 2010, 240);
 	put_image(A);
+	print_aff(A);
 	print_process_dis(A);
 }
 
@@ -93,6 +94,7 @@ void	init_display(t_arena *arena)
 {
 	t_display	dis;
 
+	ft_bzero(&dis, sizeof(dis));
 	dis.mlx = mlx_init();
 	dis.win = mlx_new_window(dis.mlx, W_LEN, W_HGT, "Corewar");
 	A->dis = &dis;

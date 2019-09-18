@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 09:27:01 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/17 20:09:27 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/18 19:06:59 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,20 @@ void	aff_winner(t_arena *arena, int color, char *name)
 
 	print_map(A, A->curr_cycle);
 	j = (W_HGT / 2) - 31;
+	x_name = ft_strlen(name);
 	while (++j < (W_HGT / 2) + 70)
 	{
-		i = (W_LEN / 2) - 431;
-		while (++i < (W_LEN / 2) - 30)
+		i = (W_LEN / 2) - 401 - x_name * 5;
+		while (++i < (W_LEN / 2) - 60 + x_name * 5)
 			mlx_pixel_put(A->dis->mlx, A->dis->win, i, j, 0x77000000);
 	}
 	j = (W_HGT / 2) - 51;
 	while (++j < (W_HGT / 2) + 50)
 	{
-		i = (W_LEN / 2) - 451;
-		while (++i < (W_LEN / 2) - 50)
+		i = (W_LEN / 2) - 421 - x_name * 5;
+		while (++i < (W_LEN / 2) - 80 + x_name * 5)
 			mlx_pixel_put(A->dis->mlx, A->dis->win, i, j, color);
 	}
-	x_name = ft_strlen(name);
 	x_name = W_LEN / 2 - (x_name * 5);
 	mlx_string_put(A->dis->mlx, A->dis->win, W_LEN / 2 - 80 - 250,
 			W_HGT / 2 - 35, 0xFFFFFF, "Joueur gagnant :");
@@ -52,7 +52,7 @@ void	print_winner_dis(t_arena *arena, int i)
 	char *name;
 
 	A->finish = 1;
-	name = A->champ[i].h.prog_name;
+	name = i > -1 ? A->champ[i].h.prog_name : "Personne n'est en vie";
 	if (i == 0)
 		i = 0xff704c;
 	else if (i == 1)
@@ -73,10 +73,15 @@ void	print_winner(t_arena *arena)
 	A->finish = 1;
 	if ((i = check_valid_champ(A->last_living_champ, A)) == -1)
 	{
-		ft_printf("☠️  Personne n'est en vie ! ☠️ \n");
-		ft_free_gc(A->gc);
-		ft_memdel((void**)&(A->gc), 0);
-		exit(1);
+		if (A->dis)
+			print_winner_dis(A, i);
+		else
+		{
+			ft_printf("☠️  Personne n'est en vie ! ☠️ \n");
+			ft_free_gc(A->gc);
+			ft_memdel((void**)&(A->gc), 0);
+			exit(1);
+		}
 	}
 	else
 	{

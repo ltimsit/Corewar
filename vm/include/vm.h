@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/18 14:17:22 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/18 19:37:57 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # define PLAYER_3	3
 # define PLAYER_4	4
 # define CMENU		25
-# define AFF_SIZE	128
 
 # define A			arena
 # define PRO		process
@@ -236,6 +235,7 @@ void			fill_img(char **d_img);
 void			print_champ_live(t_arena *arena);
 int				get_color_hex(t_arena *arena, int index);
 void			fill_color_value(unsigned char *carriage, int size, int p_nb);
+void			print_aff(t_arena *arena);
 
 /*
 **carriage_and_arena------------------------------------------------------------
