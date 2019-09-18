@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 10:55:17 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/18 17:56:27 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 18:30:14 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,16 @@
 
 int			get_new_read(t_data *data)
 {
-	int		ret;
-
-	ret = 0;
 	if (!D->start
 			&& !(D->start = ft_alloc_gc(READSIZE + 1, sizeof(char), D->gc)))
 		get_error(D, malloc_err, NULL);
-	if ((ret = read(D->fd, D->start, READSIZE)) == -1)
+	if (D->read_ret && (D->line - D->start) != D->read_ret)
+		get_error(D, backzer, NULL);
+	if ((D->read_ret = read(D->fd, D->start, READSIZE)) == -1)
 		get_error(D, read_error, NULL);
-	D->start[ret] = '\0';
+	D->start[D->read_ret] = '\0';
 	D->line = D->start;
-	return (ret ? 1 : 0);
+	return (D->read_ret ? 1 : 0);
 }
 
 int			mem_stock(t_data *data, char *content, int content_size)
@@ -58,7 +57,7 @@ void		fc_namecom(t_data *data, char *namecom, int size, int i)
 	D->line++;
 	while (i < size)
 	{
-		if (!(*D->line) && !get_new_read(D))
+		if (!*D->line && !get_new_read(D))
 			get_error(D, data_err, NULL);
 		if (*D->line != '"')
 		{

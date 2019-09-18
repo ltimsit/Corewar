@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/18 17:57:30 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 18:30:11 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct	s_data
 	int			mem_stock_index;
 	int			size_mem_tot;
 	int			mem_size;
+	int			read_ret;
 }				t_data;
 
 enum			e_op
@@ -135,10 +136,11 @@ enum			e_error
 	data_err,
 	dquote,
 	open_err,
-	close_err
+	close_err,
+	backzer
 };
 
-char			*g_err_tab[11];
+char			*g_err_tab[12];
 
 /*
 ** corewar.c    ----------------------------------------------------------------

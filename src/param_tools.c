@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 13:30:25 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/18 17:20:01 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/18 19:33:06 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@ int		check_separator_char(t_data *data, char *cmd)
 
 int		check_param(t_data *data, int type, int cmd_param, char *cmd)
 {
-	int ret;
-
-	ret = 0;
-	if (cmd_param && !((ret = type) & cmd_param))
-		get_error(D, param, cmd);
-	return (ret);
+	if (type == 3 && cmd_param >= 4)
+		return (1);
+	else if (type == 2 && cmd_param  % 4 > 1)
+		return (1);
+	else if (type == 1 && cmd_param % 2)
+		return (1);
+	get_error(D, param, cmd);
+	return (0);
 }
 
 int		param_type_tool(char *cmd, int *val)
@@ -57,18 +59,18 @@ int		get_param_type(t_data *data, t_param *p, int *val, int pc_cpt)
 	i = 0;
 	ret = 0;
 	if ((p->cmd[0] == DIRECT_CHAR && p->cmd[1] == LABEL_CHAR)
-		|| p->cmd[0] == LABEL_CHAR)
+			|| p->cmd[0] == LABEL_CHAR)
 	{
 		if ((*val = check_label(D, p->cmd +
-				(p->cmd[0] == LABEL_CHAR ? 1 : 2))) == -1)
+						(p->cmd[0] == LABEL_CHAR ? 1 : 2))) == -1)
 			add_to_label_instr(D, p->cmd + (p->cmd[0] == LABEL_CHAR ? 1 : 2),
-				D->mem_stock_index + pc_cpt,
-				p->cmd[0] == LABEL_CHAR ? 1 : p->dir_size);
+					D->mem_stock_index + pc_cpt,
+					p->cmd[0] == LABEL_CHAR ? 1 : p->dir_size);
 		return (p->cmd[0] == LABEL_CHAR ? IND_CODE : DIR_CODE);
 	}
 	if ((p->cmd[0] == 'r' && (ret = REG_CODE))
-		|| (p->cmd[0] == DIRECT_CHAR && (ret = DIR_CODE))
-		|| (ret = IND_CODE))
+			|| (p->cmd[0] == DIRECT_CHAR && (ret = DIR_CODE))
+			|| (ret = IND_CODE))
 	{
 		if (!(param_type_tool(p->cmd + (ret == IND_CODE ? 0 : 1), val)))
 			get_error(D, syntax, p->cmd);
