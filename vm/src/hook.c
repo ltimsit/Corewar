@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:37:56 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 20:42:39 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:29:06 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		key_press(int keycode, t_arena *arena)
 {
 	if (keycode == 53)
 		exit_dis(A);
-	if (keycode == 49)
+	if (keycode == 49 && !A->finish)
 	{
 		A->pause = A->pause ? 0 : 1;
 		if (A->pause == 1)
@@ -52,9 +52,9 @@ int		key_press(int keycode, t_arena *arena)
 		A->dis->cpt_to_speed = 0;
 		A->dis->curr_process_dis = A->p_head;
 	}
-	if (keycode == 126 && A->dis->speed < 100)
+	if (keycode == 126 && A->dis->speed < 100 && !A->finish)
 		speed_tool(A, '+');
-	if (keycode == 125 && A->dis->speed > 1)
+	if (keycode == 125 && A->dis->speed > 1 && !A->finish)
 		speed_tool(A, '-');
 	return (0);
 }
