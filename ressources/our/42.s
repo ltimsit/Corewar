@@ -1,18 +1,18 @@
 .name           "42"
 .comment        "Just a basic Winner Program"
 
-entree:	live	%42		# entree
+entree:live	%42
 	ld	%0,r5
 	ld	%0,r5
 	zjmp	%:bite
 
-tir:	sti	r1,%:tirb,%1
+tir:sti	r1,%:tirb,%1
 	ld	%2304,r10
 	ld	%1,r5
 	ld	%0,r11
 
 	ld	%4,r3
-tirf:	live	%42
+tirf:live	%42
 	fork	%:tirop
 	live	%742
 	sub	r3,r5,r3
@@ -27,11 +27,11 @@ tirf:	live	%42
 	ld	%0,r11
 	zjmp	%:tirf
 
-tirop:	ld	%368,r2
+tirop: ld	%368,r2
 	ld	%0,r3
 	ld	%4,r4
 
-tirb:	live	%1
+tirb:live	%1
 	sti	r10,%-510,r2
 	sti	r10,%-510,r3
 	add	r4,r5,r4
@@ -42,7 +42,7 @@ tirb:	live	%1
 	zjmp	%:tirb
 	zjmp	%:infi
 
-p32deb:	zjmp	%0
+p32deb:zjmp	%0
 	zjmp	%0
 	zjmp	%0
 	zjmp	%0

@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 12:07:16 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/17 16:34:30 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 17:12:47 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int		get_elem(t_data *data, char *tab, int tab_size, char sep_char)
 			break ;
 		tab[i++] = *(D->line)++;
 	}
+	if (sep_char == LABEL_CHAR && *D->line == LABEL_CHAR)
+		tab[i++] = *(D->line)++;
 	tab[i] = '\0';
 	return (i);
 }

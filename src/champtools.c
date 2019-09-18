@@ -6,16 +6,18 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 10:55:17 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/17 17:14:23 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/18 16:10:17 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include <unistd.h>
+#include <stdlib.h>
 
 int			get_new_read(t_data *data)
 {
 	int		ret;
+	int		i;
 
 	ret = 0;
 	if (!D->start
@@ -25,6 +27,11 @@ int			get_new_read(t_data *data)
 		get_error(D, read_error, NULL);
 	D->start[ret] = '\0';
 	D->line = D->start;
+	i = 0;
+	while (i < ret && D->line[i] == 0)
+		i++;
+	if (ret && i == ret)
+		get_error(D, full_zero, NULL);
 	return (ret ? 1 : 0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 13:30:25 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/18 14:51:29 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/18 16:29:22 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,15 @@ int		get_param_type(t_data *data, t_param *p, int *val, int pc_cpt)
 			|| (ret = IND_CODE))
 	{
 		if (!(param_type_tool(p->cmd + (ret == IND_CODE ? 0 : 1), val)))
+		{
+			ft_printf("champtools 1");
 			get_error(D, syntax, p->cmd);
+		}
 		if (ret == REG_CODE && (*val < 0 || *val > 16))
+		{
+			ft_printf("champtools 12");
 			get_error(D, syntax, p->cmd);
+		}
 	}
 	return (ret);
 }

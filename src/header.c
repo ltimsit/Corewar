@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/18 12:45:46 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:11:02 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,23 +59,23 @@ int			go_to_next_elem(t_data *data, int *line_id, int *col_id, int i)
 	{
 		D->line += i;
 		if (!(*D->line))
+		{
 			if (!(get_new_read(D)))
 				return (0);
+			continue ;
+		}
 		if (*(D->line) == '#' || *(D->line) == ';')
 			if (!(skip_comment_block(D)))
 				return (0);
-		if (*(D->line) == '\n')
+		if (*(D->line) == '\n' && (*col_id = 1))
 		{
 			(*line_id)++;
-			*col_id = 1;
 			D->line++;
 			continue ;
 		}
-		else
-		{
-			(*col_id) = (*col_id) + i;
+		(*col_id) = (*col_id) + i;
+		if (!i || (*D->line != '\t' && *D->line != ' '))
 			return (1);
-		}
 	}
 	return (42);
 }
@@ -126,7 +126,7 @@ int			read_and_dispatch(t_data *data)
 
 	while (go_to_next_elem(D, &D->curr_line, &D->curr_index, 0))
 	{
-		i = get_elem(D, cmd, PARAM_SIZE, 0);
+		i = get_elem(D, cmd, PARAM_SIZE, LABEL_CHAR);
 		type = get_type(D, cmd);
 		D->curr_index += i;
 		if (type == 3)
