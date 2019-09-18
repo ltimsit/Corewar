@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/18 14:15:12 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/18 15:02:58 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	cmd_loop_work(t_data *data, t_param *p, int *pc_cpt, t_op op)
 			check_separator_char(D, p->cmd);
 		go_to_next_elem(D, &D->curr_line, &D->curr_index, 0);
 		i = get_elem(D, p->cmd, PARAM_SIZE, SEPARATOR_CHAR);
-		//p->para[cpt] = get_param_type(D, p->cmd, &p->val[cpt], *pc_cpt);
 		p->para[cpt] = get_param_type(D, p, &p->val[cpt], *pc_cpt);
 		check_param(D, p->para[cpt], op.param_type[cpt], p->cmd);
 		D->curr_index += i;

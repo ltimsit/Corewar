@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:16:33 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/18 14:23:25 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/18 15:02:15 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int		calc_val_from_pc(int curr_pc, int label_pc)
 		val = 0xFFFF + label_pc - curr_pc + 1;
 	else
 		val = 0xFFFF + (label_pc - curr_pc + 1);
-
 	return ((int)val);
 }
 
