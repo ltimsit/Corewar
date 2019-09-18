@@ -6,23 +6,40 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 11:08:44 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/18 12:35:33 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 14:17:22 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int	put_image(void *mlx, void *win)
+int		put_image(t_arena *arena)
 {
-	void	*image;
-	int		width;
-	int		height;
+	mlx_put_image_to_window(A->dis->mlx, A->dis->win,
+			A->dis->zaz_xpm_img, 1803, 1074);
+	mlx_put_image_to_window(A->dis->mlx, A->dis->win,
+			A->dis->corewar_xpm_img, 1817, 40);
+	return (1);
+}
 
-	width = 375;
-	height = 262;
-	image = mlx_xpm_file_to_image(mlx, "/Users/abinois/Documents/GITHUB/COREWAR/vm/img/zaz_375.xpm", &width, &height);
-	mlx_put_image_to_window(mlx, win, image, 1803, 1074);
-	image = mlx_xpm_file_to_image(mlx, "/Users/abinois/Documents/GITHUB/COREWAR/vm/img/corewar1.xpm", &width, &height);
-	mlx_put_image_to_window(mlx, win, image, 1817, 40);
+char	*get_path(t_arena *arena, char *path, char *name)
+{
+	ft_strcpy(path, A->path);
+	ft_strcat(path, name);
+	return (path);
+}
+
+int		init_xpm(t_arena *arena)
+{
+	int		h;
+	int		l;
+	char	path[256];
+
+	if (!(A->dis->zaz_xpm_img = mlx_xpm_file_to_image(A->dis->mlx,
+					get_path(A, path, "/img/zaz_375.xpm"), &l, &h))
+			|| !ft_add_to_gc(A->dis->zaz_xpm_img, A->gc)
+			|| !(A->dis->corewar_xpm_img = mlx_xpm_file_to_image(A->dis->mlx,
+					get_path(A, path, "/img/corewar1.xpm"), &l, &h))
+			|| !ft_add_to_gc(A->dis->corewar_xpm_img, A->gc))
+		return (0);
 	return (1);
 }

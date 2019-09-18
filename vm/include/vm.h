@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/18 11:55:37 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 14:17:22 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct	s_arena
 	int				cycle_before_dis;
 	int				pause;
 	int				finish;
+	char			*path;
 }				t_arena;
 
 typedef struct	s_ocp
@@ -209,7 +210,8 @@ void			print_usage(t_arena *arena);
 **------------------------------ D I S P L A Y ---------------------------------
 **------------------------------------------------------------------------------
 */
-int				put_image(void *mlx, void *win);
+int				put_image(t_arena *arena);
+int				init_xpm(t_arena *arena);
 /*
 **init_display  ----------------------------------------------------------------
 */

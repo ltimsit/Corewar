@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:40:50 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 19:42:22 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/18 12:59:42 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct	s_display
 	void		*panel_img;
 	void		*xpm_img;
 	char		*d_panel_img;
+	void		*corewar_xpm_img;
+	void		*zaz_xpm_img;
 	int			speed;
 	int			cpt_to_speed;
 	void		*curr_process_dis;

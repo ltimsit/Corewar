@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/18 12:35:35 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/18 14:17:23 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	print_map(t_arena *arena, int c_nb)
 	print_nb_dec(A, A->nb_check, 1925, 240);
 	mlx_string_put(A->dis->mlx, A->dis->win, 2000, 240, HEX_COLOR, "/");
 	print_nb_dec(A, MAX_CHECKS, 2010, 240);
-	put_image(A->dis->mlx, A->dis->win);
+	put_image(A);
 	print_process_dis(A);
 }
 
@@ -80,7 +80,8 @@ int		get_image_data(t_arena *arena, t_display *dis)
 	if (!(dis->border_img = mlx_new_image(dis->mlx, BORDER_LEN, BORDER_HGT))
 			|| !ft_add_to_gc(dis->border_img, A->gc)
 			|| !(dis->panel_img = mlx_new_image(dis->mlx, P_LEN, P_HGT))
-			|| !ft_add_to_gc(dis->panel_img, A->gc))
+			|| !ft_add_to_gc(dis->panel_img, A->gc)
+			|| !init_xpm(A))
 		return (0);
 	dis->d_border_img = get_data_ptr(dis->border_img);
 	dis->d_panel_img = get_data_ptr(dis->panel_img);
@@ -94,11 +95,11 @@ void	init_display(t_arena *arena)
 
 	dis.mlx = mlx_init();
 	dis.win = mlx_new_window(dis.mlx, W_LEN, W_HGT, "Corewar");
+	A->dis = &dis;
 	if (!(get_image_data(A, &dis)))
 		exit_dis(A);
 	dis.speed = 1;
 	dis.curr_process_dis = A->p_head;
-	A->dis = &dis;
 	A->pause = 1;
 	fill_border(A);
 	fill_panel(A);
