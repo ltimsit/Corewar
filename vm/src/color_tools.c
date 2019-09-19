@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:53:57 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/18 19:33:53 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/19 18:04:02 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	print_aff(t_arena *arena)
 	if ((A->dis->aff)[0])
 	{
 		i = ft_strlen(A->dis->aff);
-		x = 1980 - 5 * i;
+		x = 1990 - 5 * i;
 		mlx_put_image_to_window(A->dis->mlx, A->dis->win,
-				A->dis->bulle_xpm_img, 1830, 800);
-		mlx_string_put(A->dis->mlx, A->dis->win, x, 900,
+				A->dis->bulle_xpm_img, 1830, 830);
+		mlx_string_put(A->dis->mlx, A->dis->win, x, 920,
 				g_tab_color[A->dis->aff_color], A->dis->aff);
 	}
 }
@@ -70,6 +70,7 @@ void	print_champ_live(t_arena *arena)
 	i = -1;
 	mlx_string_put(A->dis->mlx, A->dis->win,
 			x, y - 20, HEX_COLOR, "live");
+	ft_printf("%d\n", A->champ[0].nb_live);
 	while (++i < A->nb_champ)
 	{
 		mlx_string_put(A->dis->mlx, A->dis->win,

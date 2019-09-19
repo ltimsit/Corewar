@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:30:58 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/18 19:33:56 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/19 18:04:03 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		check_valid_champ(int id, t_arena *arena)
 	while (++i < A->nb_champ)
 		if (A->champ[i].id == id)
 		{
-			A->champ[i].nb_live++;
+			ft_printf("test\n");
 			return (i);
 		}
 	return (-1);
@@ -56,6 +56,7 @@ void	execute_live(t_process *process, t_arena *arena)
 	PRO->nb_live += 1;
 	if ((i = check_valid_champ(PRO->param.data, A)) == -1)
 		return ;
+	A->champ[i].nb_live++;
 	A->last_living_champ = PRO->param.data;
 	if (A->dump_cycle == -1)
 		ft_printf("Un processus dit que le joueur {%s}%s{reset} est en vie.\n",
