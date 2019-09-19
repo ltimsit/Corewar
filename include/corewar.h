@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/18 18:30:11 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/19 19:14:21 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct	s_param
 	int		size_para[3];
 	char	ocp;
 	char	cmd[PARAM_SIZE];
-	int 	dir_size;
+	int		dir_size;
 }				t_param;
 
 typedef struct	s_label_add
@@ -210,10 +210,12 @@ int				get_param_type(t_data *data, t_param *p, int *val, int pc_cpt);
 ** label.c      ----------------------------------------------------------------
 */
 
-int				add_to_label_instr(t_data *data, char *elem, int mem_index, int size);
+int				add_to_label_instr(t_data *data, char *elem, int mem_index,
+		int size);
 int				add_to_label_list(t_data *data, char *elem, int pc);
 int				calc_val_from_pc(int curr_pc, int label_pc);
-int				put_add_in_mem_stock(t_data *data, int mem_index, int add, int size);
+int				put_add_in_mem_stock(t_data *data, int mem_index, int add,
+		int size);
 int				fill_missing_label(t_data *data);
 
 #endif

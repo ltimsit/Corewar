@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/19 15:01:20 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/19 19:21:42 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,6 @@ t_param			fill_param(t_arena *ar, t_op op, t_process *pro, int elem[3]);
 int				is_valid_type(int param_type, int cmp);
 int				is_integer(char *str);
 void			read_ocp(t_param *param, int dir_size, char ocp, t_op op);
-
 
 /*
 **end_of_fight  ----------------------------------------------------------------

@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 13:30:25 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/19 15:42:07 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/19 19:17:45 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ int		get_param_type(t_data *data, t_param *p, int *val, int pc_cpt)
 	{
 		if (!(param_type_tool(p->cmd + (ret == IND_CODE ? 0 : 1), val)))
 			get_error(D, syntax, p->cmd);
-//		if (ret == REG_CODE && (*val < 0 || *val > 16))
-	//		get_error(D, syntax, p->cmd);
 	}
 	return (ret);
 }
