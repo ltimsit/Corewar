@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 09:27:01 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/18 19:06:59 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/19 19:06:26 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,16 @@ void	aff_winner(t_arena *arena, int color, char *name)
 	int x_name;
 
 	print_map(A, A->curr_cycle);
-	j = (W_HGT / 2) - 31;
+	j = (W_HGT / 2) - 51;
 	x_name = ft_strlen(name);
 	while (++j < (W_HGT / 2) + 70)
 	{
 		i = (W_LEN / 2) - 401 - x_name * 5;
 		while (++i < (W_LEN / 2) - 60 + x_name * 5)
-			mlx_pixel_put(A->dis->mlx, A->dis->win, i, j, 0x77000000);
-	}
-	j = (W_HGT / 2) - 51;
-	while (++j < (W_HGT / 2) + 50)
-	{
-		i = (W_LEN / 2) - 421 - x_name * 5;
-		while (++i < (W_LEN / 2) - 80 + x_name * 5)
+		{
 			mlx_pixel_put(A->dis->mlx, A->dis->win, i, j, color);
+			mlx_pixel_put(A->dis->mlx, A->dis->win, i + 20, j + 20, 0x77000000);
+		}
 	}
 	x_name = W_LEN / 2 - (x_name * 5);
 	mlx_string_put(A->dis->mlx, A->dis->win, W_LEN / 2 - 80 - 250,
@@ -78,9 +74,7 @@ void	print_winner(t_arena *arena)
 		else
 		{
 			ft_printf("☠️  Personne n'est en vie ! ☠️ \n");
-			ft_free_gc(A->gc);
-			ft_memdel((void**)&(A->gc), 0);
-			exit(1);
+			exit_fight(A);
 		}
 	}
 	else
@@ -91,9 +85,7 @@ void	print_winner(t_arena *arena)
 		{
 			ft_printf("😎  Le joueur {%s}%s{reset} a gagné ! 😎 \n",
 					g_tab_color[i], A->champ[i].h.prog_name);
-			ft_free_gc(A->gc);
-			ft_memdel((void**)&(A->gc), 0);
-			exit(1);
+			exit_fight(A);
 		}
 	}
 }

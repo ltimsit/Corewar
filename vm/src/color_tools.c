@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:53:57 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/19 18:14:03 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/19 18:56:53 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	fill_color_value(unsigned char *carriage, int size, int p_nb)
 	while (++i < size)
 		carriage[i] += (1 << p_nb);
 }
-
 
 void	print_aff(t_arena *arena)
 {

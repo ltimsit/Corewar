@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/19 14:26:00 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/19 19:07:29 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	check_process(t_arena *arena, t_process *process)
 	else if (PRO->c_done < PRO->c_todo)
 		PRO->c_done++;
 	else
-			execution(A, PRO);
+		execution(A, PRO);
 }
 
 void	launch_fight(t_arena *arena)
