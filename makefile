@@ -6,7 +6,7 @@
 #    By: abinois <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/19 19:30:08 by abinois           #+#    #+#              #
-#    Updated: 2019/09/19 19:56:10 by abinois          ###   ########.fr        #
+#    Updated: 2019/09/19 23:37:51 by abinois          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,16 +22,16 @@ NC = \033[0m
 all: $(ASM) $(COREWAR)
 
 $(ASM):
-	@make -sC assembleur
+	@make -sC ASM
 
 $(COREWAR):
-	@make -sC vm
+	@make -sC VM
 
 clean:
-	@make clean -sC assembleur && make clean -sC vm
+	@make clean -sC ASM && make clean -sC VM
 
 fclean:
-	@make fclean -sC assembleur && make fclean -sC vm
+	@make fclean -sC ASM && make fclean -sC VM
 
 re: fclean all
 
