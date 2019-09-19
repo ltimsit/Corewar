@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/19 13:59:08 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/19 15:25:33 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int			get_header(t_data *data)
 	while (!D->name_set || !D->comment_set)
 	{
 		go_to_next_elem(D, &D->curr_line, &D->curr_index, 0);
-		i = get_elem(D, cmd, 14, 0);
+		i = get_elem(D, cmd, 14, '"');
 		if (!ft_strcmp(cmd, NAME_CMD_STRING) && (D->name_set = true))
 		{
 			D->curr_index += i;
