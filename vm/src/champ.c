@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:29:19 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/17 10:28:17 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/19 14:35:21 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		print_champ(t_champ *champ)
 	ft_putchar('\n');
 }
 
-t_champ		new_champ(t_arena *arena, unsigned char *buff)
+t_champ		new_champ(t_arena *arena, unsigned char *buff, int ret)
 {
 	t_champ		champ;
 
@@ -34,10 +34,12 @@ t_champ		new_champ(t_arena *arena, unsigned char *buff)
 	ft_memcpy(&champ.h, buff, sizeof(t_header));
 	champ.h.magic = chen4(champ.h.magic);
 	champ.h.prog_size = chen4(champ.h.prog_size);
+	if (ret - (int)sizeof(t_header) != (int)champ.h.prog_size)
+		ft_error(A, "Header's prog_size doesn't correspond to champ size\n");
 	if (champ.h.magic != COREWAR_EXEC_MAGIC)
-		ft_error(A, "WRONG MAGIC NUMBER\n");
+		ft_error(A, "Wrong magic number !\n");
 	if (champ.h.prog_size > CHAMP_MAX_SIZE)
-		ft_error(A, "CHAMP SIZE TO BIG\n");
+		ft_error(A, "Champ size too big !\n");
 	ft_memcpy(champ.buff, buff + sizeof(t_header), champ.h.prog_size);
 	return (champ);
 }
@@ -46,13 +48,14 @@ void		create_add_champ(char *filename, t_arena *arena, int id_champ)
 {
 	unsigned char	*buffer;
 	static int		pos = 0;
+	int				read_ret;
 
 	if (!(buffer = (unsigned char*)ft_alloc_gc(CHAMP_MAX_SIZE +
 					sizeof(t_header), sizeof(char), A->gc)))
 		ft_error(A, "Malloc error\n");
 	ft_bzero(buffer, CHAMP_MAX_SIZE + sizeof(t_header));
-	buffer = open_read(A, filename, buffer);
-	A->champ[pos] = new_champ(A, buffer);
+	read_ret = open_read(A, filename, buffer);
+	A->champ[pos] = new_champ(A, buffer, read_ret);
 	A->champ[pos].id = id_champ;
 	pos++;
 	A->nb_champ++;

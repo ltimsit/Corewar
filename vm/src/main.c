@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/18 14:17:21 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/19 14:36:57 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,22 @@
 #include <stdlib.h>
 #include <libgen.h>
 
-unsigned char	*open_read(t_arena *arena, char *file, unsigned char *buf)
+int				open_read(t_arena *arena, char *file, unsigned char *buf)
 {
 	int	fd;
 	int	ret;
 
+	ret = 0;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		ft_error(A, "Open failed\n");
+		ft_error(A, "Open failed !\n");
 	if ((ret = read(fd, buf, CHAMP_MAX_SIZE + sizeof(t_header))) == -1)
-		ft_error(A, "Read failed\n");
-	if ((ret = close(fd)) == -1)
-		ft_error(A, "Close failed\n");
-	return (buf);
+		ft_error(A, "Read failed !\n");
+	if (ret < (int)sizeof(t_header))
+		ft_error(A, "Too small to be a champ !\n");
+	if (close(fd) == -1)
+		ft_error(A, "Close failed !\n");
+	return (ret);
 }
 
 int				get_arg(int i, char **av, int ac, int *argument)
@@ -48,7 +51,7 @@ void			check_argv(t_arena *arena, char **av, int ac)
 	int		id_champ;
 
 	i = 0;
-	id_champ = 1;
+	id_champ = -1;
 	while (++i < ac)
 	{
 		if (!ft_strcmp(av[i], "-dis") && (A->display_on = 1))

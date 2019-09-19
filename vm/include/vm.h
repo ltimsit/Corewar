@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/18 19:37:57 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/19 15:01:20 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	(*g_fct_exec[17])(t_process*, t_arena*);
 /*
 **main			----------------------------------------------------------------
 */
-unsigned char	*open_read(t_arena *arena, char *file, unsigned char *buf);
+int				open_read(t_arena *arena, char *file, unsigned char *buf);
 int				get_arg(int i, char **av, int ac, int *argument);
 void			check_argv(t_arena *arena, char **av, int ac);
 void			init_corewar(t_arena *arena);
@@ -141,7 +141,7 @@ void			put_data_in_reg(t_process *process, int data, int reg_nb);
 **champ			----------------------------------------------------------------
 */
 void			print_champ(t_champ *champ);
-t_champ			new_champ(t_arena *arena, unsigned char *buf);
+t_champ			new_champ(t_arena *arena, unsigned char *buf, int ret);
 void			create_add_champ(char *filename, t_arena *arena, int id_champ);
 void			sort_champ(t_arena *arena);
 void			load_champ(t_arena *arena);

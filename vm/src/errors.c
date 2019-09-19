@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 11:52:43 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/18 08:58:05 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/19 14:12:56 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_error(t_arena *arena, char *message)
 {
 	ft_free_gc(A->gc);
 	ft_memdel((void**)&(A->gc), 0);
-	ft_printf("{red}%s{reset}\n", message);
+	ft_printf("{red}%s{reset}", message);
 	exit(EXIT_FAILURE);
 }
 
