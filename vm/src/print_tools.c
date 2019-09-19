@@ -6,7 +6,7 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 17:26:32 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/18 16:30:36 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/19 18:13:24 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int		print_reg_click(t_arena *arena, int x, int y)
 		{
 			if ((*p)->pc == index)
 			{
-				ft_printf("index = %d todo = %d done = %d\n", index, (*p)->c_todo, (*p)->c_done);
 				print_reg_dis(arena, *p);
 				*p = (*p)->next;
 				return (1);

@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 16:58:41 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/17 14:12:42 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/09/19 18:28:01 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,22 @@ void	fc_sti(t_op op, t_process *process, t_arena *arena)
 	t_param	param;
 	int		elem[3];
 	int		tmp;
+	int		tmp1;
+	int		tmp2;
 
 	ft_bzero(elem, sizeof(elem));
 	ft_bzero(&param, sizeof(param));
 	param = fill_param(A, op, PRO, elem);
 	param.data = elem[0];
-	elem[2] = param.type[2] == IND_CODE ? chen4(fill_index_content(A, PRO,
-				chen4(param.value[2]) % IDX_MOD)) : chen4(elem[2]);
-	elem[1] = param.type[1] == IND_CODE ? chen4(fill_index_content(A, PRO,
-				chen4(param.value[1]) % IDX_MOD)) : chen4(elem[1]);
-	tmp = ((short)elem[1] + (short)elem[2]) % IDX_MOD;
+	elem[2] = param.type[2] == IND_CODE ?
+		chen4(fill_index_content(A, PRO, chen4(param.value[2]))) :
+		chen4(elem[2]);
+	elem[1] = param.type[1] == IND_CODE ?
+		chen4(fill_index_content(A, PRO, chen4(param.value[1]))) :
+		chen4(elem[1]);
+	tmp1 = param.type[1] == REG_CODE ? elem[1] : (short)elem[1];
+	tmp2 = param.type[2] == REG_CODE ? elem[2] : (short)elem[2];
+	tmp = (tmp1 + tmp2) % IDX_MOD;
 	param.dest_pc = chen4(tmp);
 	PRO->param = param;
 }

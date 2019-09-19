@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:30:58 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/19 18:04:03 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/19 18:09:27 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		check_valid_champ(int id, t_arena *arena)
 	while (++i < A->nb_champ)
 		if (A->champ[i].id == id)
 		{
-			ft_printf("test\n");
 			return (i);
 		}
 	return (-1);
