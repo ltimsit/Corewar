@@ -5,31 +5,29 @@
 #                                                     +:+ +:+         +:+      #
 #    By: abinois <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/09/17 09:35:38 by abinois           #+#    #+#              #
-#    Updated: 2019/09/19 19:58:31 by abinois          ###   ########.fr        #
+#    Created: 2019/09/17 09:33:50 by abinois           #+#    #+#              #
+#    Updated: 2019/09/19 19:54:59 by abinois          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = corewar
+NAME = asm
 
 SRCS = $(addprefix $(SRCDIR)/, $(addsuffix .c, \
-	   arena main operation process manage_params errors fill_tab champ \
-	   addsub orxor st ld ldi and_zjump fork live_aff end_of_fight image\
-	   init_display hook print_tools color_tools carriage_and_arena exit_fcts))
+	   corewar champtools header param label \
+	   tools errors param_tools))
 
 OBJ = $(SRCS:.c=.o)
 DEP = $(SRCS:.c=.d)
 
 SRCDIR = src
 LIBFT = ../libft/libft.a
-LIBNCURSES = -lncurses
 LIBFTPRINTF = ../libftprintf.a
 LIBMLX = ../libmlx.a
-FRAMEWORK = -framework OpenGL -framework AppKit
 INC = -I include -I ../libft
 
 FLAGS = -Wall -Wextra -Werror
 CC = gcc $(INC) $(FLAGS)
+FRAMEWORKS = -framework OpenGL -framework AppKit
 
 BLACK = \033[30m
 RED = \033[31m
@@ -50,8 +48,8 @@ all : $(NAME)
 
 
 $(NAME) : $(LIBFT) $(OBJ)
-	@gcc $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(LIBFTPRINTF) $(LIBNCURSES) $(LIBMLX) $(FRAMEWORK)
-	@echo "\n$(BLINK)👌  $(NOCOLOR)$(GREEN)COREWAR$(NOCOLOR)$(BLINK) 👌 $(NOCOLOR)"
+	@gcc $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(LIBFTPRINTF)
+	@echo "\n$(BLINK)👌  $(NOCOLOR)$(GREEN)ASSEMBLEUR$(NOCOLOR)$(BLINK) 👌 $(NOCOLOR)"
 
 -include $(DEP)
 
@@ -62,7 +60,6 @@ $(SRCDIR)/%.o : $(SRCDIR)/%.c makefile
 
 $(LIBFT) : force
 	@make -C ../libft
-
 force :
 
 clean :
@@ -71,6 +68,7 @@ clean :
 	@echo "$(MAGENTA)SUPPR  $(YELLOW)OBJ $(MAGENTA): $(GREEN) OK !$(NOCOLOR)"
 	@rm -f $(DEP)
 	@echo "$(MAGENTA)SUPPR  $(YELLOW)DEP $(MAGENTA): $(GREEN) OK !$(NOCOLOR)"
+	@echo "$(GREEN)ASM CLEAN : 👌 $(NOCOLOR)"
 
 fclean : clean
 	@make fclean -C ../libft
