@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/19 19:21:42 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/20 12:21:06 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void			put_data_in_reg(t_process *process, int data, int reg_nb);
 /*
 **champ			----------------------------------------------------------------
 */
-void			print_champ(t_champ *champ);
+void			refresh_live_champs(t_arena *arena);
 t_champ			new_champ(t_arena *arena, unsigned char *buf, int ret);
 void			create_add_champ(char *filename, t_arena *arena, int id_champ);
 void			sort_champ(t_arena *arena);

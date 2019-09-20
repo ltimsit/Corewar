@@ -6,24 +6,19 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:29:19 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/20 01:34:42 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/20 12:21:07 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void		print_champ(t_champ *champ)
+void		refresh_live_champs(t_arena *arena)
 {
-	unsigned int	i;
+	int	i;
 
-	ft_printf("Champ[id = %d] : %s\n", champ->id, champ->h.prog_name);
-	ft_printf("Comment : %s\n", champ->h.comment);
-	ft_printf("Prog size : %d", champ->h.prog_size);
-	ft_putstr("champ en hex : \n");
 	i = -1;
-	while (++i < champ->h.prog_size)
-		ft_printf("%x ", champ->buff[i]);
-	ft_putchar('\n');
+	while (++i < A->nb_champ)
+		A->champ[i].nb_live = 0;
 }
 
 t_champ		new_champ(t_arena *arena, unsigned char *buff, int ret)

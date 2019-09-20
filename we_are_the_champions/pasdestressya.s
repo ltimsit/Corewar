@@ -1,6 +1,9 @@
 .name "Pas de stress y'a .s"
 .comment "Pas de remords y'a .cor"
 
+ld %1, r15
+st r15, -4
+st r1, -10
 sti r1, %:live0, %1
 sti r1, %:live1, %1
 sti r1, %:live2, %1
