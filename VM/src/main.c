@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/19 15:53:46 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/20 01:36:55 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ int				main(int ac, char **av)
 	arena.path = dirname(av[0]);
 	if (!A.nb_champ)
 		print_usage(&A);
-	sort_champ(&A);
 	load_champ(&A);
+	sort_champ(&A);
 	if (A.display_on)
 	{
 		while (A.total_cycle != A.cycle_before_dis)

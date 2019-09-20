@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:29:19 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/19 14:35:21 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/20 01:34:42 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void		sort_champ(t_arena *arena)
 {
 	int		i;
 	int		j;
-	int		tmp;
+	t_champ	tmp;
 
 	i = -1;
 	while (++i < A->nb_champ - 1)
@@ -74,9 +74,9 @@ void		sort_champ(t_arena *arena)
 		while (++j < A->nb_champ)
 			if (A->champ[i].id < A->champ[j].id)
 			{
-				tmp = A->champ[i].id;
-				A->champ[i].id = A->champ[j].id;
-				A->champ[j].id = tmp;
+				tmp = A->champ[i];
+				A->champ[i] = A->champ[j];
+				A->champ[j] = tmp;
 			}
 	}
 }
