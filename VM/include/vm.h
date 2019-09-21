@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:13:50 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/20 12:21:06 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/21 15:07:48 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,7 @@
 # include "../../libft/libft.h"
 # include "display.h"
 
-# define PLAYER_1	1
-# define PLAYER_2	2
-# define PLAYER_3	3
-# define PLAYER_4	4
-# define CMENU		25
+# define DUMP_SIZE		32
 
 # define A			arena
 # define PRO		process

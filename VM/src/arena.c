@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:37:12 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/20 12:20:38 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/21 15:07:46 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	print_arena(t_arena *arena)
 	i = -1;
 	while (++i < MEM_SIZE)
 	{
-		if (!(i % 32) && i != MEM_SIZE - 1)
+		if (!(i % DUMP_SIZE) && i != MEM_SIZE - 1)
 			ft_printf("%s%-.4p : ", !i ? "" : "\n", i);
 		ft_printf("%.2x", A->field[i]);
-		if (i % 32 != 31)
+		if (i % DUMP_SIZE != DUMP_SIZE - 1)
 			ft_putchar(' ');
 	}
 	ft_putchar('\n');
