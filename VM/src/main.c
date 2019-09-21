@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:19:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/09/21 14:56:22 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/21 15:32:27 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "vm.h"
 #include <unistd.h>
 #include <stdlib.h>
-#include <libgen.h>
 
 int				open_read(t_arena *arena, char *file, unsigned char *buf)
 {
@@ -93,7 +92,7 @@ int				main(int ac, char **av)
 
 	init_corewar(&A);
 	check_argv(&A, av, ac);
-	arena.path = dirname(av[0]);
+	get_dirname(&A, av[0]);
 	if (!A.nb_champ)
 		print_usage(&A);
 	sort_champ(&A);

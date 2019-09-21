@@ -6,11 +6,22 @@
 /*   By: abinois <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 11:08:44 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/19 16:34:45 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/21 15:30:38 by ltimsit-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+void	get_dirname(t_arena *arena, char *av0)
+{
+	char *ptr;
+
+	if (!(ptr = ft_strrchr(av0, '/')))
+		ft_error(A, "Path error");
+	if (!(A->path = ft_strsub((const char **)&av0, 0, ptr - av0, 0))
+			|| !(ft_add_to_gc(A->path, A->gc)))
+		ft_error(A, "Malloc error");
+}
 
 int		put_image(t_arena *arena)
 {
