@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 15:22:23 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/18 18:22:18 by ltimsit-         ###   ########.fr       */
+/*   Updated: 2019/09/21 14:56:21 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ void	init_display(t_arena *arena)
 	t_display	dis;
 
 	ft_bzero(&dis, sizeof(dis));
-	dis.mlx = mlx_init();
+	if (!(dis.mlx = mlx_init()) || !ft_add_to_gc(dis.mlx, A->gc))
+		exit_dis(A);
 	dis.win = mlx_new_window(dis.mlx, W_LEN, W_HGT, "Corewar");
 	A->dis = &dis;
 	if (!(get_image_data(A, &dis)))

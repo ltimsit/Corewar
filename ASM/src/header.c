@@ -6,7 +6,7 @@
 /*   By: abinois <abinois@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 14:15:13 by abinois           #+#    #+#             */
-/*   Updated: 2019/09/19 15:25:33 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/21 14:29:36 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int			get_type(t_data *data, char *elem)
 	return (label_line);
 }
 
-int			get_header(t_data *data)
+void		get_header(t_data *data)
 {
 	char	cmd[14];
 	int		i;
@@ -115,10 +115,9 @@ int			get_header(t_data *data)
 			get_error(D, syntax, cmd);
 	}
 	read_and_dispatch(D);
-	return (1);
 }
 
-int			read_and_dispatch(t_data *data)
+void		read_and_dispatch(t_data *data)
 {
 	int		type;
 	char	cmd[PARAM_SIZE];
@@ -136,5 +135,4 @@ int			read_and_dispatch(t_data *data)
 	}
 	fill_missing_label(D);
 	set_header(data);
-	return (1);
 }

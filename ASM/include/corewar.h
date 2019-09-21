@@ -6,7 +6,7 @@
 /*   By: ltimsit- <ltimsit-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:13:52 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/19 19:14:21 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/21 14:50:46 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ char			*g_err_tab[12];
 
 int				init_data(t_data *data);
 void			print_error(t_data *data, char *elem);
-int				get_fd_file(char *filename);
+void			get_fd_file(char *filename, t_data *data);
 void			write_in_file(t_data *data, char *output, char *filename);
 
 /*
@@ -166,7 +166,7 @@ int				get_elem(t_data *data, char *tab, int tab_size, char sep_char);
 */
 
 int				check_in_label_char(t_data *data, char *elem);
-int				print_usage(void);
+void			print_usage(void);
 void			get_error(t_data *data, int err_type, char *elem);
 void			fill_op_and_err_tab();
 void			get_error_label(t_data *data, t_label_instr *label, char *name);
@@ -186,8 +186,8 @@ int				mem_stock(t_data *data, char *content, int content_size);
 int				set_header(t_data *data);
 int				go_to_next_elem(t_data *data, int *line_id, int *col_id, int i);
 int				get_type(t_data *data, char *line);
-int				read_and_dispatch(t_data *data);
-int				get_header(t_data *data);
+void			read_and_dispatch(t_data *data);
+void			get_header(t_data *data);
 
 /*
 ** param.c      ----------------------------------------------------------------

@@ -6,7 +6,7 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:37:22 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/18 19:13:59 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/21 14:50:45 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,22 @@ void	print_error(t_data *data, char *elem)
 	}
 }
 
-int		get_fd_file(char *filename)
+void	get_fd_file(char *filename, t_data *data)
 {
-	int fd;
+	char	*dot;
 
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
+	D->fd = open(filename, O_RDONLY);
+	if (D->fd == -1)
 	{
 		ft_printf("{red}Read error or File \"%s\" does not exist\n{reset}",
 				filename);
+		ft_free_gc(D->gc);
+		ft_memdel((void**)&(D->gc), 0);
 		exit(EXIT_FAILURE);
 	}
-	return (fd);
+	dot = ft_strrchr(filename, '.');
+	if (!dot || *(dot + 1) != 's')
+		get_error(D, file_err, NULL);
 }
 
 void	write_in_file(t_data *data, char *output, char *filename)
@@ -80,7 +84,7 @@ void	write_in_file(t_data *data, char *output, char *filename)
 	ft_strcat(file, ".cor");
 	if ((fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0666)) == -1)
 		get_error(D, open_err, NULL);
-	ft_printf("{cyan}Writing output program to \"%s\"{reset}\n", file);
+	ft_printf("{cyan}{italic}Writing output program to \"%s\"{reset}\n", file);
 	write(fd, output, D->size_mem_tot);
 	if ((i = close(fd)) == -1)
 		get_error(D, close_err, NULL);
@@ -89,16 +93,19 @@ void	write_in_file(t_data *data, char *output, char *filename)
 int		main(int ac, char **av)
 {
 	t_data		data;
+	int			i;
 
-	if (ac != 2)
-		return (print_usage());
-	init_data(&D);
-	D.fd = get_fd_file(av[1]);
-	if (!(get_header(&D)))
-		return (0);
-	else
-		write_in_file(&D, D.mem_stock, av[1]);
-	ft_free_gc(D.gc);
-	free(D.gc);
+	if (ac < 2)
+		print_usage();
+	i = 0;
+	while (++i < ac)
+	{
+		init_data(&D);
+		get_fd_file(av[i], &D);
+		get_header(&D);
+		write_in_file(&D, D.mem_stock, av[i]);
+		ft_free_gc(D.gc);
+		ft_memdel((void**)&(D.gc), 0);
+	}
 	return (0);
 }

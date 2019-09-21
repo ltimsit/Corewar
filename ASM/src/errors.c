@@ -6,17 +6,18 @@
 /*   By: ltimsit- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 14:16:38 by ltimsit-          #+#    #+#             */
-/*   Updated: 2019/09/18 19:14:29 by abinois          ###   ########.fr       */
+/*   Updated: 2019/09/21 14:34:28 by abinois          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include <stdlib.h>
 
-int		print_usage(void)
+void	print_usage(void)
 {
-	ft_printf("{rev}{orange}Usage:{reset}{orange} ./asm <champ.s>\n{reset}");
-	return (0);
+	ft_printf("{rev}{%s}Usage:{reset}{%s} ./asm <champ.s> ...\n{reset}",
+			"orange", "orange");
+	exit(EXIT_FAILURE);
 }
 
 void	get_error(t_data *data, int err_type, char *elem)
@@ -39,7 +40,7 @@ void	fill_op_and_err_tab(void)
 	g_err_tab[3] = "Param error";
 	g_err_tab[4] = "Missing coma";
 	g_err_tab[5] = "Malloc error !";
-	g_err_tab[6] = "File name too long or no extension !";
+	g_err_tab[6] = "File name too long or wrong extension !";
 	g_err_tab[7] = "Not enough data at EOF !";
 	g_err_tab[8] = "Missing dquote";
 	g_err_tab[9] = "Open error !";
