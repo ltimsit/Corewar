@@ -73,6 +73,6 @@ You can check the school Subject.pdf fore more infos.
 This project was done by abinois, avanhers and ltimsit.
 👌 enjoy:)
 
-Corewar demo with our displayer:
+Corewar demo with our displayer at max speed (100 cycles per frame):
 The displayer use the Minilibx witch is a light graphical library using openGL
 ![alt text](https://github.com/ltimsit/Corewar/blob/master/images/Screen%20Recording%202019-12-12%20at%202.23.00%20PM.gif "Corewar demo")
