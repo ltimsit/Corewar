@@ -72,3 +72,7 @@ You can check the school Subject.pdf fore more infos.
 
 This project was done by abinois, avanhers and ltimsit.
 👌 enjoy:)
+
+Corewar demo with our displayer:
+The displayer use the Minilibx witch is a light graphical library using openGL
+![alt text](https://github.com/ltimsit/Corewar/blob/master/images/Screen%20Recording%202019-12-12%20at%2012.17.42%20PM.gif "Corewar demo")
