@@ -32,7 +32,7 @@ Each instruction has its parameters that can be of 3 different types :
   Register (from 1 to 16), Direct (a number on 4 or 2 octects)
   and Index (memory address on two octets)
 
-We are allowed to use a set of 16 instructions two write our champion:
+We are allowed to use a set of 16 instructions to write our champion:
 	- live (tells that a champion is "alive")
 	- ld (loads data into a register)
 	- st (store the content of a register somewhere in memory)
